@@ -16,6 +16,7 @@
 
 package eu.ebrains.kg.querybuilder.api;
 
+import eu.ebrains.kg.querybuilder.constants.Constants;
 import eu.ebrains.kg.querybuilder.service.QueryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/queries")
+@RequestMapping(Constants.ROOT_PATH_OF_API + "/queries")
 @RestController
 public class Queries {
 

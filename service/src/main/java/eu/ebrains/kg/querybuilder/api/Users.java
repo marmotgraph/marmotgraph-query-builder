@@ -16,6 +16,7 @@
 
 package eu.ebrains.kg.querybuilder.api;
 
+import eu.ebrains.kg.querybuilder.constants.Constants;
 import eu.ebrains.kg.querybuilder.controller.IdController;
 import eu.ebrains.kg.querybuilder.model.KGCoreResult;
 import eu.ebrains.kg.querybuilder.model.UserProfile;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RequestMapping("/user")
+@RequestMapping(Constants.ROOT_PATH_OF_API + "/user")
 @RestController
 public class Users {
 

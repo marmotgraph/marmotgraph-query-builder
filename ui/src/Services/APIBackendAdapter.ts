@@ -37,7 +37,7 @@ import type { QuerySpecification } from '../Types/QuerySpecification';
 import type { UUID, Stage, Settings, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
 import type { AxiosInstance } from 'axios';
 
-const RELATIVE_ROOT_PATH = '/service/api';
+const RELATIVE_ROOT_PATH = '/api';
 
 declare global {
 	interface Window {

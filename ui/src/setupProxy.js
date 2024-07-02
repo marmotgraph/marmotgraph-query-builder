@@ -26,15 +26,11 @@ const { createProxyMiddleware } = require('http-proxy-middleware'); //setup prox
 
 module.exports = function(app) {
   app.use(
-    '/service/api/**',
+    '/api/**',
     createProxyMiddleware({
-      //target:"http://localhost:8080",
-      target:'https://query.kg-dev.ebrains.eu',
+      target:"http://localhost:8080",
       secure:false,
-      changeOrigin: true,
-      // pathRewrite: function(path) {
-      //   return path.replace("/service/api/", "/");
-      // }
+      changeOrigin: true
     })
   );
 };
