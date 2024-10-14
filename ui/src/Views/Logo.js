@@ -54,7 +54,7 @@ const Logo = observer(() => {
 
   const handleGoToHome = () => navigate('/');
 
-  const logo = appStore.currentTheme.name === 'default'?`${window.rootPath}/assets/ebrains.svg`:`${window.rootPath}/assets/ebrains_dark.svg`;
+  const logo = `${process.env.REACT_APP_CORE_API_URL}${appStore.currentTheme.name}/theme/logo`;
 
   return (
     <div className={`${classes.container} layout-logo`} onClick={handleGoToHome}>

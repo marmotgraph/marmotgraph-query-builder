@@ -23,11 +23,11 @@
 
 import {faBan} from '@fortawesome/free-solid-svg-icons/faBan';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactJson from '@microlink/react-json-view';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import ReactJson from 'react-json-view';
 import { createUseStyles } from 'react-jss';
 import { normalizeQuery } from '../../Helpers/QueryHelpers';
 import useStores from '../../Hooks/useStores';
@@ -35,10 +35,8 @@ import { FIELD_FLAGS } from '../../Stores/Field';
 import ThemeRJV from '../../Themes/ThemeRJV';
 import Actions from './Actions';
 import type { QuerySpecification } from '../../Types/QuerySpecification';
+import type { InteractionProps } from '@microlink/react-json-view';
 import type jsonld from 'jsonld';
-
-
-import type { InteractionProps } from 'react-json-view';
 
 const useStyles = createUseStyles({
   container: {
