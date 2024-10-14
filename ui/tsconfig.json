@@ -5,7 +5,7 @@
       "esnext",
       "DOM"
     ],
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -20,13 +20,10 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
-    "paths": {
-      "*": [
-        "./src/customTypings/*"
-      ]
-    },
     "plugins": [
-      { "name": "typescript-tslint-plugin" }
+      {
+        "name": "typescript-tslint-plugin"
+      }
     ],
     "typeRoots": [
       "src/customTypings",

@@ -21,11 +21,11 @@
  *
  */
 
+import ReactJson from '@microlink/react-json-view';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import ReactJson from 'react-json-view';
 import { createUseStyles } from 'react-jss';
 
 import ThemeRJV from '../../../Themes/ThemeRJV';
