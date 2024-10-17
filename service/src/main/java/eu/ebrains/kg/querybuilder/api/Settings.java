@@ -16,7 +16,6 @@
 
 package eu.ebrains.kg.querybuilder.api;
 
-import eu.ebrains.kg.querybuilder.constants.Constants;
 import eu.ebrains.kg.querybuilder.model.KGCoreResult;
 import eu.ebrains.kg.querybuilder.service.AuthClient;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping(Constants.ROOT_PATH_OF_API + "/settings")
+@RequestMapping("${org.marmotgraph.api.root:}/settings")
 @RestController
 public class Settings {
 

@@ -25,7 +25,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan({"org.marmotgraph", "eu.ebrains.kg"})
 public class KgQueryBuilderApplication extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
