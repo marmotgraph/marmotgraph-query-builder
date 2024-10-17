@@ -1,6 +1,6 @@
 package eu.ebrains.kg.querybuilder.configuration;
 
-import eu.ebrains.kg.querybuilder.constants.Constants;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -20,10 +20,10 @@ import static org.springframework.web.servlet.function.RouterFunctions.route;
 public class SPARouting {
 
     @Bean
-    RouterFunction<ServerResponse> spaRouter() {
+    RouterFunction<ServerResponse> spaRouter(@Value("${org.marmotgraph.api.root:}") String apiRoot) {
         ClassPathResource index = new ClassPathResource("public/index.html");
         List<String> extensions = Arrays.asList("js", "css", "ico", "png", "jpg", "gif", "html", "svg");
-        RequestPredicate spaPredicate = path(Constants.ROOT_PATH_OF_API + "/**").or(path("/error")).or(pathExtension(extensions::contains)).negate();
+        RequestPredicate spaPredicate = path(apiRoot + "/**").or(path("/error")).or(pathExtension(extensions::contains)).negate();
         return route(spaPredicate, request -> ServerResponse.ok().contentType(MediaType.TEXT_HTML).body(index));
     }
 }
