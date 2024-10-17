@@ -52,7 +52,9 @@ class DefaultMockAuthAdapter implements AuthAdapter {
     return undefined;
   }
 
-  setConfig() {}
+  setConfig() {
+    //
+  }
 
 }
 
