@@ -33,7 +33,7 @@
  *
  */
 import type { QuerySpecification } from '../Types/QuerySpecification';
-import type { UUID, Stage, Settings, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
+import type { UUID, Stage, Config, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
 
 interface APIErrorResponse {
   status: number;
@@ -48,7 +48,7 @@ export interface APIError {
 
 interface API {
 
-  getSettings(): Promise<Settings>;
+  getConfig(): Promise<Config>;
 
   getUserProfile(): Promise<UserProfile>;
 

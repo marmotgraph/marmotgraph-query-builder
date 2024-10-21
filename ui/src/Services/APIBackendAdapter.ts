@@ -34,7 +34,7 @@
  */
 import type API from './API';
 import type { QuerySpecification } from '../Types/QuerySpecification';
-import type { UUID, Stage, Settings, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
+import type { UUID, Stage, Config, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
 import type { AxiosInstance } from 'axios';
 
 const RELATIVE_ROOT_PATH = '/api';
@@ -81,7 +81,7 @@ const getSpace = (space?: string) => {
 };
 
 const endpoints = {
-  settings: () => `${RELATIVE_ROOT_PATH}/settings`,
+  config: () => `${RELATIVE_ROOT_PATH}/config`,
   user: () => `${RELATIVE_ROOT_PATH}/user`,
   spaces: () => `${RELATIVE_ROOT_PATH}/spaces`,
   types: () => `${RELATIVE_ROOT_PATH}/types`,
@@ -114,9 +114,9 @@ class APIBackendAdapter implements API {
     this._axios = axios;
   }
 
-  async getSettings(): Promise<Settings> {
-    const { data } = await this._axios.get(endpoints.settings());
-    return data?.data as Settings;
+  async getConfig(): Promise<Config> {
+    const { data } = await this._axios.get(endpoints.config());
+    return data?.data as Config;
   }
 
   async getUserProfile(): Promise<UserProfile> {

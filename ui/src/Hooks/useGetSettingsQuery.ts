@@ -25,17 +25,17 @@ import { useMemo } from 'react';
 import useAPI from './useAPI';
 import useGenericQuery from './useGenericQuery';
 import type { GenericQuery } from './useGenericQuery';
-import type { Settings } from '../../src/types';
+import type { Config } from '../../src/types';
 
-export type GetSettingsQuery = GenericQuery<Settings>;
+export type GetSettingsQuery = GenericQuery<Config>;
 
 const useGetSettingsQuery = (): GetSettingsQuery => {
 
   const API = useAPI();
 
-  const fetch = useMemo(() => () => API.getSettings(), [API]);
+  const fetch = useMemo(() => () => API.getConfig(), [API]);
 
-  return useGenericQuery<Settings>(fetch);
+  return useGenericQuery<Config>(fetch);
 };
 
 export default useGetSettingsQuery;
