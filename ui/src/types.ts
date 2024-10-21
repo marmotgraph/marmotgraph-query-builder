@@ -38,9 +38,17 @@ import type { PiwikOptions } from 'react-piwik';
 
 export type UUID = string;
 
-export interface Settings {
+export interface Tenant {
+    title: string;
+    contactEmail: string;
+    copyright: string;
+    namespace: string;
+}
+
+export interface Config {
     commit: string;
     keycloak: KeycloakConfig;
+    tenant?: Tenant;
     matomo?: PiwikOptions;
     sentry?: BrowserOptions;
 }
