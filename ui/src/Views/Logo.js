@@ -26,8 +26,6 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
 
-import useStores from '../Hooks/useStores';
-
 const useStyles = createUseStyles({
   container: {
     padding: '10px',
@@ -48,13 +46,11 @@ const useStyles = createUseStyles({
 
 const Logo = observer(() => {
   const classes = useStyles();
-
-  const { appStore } = useStores();
   const navigate = useNavigate();
 
   const handleGoToHome = () => navigate('/');
 
-  const logo = `${process.env.REACT_APP_CORE_API_URL}${appStore.currentTheme.name}/theme/logo`;
+  const logo = `${process.env.REACT_APP_CORE_API_URL}/theme/logo`;
 
   return (
     <div className={`${classes.container} layout-logo`} onClick={handleGoToHome}>

@@ -77,9 +77,7 @@ const AuthProvider = ({ adapter, loginRequired, children }:AuthProviderProps): J
   if (canBypassAuth) {
     console.info('%cAuth: Authentication is disabled for local development', 'color: #f88900;');
   }
-
-
-  const Provider = DefaultMockAuthProvider;
+  const Provider = canBypassAuth?DefaultMockAuthProvider:adapter.authProvider;
 
   return (
     <Provider adapter={adapter} loginRequired={loginRequired || false} >
