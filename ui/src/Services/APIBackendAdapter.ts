@@ -116,7 +116,7 @@ class APIBackendAdapter implements API {
 
   async getConfig(): Promise<Config> {
     const { data } = await this._axios.get(endpoints.config());
-    return data?.data as Config;
+    return data;
   }
 
   async getUserProfile(): Promise<UserProfile> {
