@@ -126,12 +126,12 @@ const Tab = ({
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    !!onClick && onClick(e);
+    if(onClick) {onClick(e);}
   };
 
   const handleClose = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    closeable && onClose(e);
+    if(closeable) {onClose(e);}
   };
 
   return (

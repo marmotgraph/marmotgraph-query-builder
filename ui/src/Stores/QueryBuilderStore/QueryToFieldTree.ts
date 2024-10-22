@@ -424,9 +424,10 @@ export const buildFieldTreeFromQuery = (
     canBe: [type.id]
   } as QuerySpecification.Schema);
   addJsonFieldsToField(types, context, rootField, structure);
-  properties &&
+  if(properties) {
     Object.entries(properties).forEach(([name, value]) =>
       rootField.setOption(name, value)
     );
+  }
   return rootField;
 };

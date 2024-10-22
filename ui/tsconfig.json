@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ESNext",
     "lib": [
       "esnext",
-      "DOM"
+      "dom",
+      "dom.iterable"
     ],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -20,6 +21,7 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
+    "types": ["vite/client", "node"],
     "plugins": [
       {
         "name": "typescript-tslint-plugin"

@@ -58,6 +58,19 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
 
   useEffect(() => {
     if (settings) {
+      const titleEl = document.getElementById('title');
+      const applicationName =  settings.tenant?.title+' Query Builder';
+      if(titleEl){
+        titleEl.innerText = applicationName;
+      }
+      const componentTitle = document.getElementById('componentTitle');
+      if(componentTitle){
+        componentTitle.innerText = applicationName;
+      }
+      const copyrightLabel = document.getElementById('copyrightLabel');
+      if(copyrightLabel){
+        copyrightLabel.innerText = settings.tenant? settings.tenant.copyright : '';
+      }
       Matomo.initialize(settings?.matomo);
       Sentry.initialize(settings?.sentry);
       appStore.setCommit(settings?.commit);
@@ -85,7 +98,6 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
   }
 
   if (isSuccess) {
-
     if (authAdapter instanceof KeycloakAuthAdapter && !settings?.keycloak) {
       return (
         <ErrorPanel>

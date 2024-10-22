@@ -23,7 +23,7 @@
 
 package eu.ebrains.kg.querybuilder.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.marmotgraph.commons.controller.CoreController;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -35,9 +35,12 @@ public class IdController {
 
     private final String kgCoreInstancesPrefix;
 
-    public IdController(@Value("${kgcore.instancesPrefix}") String kgCoreInstancesPrefix) {
-        if (kgCoreInstancesPrefix != null) {
-            this.kgCoreInstancesPrefix = kgCoreInstancesPrefix.endsWith("/") ? kgCoreInstancesPrefix : kgCoreInstancesPrefix + "/";
+    public IdController(CoreController coreController) {
+        Map<String, Object> tenantInformation = coreController.getTenantInformation();
+        Object idNamespace = tenantInformation.get("idNamespace");
+        String idPrefix = idNamespace != null ? idNamespace.toString() : null;
+        if (idPrefix != null) {
+            this.kgCoreInstancesPrefix = idPrefix.endsWith("/") ? idPrefix : idPrefix + "/";
         } else {
             this.kgCoreInstancesPrefix = null;
         }

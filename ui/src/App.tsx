@@ -125,7 +125,7 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
 App.displayName = 'App';
 
 const Component = ({ stores, api, authAdapter }: AppProps) => (
-  <JssProvider id={{minify: process.env.NODE_ENV === 'production'}}>
+  <JssProvider id={{minify: import.meta.env.NODE_ENV === 'production'}}>
     <ErrorBoundary stores={stores} >
       <BrowserRouter>
         <App stores={stores} api={api} authAdapter={authAdapter}/>

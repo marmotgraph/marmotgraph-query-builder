@@ -24,7 +24,7 @@
 import React from 'react';
 
 const Copyright = () => (
-  <div className="copyright">Copyright &copy; {new Date().getFullYear()} EBRAINS. All rights reserved.</div>
+    <div className="copyright" >Copyright &copy; {new Date().getFullYear()} <span id="copyrightLabel">EBRAINS. All rights reserved.</span></div>
 );
 
 export default Copyright;
