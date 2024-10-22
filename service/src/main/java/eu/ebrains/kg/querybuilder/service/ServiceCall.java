@@ -23,6 +23,8 @@
 
 package eu.ebrains.kg.querybuilder.service;
 
+import eu.ebrains.kg.querybuilder.configuration.CommonProperties;
+import org.marmotgraph.commons.CommonConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -31,19 +33,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ServiceCall {
 
     private final WebClient webClient;
+    private final CommonConfig commonConfig;
 
-    final private String kgCoreEndpoint;
 
-    final private String apiVersion;
-
-    public ServiceCall(WebClient webClient, @Value("${kgcore.endpoint}") String kgCoreEndpoint, @Value("${kgcore.apiVersion}") String apiVersion) {
+    public ServiceCall(WebClient webClient, CommonConfig commonConfig) {
         this.webClient = webClient;
-        this.kgCoreEndpoint = kgCoreEndpoint;
-        this.apiVersion = apiVersion;
+        this.commonConfig = commonConfig;
     }
 
     public String url(String relativeUri){
-        return String.format("%s/%s/%s", kgCoreEndpoint, apiVersion, relativeUri);
+        return String.format("%s://%s/%s/%s", commonConfig.getHostName().startsWith("localhost") ? "http" : "https", commonConfig.getHostName(), commonConfig.getApiVersion(), relativeUri);
     }
 
     public WebClient client() {
