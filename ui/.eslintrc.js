@@ -9,13 +9,11 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
-    jest: true
+    node: true
   },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier'
@@ -38,7 +36,9 @@ module.exports = {
     '@typescript-eslint/no-namespace': 'off',
     'arrow-body-style': ['error', 'as-needed'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-unused-vars': ['error', {
+      'caughtErrors': 'none'
+    }],
     '@typescript-eslint/no-explicit-any': ['warn'],
     'autofix/no-unused-vars': [
       'error',

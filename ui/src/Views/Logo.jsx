@@ -50,12 +50,12 @@ const Logo = observer(() => {
 
   const handleGoToHome = () => navigate('/');
 
-  const logo = `${process.env.REACT_APP_CORE_API_URL}/theme/logo`;
+  const logo = `/api/theme/logo`;
 
   return (
     <div className={`${classes.container} layout-logo`} onClick={handleGoToHome}>
       <img src={logo} alt="" height="30" />
-      <span>Knowledge Graph Query Builder</span>
+      <span id="componentTitle"></span>
     </div>
   );
 });

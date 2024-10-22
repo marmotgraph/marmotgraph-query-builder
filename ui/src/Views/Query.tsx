@@ -94,7 +94,7 @@ const getQueryFromLocalStorage = (queryId: string): {queryId: string, type: stri
     if (newQuery.queryId === queryId && typeof newQuery.type === 'string' && !!newQuery.type && typeof newQuery.instanceId === 'string') {
       return newQuery;
     }
-  } catch (e)  {
+  } catch (_)  {
     return null;
   }
   return null;
