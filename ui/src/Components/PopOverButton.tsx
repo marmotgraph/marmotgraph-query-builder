@@ -108,7 +108,6 @@ const PopOverButton = observer(
           setShowPopOver(false);
         }
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     , [showPopOver]);
 
     const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
