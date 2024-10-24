@@ -25,6 +25,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
+import useStores from "../Hooks/useStores";
 
 const useStyles = createUseStyles({
   container: {
@@ -47,6 +48,7 @@ const useStyles = createUseStyles({
 const Logo = observer(() => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { appStore } = useStores();
 
   const handleGoToHome = () => navigate('/');
 
@@ -55,7 +57,7 @@ const Logo = observer(() => {
   return (
     <div className={`${classes.container} layout-logo`} onClick={handleGoToHome}>
       <img src={logo} alt="" height="30" />
-      <span id="componentTitle"></span>
+      <span>{appStore.appName}</span>
     </div>
   );
 });

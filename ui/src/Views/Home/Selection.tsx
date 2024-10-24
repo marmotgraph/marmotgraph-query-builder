@@ -152,7 +152,7 @@ const Selection = observer(() => {
 
   const navigate = useNavigate();
 
-  const { queryBuilderStore, queriesStore, typeStore } = useStores();
+  const { queryBuilderStore, queriesStore, typeStore, appStore } = useStores();
 
   const handleNewQueryClick = () => {
     const uuid = uuidv4();
@@ -201,7 +201,7 @@ const Selection = observer(() => {
         <div className={classes.noSelection}>
           Please select a type{' '}
           <p className={classes.noSelectionText}>
-            To start querying the EBRAINS Knowledge Graph, please select the
+            To start querying the {appStore.appName}, please select the
             type of the data structure of your main interest. You will then have
             the chance to collect the various attributes of this type as well as
             connected resources across the graph in your individual query.
