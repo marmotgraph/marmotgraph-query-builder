@@ -22,9 +22,14 @@
  */
 
 import React from 'react';
+import {observer} from "mobx-react-lite";
+import useStores from "../Hooks/useStores";
 
-const Copyright = () => (
-    <div className="copyright" >Copyright &copy; {new Date().getFullYear()} <span id="copyrightLabel">EBRAINS. All rights reserved.</span></div>
-);
+const Copyright = observer(() => {
+    const { appStore } = useStores();
+    return (
+        <div className="copyright">Copyright &copy; {new Date().getFullYear()} {appStore.copyright}</div>
+    )
+});
 
 export default Copyright;

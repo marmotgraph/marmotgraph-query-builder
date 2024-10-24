@@ -60,17 +60,9 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
     if (settings) {
       const titleEl = document.getElementById('title');
       const applicationName =  settings.tenant?.title+' Query Builder';
-      if(titleEl){
-        titleEl.innerText = applicationName;
-      }
-      const componentTitle = document.getElementById('componentTitle');
-      if(componentTitle){
-        componentTitle.innerText = applicationName;
-      }
-      const copyrightLabel = document.getElementById('copyrightLabel');
-      if(copyrightLabel){
-        copyrightLabel.innerText = settings.tenant? settings.tenant.copyright : '';
-      }
+      appStore.setAppName(applicationName);
+      appStore.setContactEmail(settings.tenant ? settings.tenant.contactEmail : "support@marmotgraph.org");
+      appStore.setCopyright( settings.tenant? settings.tenant.copyright : '');
       Matomo.initialize(settings?.matomo);
       Sentry.initialize(settings?.sentry);
       appStore.setCommit(settings?.commit);
@@ -102,7 +94,7 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
       return (
         <ErrorPanel>
           <p>Failed to initialize authentication!</p>
-          <p>Please contact our team by email at : <a href={'mailto:kg@ebrains.eu'}>kg@ebrains.eu</a></p>
+          <p>Please contact our team by email at : <a href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></p>
         </ErrorPanel>
       );
     }
