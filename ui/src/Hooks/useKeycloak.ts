@@ -102,6 +102,7 @@ const useKeycloak = (adapter: KeycloakAuthAdapter, loginRequired?: boolean) : Au
             setAuthenticating(false);
             setLogingOut(false);
           });
+        // eslint-disable-next-line autofix/no-unused-vars
       } catch (e) { // if keycloak script url return unexpected content
         setError('Failed to initialize authentication');
         setInitialized(false);

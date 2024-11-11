@@ -16,7 +16,6 @@
 
 package eu.ebrains.kg.querybuilder.api;
 
-import eu.ebrains.kg.querybuilder.constants.Constants;
 import eu.ebrains.kg.querybuilder.service.TypeClient;
 import eu.ebrains.kg.querybuilder.model.TypeEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping(Constants.ROOT_PATH_OF_API + "/types")
+@RequestMapping("${org.marmotgraph.api.root:}/types")
 @RestController
 public class Types {
 
