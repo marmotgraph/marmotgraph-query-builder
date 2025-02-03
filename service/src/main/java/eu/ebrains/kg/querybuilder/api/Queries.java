@@ -35,7 +35,7 @@ public class Queries {
     }
 
     @GetMapping
-    public Map<?, ?> getQueries(@RequestParam("type") String type) {
+    public Map<?, ?> getQueries(@RequestParam(value = "type", required = false) String type) {
         return queryClient.getQueries(type);
     }
 

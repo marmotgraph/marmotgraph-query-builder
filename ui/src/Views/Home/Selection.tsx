@@ -44,10 +44,10 @@ const useStyles = createUseStyles({
     height: '100%',
     width: '100%',
     padding: '10px',
-    background:
-      'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+//  background:
+//       'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)',
     color: 'var(--ft-color-normal)',
-    border: '1px solid var(--border-color-ui-contrast2)',
+//     border: '1px solid var(--border-color-ui-contrast2)',
     overflow: 'hidden'
   },
   noSelection: {
@@ -171,13 +171,7 @@ const Selection = observer(() => {
       {type ? (
         <div className={classes.choice}>
           <TypeInfo className={classes.type} type={type} />
-          <div className={classes.action} onClick={handleNewQueryClick}>
-            <FontAwesomeIcon icon={faFile} size="lg" />
-            <span className={classes.actionTitle}>Create a new query</span>
-            <div className={classes.nextIcon}>
-              <FontAwesomeIcon icon={faChevronRight} size="lg" />
-            </div>
-          </div>
+          {/*
           <div className={classes.action} onClick={handlShowSavedClick}>
             <FontAwesomeIcon icon={faTag} size="lg" />
             <span className={classes.actionTitle}>Select a saved query</span>
@@ -192,10 +186,12 @@ const Selection = observer(() => {
                 }
               />
             </div>
-          </div>
-          {queriesStore.showSavedQueries && (
+          </div> */}
+          {/* {queriesStore.showSavedQueries && (
             <Queries className={classes.savedQueries} />
-          )}
+          )}  */}
+          <Queries className={classes.savedQueries} />
+
         </div>
       ) : (
         <div className={classes.noSelection}>

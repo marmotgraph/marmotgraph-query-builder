@@ -47,22 +47,20 @@ const useStyles = createUseStyles((theme: Jss.Theme) => {
   const appTheme = theme as Theme;
   return {
     container: {
+      background: '#F9F9F9',
       height: '100vh',
       display: 'grid',
       overflow: 'hidden',
       gridTemplateColumns: '1fr',
       gridTemplateRows: 'auto 1fr 20px',
-      background: 'linear-gradient(var(--bg-gradient-angle), var(--bg-gradient-start), var(--bg-gradient-end))',
-      backgroundSize: getBackgroundSize(theme),
-      backgroundImage: appTheme.background.image?`url('${appTheme.background.image}')`:'unset',
-      backgroundPosition: appTheme.background.position?appTheme.background.position:'unset'
     },
     header: {
       position: 'relative',
       display: 'grid',
       gridTemplateRows: '1fr',
       gridTemplateColumns: 'auto 1fr',
-      background: 'rgba(0,0,0,0.4)'
+      background: 'white',
+      color: 'var(--ft-color-loud)',
     },
     main: {
       position: 'relative',

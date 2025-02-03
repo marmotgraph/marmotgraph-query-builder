@@ -42,6 +42,8 @@ import WelcomeTip from './Views/WelcomeTip';
 import type API from './Services/API';
 import type AuthAdapter from './Services/AuthAdapter';
 import type RootStore from './Stores/RootStore';
+import Breadcrumbs from './Views/Breadcrumbs';
+import MyQueriesHeader from './Views/MyQueriesHeader';
 
 const Authenticate = React.lazy(() => import('./Views/Authenticate'));
 const UserProfile = React.lazy(() => import('./Views/UserProfile'));
@@ -51,6 +53,7 @@ const Logout = React.lazy(() => import('./Views/Logout'));
 const Home = React.lazy(() => import('./Views/Home'));
 const QueryByType = React.lazy(() => import('./Views/QueryByType'));
 const Query = React.lazy(() => import('./Views/Query'));
+const QueryHome = React.lazy(() => import('./Views/Home/QueryHome'));
 
 interface AppProps {
   stores: RootStore;
@@ -74,6 +77,18 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     setShowWelcomeTip(false);
   };
 
+  const breadcrumbItems = [
+      { label: 'Home', path: '/' },
+    ];
+
+  const handleButton1Click = () => {
+      console.log('Button 1 clicked');
+    };
+
+  const handleButton2Click = () => {
+      console.log('Button 2 clicked');
+    };
+
   return (
     <ThemeProvider theme={theme}>
       <Styles />
@@ -95,10 +110,12 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
                               <Types>
                                 <Shortcuts />
                                 <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                                  <Breadcrumbs items={breadcrumbItems} />
+                                  <MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />
                                   <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} />
                                   <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="queries" element={<QueryByType />} />
+                                    <Route path="/" element={<QueryHome />} />
+                                    <Route path="queries" element={<Home />} />
                                     <Route path="queries/:id" element={<Query mode="build" />} />
                                     <Route path="queries/:id/edit" element={<Query mode="edit" />} />
                                     <Route path="queries/:id/execute" element={<Query mode="execute" />} />

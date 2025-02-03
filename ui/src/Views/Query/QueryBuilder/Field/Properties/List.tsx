@@ -30,7 +30,12 @@ import type { MouseEvent } from 'react';
 
 const useStyles = createUseStyles({
   container: {
+    background: '#FFFFFF',
+    boxShadow: '0px 4px 4px #E6E7E8',
+    borderRadius: '12px',
     color: 'var(--ft-color-loud)',
+    padding: '10px',
+    marginBottom: '20px',
     '& h5': {
       margin: '18px 0 6px 5px',
       '& small': {

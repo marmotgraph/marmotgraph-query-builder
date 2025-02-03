@@ -30,7 +30,13 @@ import type { Query as QueryProps } from '../../../../Types/Query';
 
 const useStyles = createUseStyles({
   container: {
-    color: 'var(--ft-color-loud)'
+    color: 'var(--ft-color-loud)',
+    /* Shared_queries_box */
+    background: '#FFFFFF',
+    boxShadow: '0px 4px 4px #E6E7E8',
+    borderRadius: '12px',
+    padding: '20px',
+    marginBottom: '20px',
   },
   title: {
     display: 'flex',
@@ -61,9 +67,10 @@ const List = observer(({ title, list }: ListProps) => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.title}>
-        <h4>{title}</h4>
-      </div>
+      {/* <div className={classes.title}>
+        <h4>{title} --</h4>
+      </div> */}
+
       {list.map(query => (
         <Query
           key={query.id}

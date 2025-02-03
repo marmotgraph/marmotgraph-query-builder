@@ -35,11 +35,11 @@ import type { ChangeEvent } from 'react';
 const useStyles = createUseStyles({
   container: {
     position: 'relative',
-    background:
-      'linear-gradient(135deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.6) 100%)',
-    border: '1px solid var(--border-color-ui-contrast1)',
+//     background:
+//       'linear-gradient(135deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.6) 100%)',
+//     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
-    padding: '10px'
+    padding: '15px'
   },
   label: {
     display: 'flex',
@@ -69,11 +69,12 @@ const useStyles = createUseStyles({
     marginTop: '20px'
   },
   input: {
-    borderRadius: '2px',
-    backgroundColor: 'var(--bg-color-blend-contrast1)',
+    border: '1px solid #BCBEC0',
+    borderRadius: '6px',
+//     backgroundColor: 'var(--bg-color-blend-contrast1)',
     color: 'var(--ft-color-loud)',
     width: '100%',
-    border: '1px solid transparent',
+//     border: '1px solid transparent',
     '&:focus': {
       color: 'var(--ft-color-loud)',
       borderColor: 'rgba(64, 169, 243, 0.5)',

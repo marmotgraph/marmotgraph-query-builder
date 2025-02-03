@@ -45,13 +45,20 @@ public class QueryClient {
 
     private final IdController idController;
 
+    private final static String QUERY_INSTANCE_TYPE = "https://core.kg.ebrains.eu/vocab/meta/type/Query";
+
     public QueryClient(ServiceCall kg, IdController idController) {
         this.kg = kg;
         this.idController = idController;
     }
 
-    public Map<?, ?> getQueries(@RequestParam("type") String type) {
-        String relativeUrl = String.format("queries?type=%s", type);
+    public Map<?, ?> getQueries(@RequestParam(value = "type", required = false) String type) {
+        String relativeUrl = "";
+        if (type == null) {
+            relativeUrl = String.format("instances?type=%s", QUERY_INSTANCE_TYPE);
+        } else {
+            relativeUrl = String.format("queries?type=%s", type);
+        }
         Map queriesResult = kg.client().get().uri(kg.url(relativeUrl))
                 .retrieve()
                 .bodyToMono(Map.class)

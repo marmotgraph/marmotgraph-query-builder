@@ -24,55 +24,55 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
+import useListQueriesQuery from '../../Hooks/useListQueriesQuery';
+import useStores from '../../Hooks/useStores';
+import List from './Selection/Queries/List';
 
-import useStores from '../Hooks/useStores';
-import Matomo from '../Services/Matomo';
+// const useStyles = createUseStyles({
+//   container: {
+//
+//   },
+// });
 
-import Selection from './Home/Selection';
-import Types from './Home/Types';
 
-const useStyles = createUseStyles({
-  container: {
-    position: 'relative',
-    display: 'grid',
-    gridTemplateColumns: '3fr 7fr',
-    columnGap: '10px',
-    height: '100%',
-    padding: '10px',
-    background: 'transparent',
-    color: 'var(--ft-color-normal)',
-    overflow: 'hidden'
-  }
-});
+const QueryHome = observer(() => {
+  const { queriesStore, queryBuilderStore } = useStores();
+//   const classes = useStyles();
 
-const Home = observer(() => {
+  let {
+      data: queries,
+      error,
+      isUninitialized,
+      isFetching,
+      isError,
+      refetch,
+    } = useListQueriesQuery(null, false);
 
-  const classes = useStyles();
-
-  const { typeStore, queryBuilderStore } = useStores();
-
-  useEffect(() => {
-    Matomo.setCustomUrl(window.location.href);
-    Matomo.trackPageView();
-    if (!queryBuilderStore.hasType) {
-      const typeId = localStorage.getItem('type');
-      const type = typeId && typeStore.types.get(typeId);
-      if (type) {
-        queryBuilderStore.setType(type);
-      } else {
-        localStorage.removeItem('type');
+    useEffect(() => {
+      console.log(queries);
+      if (queries) {
+        queriesStore.setQueries("*", queries);
       }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queries]);
+
 
   return (
-    <div className={classes.container}>
-      <Types />
-      <Selection />
+    <div class="container">
+      <h5>Your queries here</h5>
+      <br/>
+      <div>
+        <div>
+          <List
+            key="Your Queries"
+            title=""
+            list={queries}
+          />
+        </div>
+      </div>
     </div>
   );
 });
-Home.displayName = 'Home';
+QueryHome.displayName = 'QueryHome';
 
-export default Home;
+export default QueryHome;

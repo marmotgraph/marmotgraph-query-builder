@@ -38,13 +38,18 @@ const useStyles = createUseStyles({
     cursor: 'pointer',
     padding: '10px',
     margin: '1px',
-    background: 'rgba(0,0,0,0.4)',
+    borderBottom: '1px solid #E6E7E8',
+    '&:last-of-type': {
+      borderBottom: 'transparent',
+    },
+//     background: 'rgba(0,0,0,0.4)',
     '& small': {
       color: 'var(--ft-color-quiet)',
       fontStyle: 'italic'
     },
     '&:hover': {
-      background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
+//       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
+      background: '#F0F0F0'
     }
   },
   reverseLink: {

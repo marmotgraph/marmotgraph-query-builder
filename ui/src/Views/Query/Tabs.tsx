@@ -36,28 +36,33 @@ import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 const useStyles = createUseStyles({
   tabs: {
-    borderRight: '1px solid var(--border-color-ui-contrast1)',
-    background: 'linear-gradient(180deg, rgba(5,10,20,0.4) 0%, rgba(10,40,50,0.4) 100%)'
+    borderRadius: '12px 0px 0px 12px',
+    borderRight: '1px solid #E6E7E8',
+//     borderRight: '1px solid var(--border-color-ui-contrast1)',
+//     background: 'linear-gradient(180deg, rgba(5,10,20,0.4) 0%, rgba(10,40,50,0.4) 100%)'
   },
   tab: {
     color: 'var(--ft-color-normal)',
     borderLeft: '2px solid transparent',
     opacity: '0.5',
     cursor: 'pointer',
-    height: '50px',
-    lineHeight: '50px',
+    height: '35px',
+    width: '35px',
+    lineHeight: '35px',
+    margin: '7px',
+    borderRadius: '6px',
     fontSize: '1.75em',
     textAlign: 'center',
     '&:hover': {
       background: 'var(--list-bg-hover)',
-      borderColor: 'var(--list-border-hover)',
-      color: 'var(--ft-color-loud)',
+//       borderColor: 'var(--list-border-hover)',
+      color: '#F5F5F5',
       opacity: '1'
     },
     '&.active': {
-      background: 'var(--list-bg-selected)',
-      borderColor: 'var(--list-border-selected)',
-      color: 'var(--ft-color-loud)',
+      background: '#2E2E2E',
+//       borderColor: 'var(--list-border-selected)',
+      color: '#F5F5F5',
       opacity: '1'
     },
     '&.disabled, &.disabled:hover':{

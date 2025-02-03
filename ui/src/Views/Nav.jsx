@@ -35,15 +35,18 @@ const useStyles = createUseStyles({
   container: {
     display: 'grid',
     gridTemplateRows: '1fr',
-    gridTemplateColumns: '1fr auto'
+    gridTemplateColumns: '1fr auto',
+    alignItems: 'right'
   },
   fixedTabsLeft: {
     display: 'grid',
     gridTemplateColumns: 'auto 1fr'
   },
   fixedTabsRight: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(6, auto)'
+    display: 'flex', // Use flexbox for alignment
+    justifyContent: 'flex-end', // Ensures content aligns to the right
+    alignItems: 'center', // Vertically centers the content
+    padding: '0 8px' // Optional: Add spacing around the element
   },
   userProfileTab: {
     width: '50px',
@@ -54,11 +57,10 @@ const useStyles = createUseStyles({
     border: 0,
     '& > button': {
       background: 'transparent',
-      color: 'rgba(255,255,255,0.6)',
+      color: '#2E2E2E',
       transition: 'background-color 0.3s ease-in-out',
       '&:hover' : {
-        background: 'rgba(0,0,0,0.2)',
-        color: 'white'
+        color: '#AAA'
       }
     }
   }
@@ -76,11 +78,11 @@ const Nav = observer(() => {
 
   return (
     <nav className={classes.container}>
-      <div className={classes.fixedTabsLeft}>
-        {isAuthenticated && spacesStore.hasSpaces && typeStore.hasTypes && (
-          <HomeTab />
-        )}
-      </div>
+{/*       <div className={classes.fixedTabsLeft}> */}
+{/*         {isAuthenticated && spacesStore.hasSpaces && typeStore.hasTypes && ( */}
+{/*           <HomeTab /> */}
+{/*         )} */}
+{/*       </div> */}
       <div className={classes.fixedTabsRight}>
         {isAuthenticated && !!userProfileStore.user && (
           <UserProfileTab className={classes.userProfileTab} />
