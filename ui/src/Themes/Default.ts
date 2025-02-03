@@ -31,7 +31,7 @@ const theme: Theme = {
       colorEnd: '#4895a4',
       angle: '165deg'
     },
-    image: '/api/theme/background?darkMode=true',
+//     image: '/api/theme/background?darkMode=true',
     size: 'cover'
   },
   contrast1: {
@@ -65,16 +65,16 @@ const theme: Theme = {
     }
   },
   quiet: {
-    color: 'rgba(255, 255, 255, 0.4)'
+    color: '#2E2E2E'
   },
   normal: {
-    color: 'rgba(255, 255, 255, 0.5)'
+    color: '#2E2E2E'
   },
   loud: {
-    color: 'rgb(224, 224, 224)'
+    color: '#2E2E2E'
   },
   louder: {
-    color: 'rgb(244, 244, 244)'
+    color: '#2E2E2E'
   },
   error: {
     color: '#e74c3c',

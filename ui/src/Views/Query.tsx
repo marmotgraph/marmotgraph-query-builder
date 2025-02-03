@@ -44,6 +44,13 @@ import type { Type } from '../types';
 
 const useStyles = createUseStyles({
   container: {
+    /* Shared_queries_box */
+    color: 'var(--ft-color-loud)',
+    background: '#FFFFFF',
+    boxShadow: '0px 4px 4px #E6E7E8',
+    borderRadius: '12px',
+//     padding: '10px',
+    margin: '20px',
     display: 'grid',
     height: '100%',
     gridTemplateRows: '100%',

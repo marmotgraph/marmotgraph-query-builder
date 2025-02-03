@@ -22,57 +22,37 @@
  */
 
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { createUseStyles } from 'react-jss';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import useStores from '../Hooks/useStores';
-import Matomo from '../Services/Matomo';
 
-import Selection from './Home/Selection';
-import Types from './Home/Types';
+const QueryByType = observer(() => {
+  const { typeStore, queryBuilderStore, queriesStore, queryRunStore } = useStores();
+  const navigate = useNavigate();
 
-const useStyles = createUseStyles({
-  container: {
-    position: 'relative',
-    display: 'grid',
-    gridTemplateColumns: '3fr 7fr',
-    columnGap: '10px',
-    height: '100%',
-    padding: '10px',
-    background: 'transparent',
-    color: 'var(--ft-color-normal)',
-    overflow: 'hidden'
-  }
-});
-
-const Home = observer(() => {
-
-  const classes = useStyles();
-
-  const { typeStore, queryBuilderStore } = useStores();
-
+  const queryParams = new URLSearchParams(location.search);
+  const typeId = queryParams.get('type');
+  const instanceId = queryParams.get('instanceId');
   useEffect(() => {
-    Matomo.setCustomUrl(window.location.href);
-    Matomo.trackPageView();
-    if (!queryBuilderStore.hasType) {
-      const typeId = localStorage.getItem('type');
-      const type = typeId && typeStore.types.get(typeId);
-      if (type) {
-        queryBuilderStore.setType(type);
-      } else {
-        localStorage.removeItem('type');
+    const type = typeId && typeStore.types.get(typeId);
+    if (type) {
+      localStorage.setItem('type', type.id);
+      queriesStore.toggleShowSavedQueries(false);
+      queriesStore.clearQueries();
+      queryBuilderStore.setType(type);
+      const uuid = uuidv4();
+      if (instanceId) {
+        queryRunStore.setInstanceId(instanceId);
       }
+      navigate(`/queries/${uuid}`,  { replace: true });
+    } else {
+      navigate('/', { replace: true });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  return (
-    <div className={classes.container}>
-      <Types />
-      <Selection />
-    </div>
-  );
+  return null;
 });
-Home.displayName = 'Home';
+QueryByType.displayName = 'QueryByType';
 
-export default Home;
+export default QueryByType;

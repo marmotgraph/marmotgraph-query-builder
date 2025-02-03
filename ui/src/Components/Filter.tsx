@@ -31,33 +31,52 @@ import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
 
 const useStyles = createUseStyles({
   container: {
-    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
     color: 'var(--ft-color-loud)',
-    backgroundColor: 'var(--bg-color-ui-contrast3)',
+    //   backgroundColor: 'var(--bg-color-ui-contrast3)',
     borderBottom: 0
   },
   input: {
+    flex: '1',
     color: 'var(--ft-color-loud)',
-    width: 'calc(100% - 20px)',
+    width: 'calc(100% - 100px)',
     margin: '10px',
-    border: '1px solid transparent',
+    border: '1px solid #BCBEC0',
+    borderRadius: '6px',
     paddingLeft: '30px',
-    borderRadius: '2px',
-    backgroundColor: 'var(--bg-color-blend-contrast1)',
-    '&:focus': {
-      color: 'var(--ft-color-loud)',
-      borderColor: 'rgba(64, 169, 243, 0.5)',
-      backgroundColor: 'transparent'
-    }
+    borderRadius: '6px',
+//     backgroundColor: 'var(--bg-color-blend-contrast1)',
+//     '&:focus': {
+//       color: 'var(--ft-color-loud)',
+//       borderColor: 'rgba(64, 169, 243, 0.5)',
+//       backgroundColor: 'transparent'
+//     }
   },
   icon: {
-    position: 'absolute',
-    top: '50%',
-    left: '20px',
-    transform: 'translateY(-50%)',
-    color: 'var(--ft-color-normal)'
-  }
-});
+//     position: 'absolute',
+//     top: '50%',
+//     left: '20px',
+    color: '#A3A5A6'
+  },
+  filterButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '8px 12px',
+    border: 'none',
+    borderRadius: '6px',
+    backgroundColor: '#E6E7E8',
+    color: '#ffffff',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    '&:hover': {
+      backgroundColor: '#218838',
+    },
+    '&:active': {
+      backgroundColor: '#1e7e34',
+    }
+  }});
 
 interface FilterProps {
   value: string;
@@ -107,7 +126,9 @@ const Filter = ({
         value={value}
         placeholder={placeholder}
       />
-      <FontAwesomeIcon icon={icon} className={classes.icon} />
+      <button className={classes.filterButton} onClick={handleChange}>
+        <FontAwesomeIcon icon={icon}/>
+      </button>
     </div>
   );
 };

@@ -45,17 +45,21 @@ const useStyles = createUseStyles({
     fontWeight: 'normal',
     cursor: 'pointer',
     transition: 'background .3s ease-in-out',
-    background: 'rgba(0,0,0,0.4)',
-    '& small': {
-      color: 'var(--ft-color-quiet)',
-      fontStyle: 'italic'
-    },
-    '&:hover, &$selected': {
-      background: 'linear-gradient(90deg, rgba(30,60,70,0.9) 0%, rgba(20,50,60,0.9) 100%)',
+    borderBottom: '1px solid #E6E7E8',
+//     background: 'rgba(0,0,0,0.4)',
+//     '& small': {
+//       color: 'var(--ft-color-quiet)',
+//       fontStyle: 'italic'
+//     },
+    '&:hover': {
+      background: 'rgba(145, 145, 145, 0.4)',
       '& $nextIcon': {
         color: 'var(--ft-color-loud)'
       }
-    }
+    },
+    '&$selected': {
+       background: 'rgba(145, 145, 145, 0.2)',
+    },
   },
   selected: {},
   nextIcon: {
@@ -125,9 +129,10 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
   return (
     <div tabIndex={-1} ref={ref as RefObject<HTMLDivElement>} className={`${classes.container} ${type.id === queryBuilderStore.typeId?classes.selected:''}`} onClick={handleClick} onKeyDown={handleKeyDown}>
       <Icon icon={faCircle} color={type.color}/>
-      {label} - <small>{type.id}</small>
+      {label}
+      <br/><small>{type.id}</small>
       <div className={classes.nextIcon} >
-        <FontAwesomeIcon icon={faChevronRight} size="lg" />
+        <FontAwesomeIcon icon={faChevronRight} size="xs" />
       </div>
     </div>
   );

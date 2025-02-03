@@ -53,7 +53,7 @@ const Logo = observer(() => {
   const handleGoToHome = () => navigate('/');
 
   const logo = `/api/theme/logo?darkMode=true`;
-
+  console.log(appStore.appName);
   return (
     <div className={`${classes.container} layout-logo`} onClick={handleGoToHome}>
       <img src={logo} alt="" height="30" />

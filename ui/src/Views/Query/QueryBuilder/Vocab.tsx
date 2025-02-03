@@ -21,7 +21,7 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import Toggle from '../../../Components/Toggle';
 import type { ToggleItemValue } from '../../../Components/Toggle/types';
@@ -34,7 +34,12 @@ interface VocabProps{
 
 const Vocab = ({ defaultValue, value, onChange}: VocabProps) => {
 
-  const handleOnChange = (_:string, newValue?:ToggleItemValue) => onChange((newValue as boolean|undefined)?defaultValue:undefined);
+//   const handleOnChange = (_:string, newValue?:ToggleItemValue) => onChange((newValue as boolean|undefined)?defaultValue:undefined);
+  const handleOnChange = (newValue: boolean | undefined) => {
+    console.log('State before update:', value);
+    setValue(newValue);
+    console.log('State after update:', newValue);
+  };
 
   return (
     <Toggle
@@ -45,7 +50,10 @@ const Vocab = ({ defaultValue, value, onChange}: VocabProps) => {
       label="Strip vocab"
       comment={defaultValue}
       show={true}
-      onChange={handleOnChange}
+      onChange={(newValue) => {
+          console.log('Toggle changed:', newValue); // Debug log
+          handleOnChange(newValue); // Ensure this updates the state
+        }}
     />
   );
 };

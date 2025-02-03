@@ -35,6 +35,10 @@ import type { QuerySpecification } from '../../../../Types/QuerySpecification';
 
 const useStyles = createUseStyles({
   container: {
+    background: '#FFFFFF',
+    boxShadow: '0px 4px 4px #E6E7E8',
+    borderRadius: '12px',
+    padding: '20px',
     height: '100%',
     color: 'var(--ft-color-normal)',
     '& input': {
@@ -59,19 +63,19 @@ const Options = observer(() => {
 
   const field = queryBuilderStore.currentField;
 
-
-  if (!field) {
-    return null;
-  }
-
   const rootField = queryBuilderStore.rootField;
 
-  const handleChangeFlatten = (value: boolean) => field.setCurrentFieldFlattened(value);
+  if (!field) {
+      return null;
+  }
 
+  const handleChangeFlatten = (value: boolean) => field.setCurrentFieldFlattened(value);
   const handleChangeOption = (name:string, value?:QuerySpecification.Value) => field.setOption(name, value);
+
   const showFlatten = field !== rootField && field.lookups.length > 0 && field.structure.length === 1;
+
   return (
-    <div className={classes.container}>
+    <div className={field.parent !== undefined ? classes.container : ''}>
       <div className={classes.fieldOptions}>
         <Name field={field} rootField={rootField} />
         {field.options.map(option => (

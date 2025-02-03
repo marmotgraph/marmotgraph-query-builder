@@ -104,7 +104,8 @@ const endpoints = {
   getQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
   saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}/${getSpace(space)}`,
   deleteQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
-  getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`
+  getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`,
+  getAllQueries: () => `${RELATIVE_ROOT_PATH}/queries`,
 };
 
 class APIBackendAdapter implements API {
@@ -166,6 +167,11 @@ class APIBackendAdapter implements API {
     const { data } = await this._axios.get(endpoints.getQueries(type));
     return data;
   }
+
+  async getAllQueries(): Promise<KGCoreResult<QuerySpecification.QuerySpecification[]>> {
+      const { data } = await this._axios.get(endpoints.getAllQueries());
+      return data;
+    }
 
   async getQuery(queryId: UUID): Promise<QuerySpecification.QuerySpecification> {
     const { data } = await this._axios.get(endpoints.getQuery(queryId));
