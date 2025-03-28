@@ -98,7 +98,7 @@ const getQueryFromLocalStorage = (queryId: string): {queryId: string, type: stri
   }
   try {
     const newQuery = JSON.parse(newQueryItem) as {queryId: string, type: string, instanceId: string};
-    if (newQuery.queryId === queryId && typeof newQuery.type === 'string' && !!newQuery.type && typeof newQuery.instanceId === 'string') {
+    if (newQuery.queryId === queryId && !!newQuery.type) {
       return newQuery;
     }
     // eslint-disable-next-line autofix/no-unused-vars
@@ -166,12 +166,18 @@ const Query = observer(({ mode }:ModeProps) => {
       setNotFound(undefined);
     } else if (isAvailable) {
       if (queryBuilderStore.typeId) {
+        // Here it still works since the old type Id is still set. So we can end up showing the new query Id
+        // but with an old view of the fields.
+        // What is needed is to ask the user for the new type so that we can set it.
         setNotFound(false);
         queryBuilderStore.setAsNewQuery(queryId);
       } else {
         setNotFound(false);
         const newQuery = getQueryFromLocalStorage(queryId);
         const type = newQuery?typeStore.types.get(newQuery.type):undefined;
+
+        console.log(newQuery);
+        console.log(type);
         if (newQuery && type) {
           localStorage.setItem('type',newQuery.type);
           queriesStore.toggleShowSavedQueries(false);

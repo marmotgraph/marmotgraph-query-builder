@@ -24,6 +24,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import useStores from '../../../Hooks/useStores';
 
@@ -34,7 +36,9 @@ const CancelButton = observer(() => {
   const onClick = () => queryBuilderStore.setSaveAsMode(false);
 
   return (
-    <Button variant="secondary" onClick={onClick}>Cancel</Button>
+    <Button variant="secondary" onClick={onClick} title={'Undo changes'}>
+      <FontAwesomeIcon icon={faTimes} />
+    </Button>
   );
 });
 

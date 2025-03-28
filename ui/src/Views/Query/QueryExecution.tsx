@@ -45,18 +45,15 @@ const useStyles = createUseStyles({
   container:{
     position:'relative',
     display: 'grid',
-    gridTemplateRows: 'auto 1fr',
-    gridGap: '10px',
+    gridTemplateRows: 'auto auto 1fr',
     height: '100%',
-    padding:'10px',
+    padding:'20px',
     '& select$input:hover': {
       backgroundColor: 'var(--bg-color-ui-contrast2)'
     }
   },
   params: {
     color:'var(--ft-color-loud)',
-    background: 'linear-gradient(90deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.8) 100%)',
-    border: '1px solid var(--border-color-ui-contrast1)',
     padding:'10px'
 
   },
@@ -147,6 +144,10 @@ const QueryExecution = observer(() => {
 
   return (
     <div className={classes.container}>
+      <div>
+        <h6>Query</h6>
+        <h5>{queryBuilderStore.label}</h5>
+      </div>
       <div className={classes.params}>
         <ExecutionParams onExecute={executeQuery} />
       </div>

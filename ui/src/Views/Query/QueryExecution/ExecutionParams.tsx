@@ -39,13 +39,10 @@ import type { ChangeEvent } from 'react';
 const useStyles = createUseStyles({
   input: {
     color: 'var(--ft-color-loud)',
-    border: '1px solid transparent',
-    borderRadius: '2px',
-    backgroundColor: 'var(--bg-color-blend-contrast1)',
+    border: '1px solid black',
+    borderRadius: '5px',
     '&:focus': {
       color: 'var(--ft-color-loud)',
-      borderColor: 'rgba(64, 169, 243, 0.5)',
-      backgroundColor: 'transparent'
     }
   },
   selectBox: {
@@ -53,7 +50,6 @@ const useStyles = createUseStyles({
     '& select': {
       display: 'inline-block',
       paddingRight: '20px',
-      color: 'white',
       '-webkit-appearance': 'none'
     },
     '&:after': {
@@ -64,7 +60,7 @@ const useStyles = createUseStyles({
       width: 0,
       height: 0,
       marginTop: '-3px',
-      borderTop: '6px solid white',
+      borderTop: '6px solid black',
       borderRight: '6px solid transparent',
       borderLeft: '6px solid transparent',
       pointerEvents: 'none'

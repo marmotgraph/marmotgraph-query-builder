@@ -24,7 +24,7 @@
  import { observer } from 'mobx-react-lite';
  import React from 'react';
  import { createUseStyles } from 'react-jss';
- import { useNavigate } from 'react-router-dom';
+ import { Link, useLocation, useNavigate } from 'react-router-dom';
  import useStores from "../Hooks/useStores";
  import Icon from '../../Components/Icon';
  import Queries from './Selection/Queries';
@@ -32,29 +32,54 @@
  import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = createUseStyles({
-  btnPrimary: {
-    boxSizing: 'border-box',
-    width: '150px',
-    height: '34px',
-    background: '#2E2E2E',
-    border: '1px solid #E6E7E8',
-    borderRadius: '6px',
-    color: '#F5F5F5',
-  },
-  btnSecondary: {
-      boxSizing: 'border-box',
-      width: '150px',
-      height: '34px',
-      border: '1px solid #2E2E2E',
-      borderRadius: '6px',
-//       color: '#F5F5F5',
-      marginRight: '10px',
-    }
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between', // Pushes elements apart
+        padding: '16px',
+    },
+    buttonContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px', // Adds spacing between the link and button
+        marginLeft: 'auto', // Moves it to the right
+    },
+    link: {
+        color: '#007bff', // Blue like a standard link
+        textDecoration: 'underline',
+        fontSize: '14px',
+        cursor: 'pointer',
+        background: 'none',
+        border: 'none',
+        padding: '0',
+        marginRight: '20px',
+    },
+    linkButton: {
+        display: 'inline-block',
+        textDecoration: 'none',
+        boxSizing: 'border-box',
+        width: '150px',
+        height: '34px',
+        lineHeight: '32px',
+        textAlign: 'center',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+    },
+    primary: {
+        background: '#2E2E2E',
+        border: '1px solid #E6E7E8',
+        color: '#F5F5F5',
+    },
+    secondary: {
+        border: '1px solid #2E2E2E',
+        color: '#2E2E2E',
+        marginRight: '10px',
+    },
  });
 
-
-
-const MyQueriesHeader = ({ title, onButton1Click, onButton2Click }) => {
+const MyQueriesHeader = ({ onButton1Click, onButton2Click }) => {
  const classes = useStyles();
  const navigate = useNavigate();
 
@@ -75,19 +100,16 @@ const MyQueriesHeader = ({ title, onButton1Click, onButton2Click }) => {
    const type = queryBuilderStore.typeId && typeStore.types.get(queryBuilderStore.typeId);
 
   return (
-    <header className="container d-flex justify-content-between align-items-center p-3 bg-light">
+    <header className={classes.header}>
       {/* Page Title */}
-      <h1 className="m-0">{title}</h1>
+      {/*<h1 className="m-0">{title}</h1>*/}
 
       {/* Buttons */}
-      <div>
-        <button
-          className={classes.btnSecondary}
-          onClick={handleShowSavedClick}>
-          Select shared query
-        </button>
-        <button
-          className={classes.btnPrimary}
+        <div className={classes.buttonContainer}>
+          <Link to="/queries" className={classes.link}>
+              Select shared query
+          </Link>
+        <button className={`${classes.linkButton} ${classes.primary}`}
           onClick={handleNewQueryClick}>
           <span>Create a new query</span>
         </button>

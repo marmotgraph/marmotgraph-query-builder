@@ -28,23 +28,15 @@ import Commit from './Commit';
 import Copyright from './Copyright';
 import Logo from './Logo';
 import Nav from './Nav';
-import type { Theme } from '../Themes/Theme';
+
 import type { ReactNode } from 'react';
 import type { DefaultTheme, Styles } from 'react-jss';
+import { usePageTitle } from '../Contexts/PageTitleContext';
 
-const getBackgroundSize = (theme: Jss.Theme) => {
-  const appTheme = theme as Theme;
-  if(appTheme.background.size) {
-    return appTheme.background.size;
-  }
-  if(appTheme.background.image) {
-    return 'unset';
-  }
-  return '200%';
-};
 
-const useStyles = createUseStyles((theme: Jss.Theme) => {
-  const appTheme = theme as Theme;
+
+const useStyles = createUseStyles(() => {
+
   return {
     container: {
       background: '#F9F9F9',
@@ -88,6 +80,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   const theme = useTheme<DefaultTheme>();
   const classes = useStyles({ theme });
+  const {title} = usePageTitle();
 
   return (
     <div className={classes.container}>
@@ -96,6 +89,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Nav />
       </header>
       <main className={classes.main}>
+        <h1>{title}</h1>
         {children}
       </main>
       <footer className={classes.footer}>

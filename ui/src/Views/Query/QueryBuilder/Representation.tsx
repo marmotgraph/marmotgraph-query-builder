@@ -56,7 +56,6 @@ const Representation = observer(({ className }:RepresentationProps) => {
   }
   return (
     <div className={`${classes.container} ${className}`}>
-      <h5>Query</h5>
       <Scrollbars autoHide>
         <Field field={queryBuilderStore.rootField} />
       </Scrollbars>

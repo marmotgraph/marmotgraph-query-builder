@@ -24,6 +24,7 @@
 import React, { useState } from 'react';
 
 import Toggle from '../../../Components/Toggle';
+import Checkbox from '../../../Components/Checkbox';
 import type { ToggleItemValue } from '../../../Components/Toggle/types';
 
 interface VocabProps{
@@ -32,28 +33,17 @@ interface VocabProps{
   onChange: (value?: string) => void
 }
 
-const Vocab = ({ defaultValue, value, onChange}: VocabProps) => {
 
-//   const handleOnChange = (_:string, newValue?:ToggleItemValue) => onChange((newValue as boolean|undefined)?defaultValue:undefined);
-  const handleOnChange = (newValue: boolean | undefined) => {
-    console.log('State before update:', value);
-    setValue(newValue);
-    console.log('State after update:', newValue);
+const Vocab: React.FC<VocabProps> = ({ defaultValue, value, onChange }) => {
+  const handleOnChange = (checked: boolean) => {
+    onChange(checked ? defaultValue : undefined);
   };
 
   return (
-    <Toggle
-      option={{
-        name: '',
-        value: value?true:undefined
-      }}
+    <Checkbox
+      checked={!!value}
+      onChange={handleOnChange}
       label="Strip vocab"
-      comment={defaultValue}
-      show={true}
-      onChange={(newValue) => {
-          console.log('Toggle changed:', newValue); // Debug log
-          handleOnChange(newValue); // Ensure this updates the state
-        }}
     />
   );
 };

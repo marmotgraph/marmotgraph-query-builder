@@ -28,7 +28,30 @@ import useStores from '../../../../Hooks/useStores';
 import PropertyTypes from '../../../PropertyTypes';
 import Types from './Types';
 import type Field from '../../../../Stores/Field';
+import TargetName from "./TargetName";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLongArrowAltLeft} from "@fortawesome/free-solid-svg-icons/faLongArrowAltLeft";
+import {faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons/faLongArrowAltRight";
+import {createUseStyles} from "react-jss";
 
+
+const useStyles = createUseStyles({
+  alias: {
+    color: 'var(--ft-color-louder)',
+    fontWeight: 'bold'
+  },
+  default: {
+    color: 'var(--ft-color-normal)',
+    fontStyle: 'italic'
+  },
+  link: {
+    transform: 'translateY(1px)'
+  },
+  reverseLink: {
+    color: 'greenyellow',
+    transform: 'translateY(1px)'
+  }
+});
 
 interface TypeProps {
   field: Field;
@@ -36,8 +59,12 @@ interface TypeProps {
 
 const Type = observer(({ field }: TypeProps) => {
 
-
   const { queryBuilderStore } = useStores();
+  const classes = useStyles();
+
+  const iconClassName = field.isReverse ? classes.reverseLink : classes.link;
+  const icon = field.isReverse ? faLongArrowAltLeft : faLongArrowAltRight;
+  const title = field.isReverse ? 'is an incoming link' : undefined;
 
   if (field.isUnknown && field.parent) {
     if (field.schema?.simpleAttributeName) {
@@ -47,9 +74,11 @@ const Type = observer(({ field }: TypeProps) => {
       return (
         <>
           {field.schema.simpleAttributeName}&nbsp;
+          {/*<FontAwesomeIcon icon={icon} className={iconClassName} title={title} />*/}
           <span title={field.schema?.attribute}>
             (` ${attributeNameSpace} `)
           </span>
+          <TargetName field={field} />
         </>
       );
     }
@@ -59,7 +88,9 @@ const Type = observer(({ field }: TypeProps) => {
   if (field.parent) {
     return (
       <>
-        {field.schema?.label}
+        <FontAwesomeIcon icon={icon} className={iconClassName} title={title} />
+        &nbsp; {field.schema?.label} <TargetName field={field} /> &nbsp;
+        {/*<small className={classes.attribute}>{field.schema?.attribute}</small>*/}
         <Types field={field} />
       </>
     );

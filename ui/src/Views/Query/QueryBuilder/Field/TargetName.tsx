@@ -21,9 +21,6 @@
  *
  */
 
-import {faLongArrowAltLeft} from '@fortawesome/free-solid-svg-icons/faLongArrowAltLeft';
-import {faLongArrowAltRight} from '@fortawesome/free-solid-svg-icons/faLongArrowAltRight';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
@@ -55,16 +52,12 @@ const TargetName = observer(({ field }: FieldProps) => {
     return null;
   }
   const className = field.alias ? classes.alias : classes.default;
-  const iconClassName = field.isReverse ? classes.reverseLink : classes.link;
-  const icon = field.isReverse ? faLongArrowAltLeft : faLongArrowAltRight;
-  const title = field.isReverse ? 'is an incoming link' : undefined;
-  const name = field.alias ? field.alias : field.defaultAlias;
+ const name = field.alias ? field.alias : field.defaultAlias;
   return (
-    <span className={className}>
-        &nbsp;&nbsp;
-      <FontAwesomeIcon icon={icon} className={iconClassName} title={title} />
-        &nbsp;&nbsp;
-      {name}
+    <span>
+      [ <span className={className}>
+        {name}
+      </span> ]
     </span>
   );
 }

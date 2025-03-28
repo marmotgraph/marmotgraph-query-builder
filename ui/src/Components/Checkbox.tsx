@@ -21,27 +21,29 @@
  *
  */
 
-import {faUndoAlt} from '@fortawesome/free-solid-svg-icons/faUndoAlt';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { observer } from 'mobx-react-lite';
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 
-import useStores from '../../../Hooks/useStores';
+interface CheckboxProps {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label?: string;
+  comment?: string;
+  className?: string;
+  disabled?: boolean;
+}
 
-const ResetButton = observer(() => {
-
-  const { queryBuilderStore } = useStores();
-
-  const onClick = () => {
-    queryBuilderStore.resetQuery();
-  };
-
+const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, comment }) => {
   return (
-    <Button variant="secondary" onClick={onClick} title={'Reset'}>
-      <FontAwesomeIcon icon={faUndoAlt} />
-    </Button>
+    <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      {label && <span>{label}</span>}
+      {comment && <small>({comment})</small>}
+    </label>
   );
-});
+};
 
-export default ResetButton;
+export default Checkbox;

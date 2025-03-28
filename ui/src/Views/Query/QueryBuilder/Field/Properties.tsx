@@ -22,12 +22,12 @@
  */
 
 import { observer } from 'mobx-react-lite';
-import React, { useState }  from 'react';
+import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 
 import Filter from '../../../../Components/Filter';
-import Toggle from '../../../../Components/Toggle';
+import Checkbox from '../../../../Components/Checkbox';
 import useStores from '../../../../Hooks/useStores';
 
 import Groups from './Properties/Groups';
@@ -93,7 +93,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Properties = observer(() => {
+  const Properties = observer(() => {
 
   const classes = useStyles();
 
@@ -110,10 +110,8 @@ const Properties = observer(() => {
   const lookupsCommonsLinks = queryBuilderStore.currentFieldLookupsCommonLinks;
   const lookupsLinks = queryBuilderStore.currentFieldLookupsLinks;
 
-//   const [value, setValue] = useState<boolean>(false);
-
   const handleAddField = (e: MouseEvent<HTMLElement>, property: Property) => {
-    //Don't got to newly chosen field options if ctrl is pressed (or cmd)
+    //Don't go to newly chosen field options if ctrl is pressed (or cmd)
     const schema = {
       ...property,
       isUnknown: false
@@ -138,25 +136,15 @@ const Properties = observer(() => {
       <div className={classes.panel}>
         <div className={classes.filterRow}>
           <div className={classes.filter}>
-            <Filter value={queryBuilderStore.childrenFilterValue} placeholder="Filter properties" onChange={handleChildrenFilterChange} />
+            <Filter value={queryBuilderStore.childrenFilterValue} placeholder="Filter properties"
+                    onChange={handleChildrenFilterChange} className={''}/>
           </div>
           <div className={classes.advancedPropertiesCheckbox} >
-            {/* <input
-              type='checkbox'
-              checked={value}
-              onChange={handleToggleAdvancedProperties}
-            />
-            <label>
-              Show advanced properties
-            </label> */}
-            <Toggle
+            <Checkbox
               label="Show advanced properties"
-              option={{
-                name: 'Show advanced properties',
-                value: queryBuilderStore.includeAdvancedAttributes?true:undefined
-              }}
-              show={true}
-              onChange={handleToggleAdvancedProperties} />
+              checked={queryBuilderStore.includeAdvancedAttributes}
+              onChange={() => handleToggleAdvancedProperties()}
+            />
          </div>
         </div>
         <div className={classes.body}>

@@ -22,10 +22,11 @@
  */
 
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
-
 import useStores from '../../Hooks/useStores';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 import Actions from './Actions';
 import Options from './QueryBuilder/Field/Options';
@@ -34,15 +35,34 @@ import QueryForm from './QueryBuilder/QueryForm';
 import Representation from './QueryBuilder/Representation';
 
 const useStyles = createUseStyles({
+  settingsButton: {
+    border: '1px solid #BCBEC0',
+    borderRadius: '6px',
+    width: '30px',
+    height: '32px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    background: 'transparent', // Optional: Remove background if needed
+    cursor: 'pointer',
+    marginLeft: 'auto',
+    marginTop: '5px',
+    marginRight: '5px',
+  },
   container: {
     background: '#F6F6F6',
     position: 'relative',
     flex: 1,
     display: 'grid',
-    gridTemplateColumns: '3fr 7fr',
-    gridGap: '10px',
-    height: '100%',
-//     padding: '10px'
+    gridTemplateColumns: '4fr 7fr',
+    height: '100%'
+  },
+  containerTitle: {
+    position: 'relative',
+    flex: 1,
+    display: 'grid',
+    gridTemplateColumns: '9fr 1fr',
+    padding: '20px 15px 15px 20px'
   },
   body:{
     background: '#FFFFFF',
@@ -50,7 +70,6 @@ const useStyles = createUseStyles({
     position: 'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr auto',
-    gridGap: '10px',
     height: '100%',
     '&:not(.hasChanged)': {
       '& $form': {
@@ -67,7 +86,7 @@ const useStyles = createUseStyles({
   options: {
     position:'relative',
     display: 'grid',
-    gridTemplateRows: 'auto auto 1fr',
+    gridTemplateRows: 'auto 1fr',
 //     background: 'linear-gradient(135deg, rgba(5,20,40,0.6) 0%, rgba(5,25,40,0.9) 100%)',
 //     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
@@ -95,26 +114,57 @@ const QueryBuilder = observer(() => {
 
   const { queryBuilderStore } = useStores();
 
+  // State to manage visibility of QueryForm
+  const [showQueryForm, setShowQueryForm] = useState(false);
+
   if (!queryBuilderStore.rootField) {
     return null;
   }
 
+  const handleSettingsClick = () => {
+    setShowQueryForm((prev) => !prev); // Toggle visibility of QueryForm
+  };
+
   return (
     <div className={classes.container}>
       <div className={`${classes.body} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
-        <QueryForm className={classes.form} />
+        <div className={classes.containerTitle}>
+          <div>
+            <h6>Query</h6>
+            <h5>{queryBuilderStore.label}</h5>
+          </div>
+          <button className={classes.settingsButton} onClick={handleSettingsClick}>
+            <FontAwesomeIcon icon={faGear} />
+          </button>
+         {/*<QueryForm className={classes.form} />*/}
+        {/* Settings button */}
+        </div>
         <Representation className={classes.representation} />
       </div>
-      <div className={classes.options}>
-        <div className={classes.actions}>
-          <div>
-            <Actions />
-          </div>
-        </div>
-        <Options />
-        <Properties />
+
+        {/*<div className={classes.actions}>*/}
+        {/*  /!* <div>*/}
+        {/*    <Actions />*/}
+        {/*  </div> *!/*/}
+        {/*</div>*/}
+        {/*<Options />*/}
+        {/*<Properties />*/}
+        {/*<p>hello</p>*/}
+        {/* Conditionally render Options and Properties or just the QueryForm */}
+      {showQueryForm ? (
+          <QueryForm className={classes.form} />
+      ) : (
+
+            <div className={classes.options}>
+              {/*<div className={classes.actions}>*/}
+              {/*   <Actions /> */}
+              {/*</div>*/}
+              <Options />
+              <Properties />
+            </div>
+        )}
       </div>
-    </div>
+
   );
 });
 QueryBuilder.displayName = 'QueryBuilder';

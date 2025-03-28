@@ -47,7 +47,6 @@ const QueryHome = observer(() => {
       isError,
       refetch,
     } = useListQueriesQuery(null, false);
-
     useEffect(() => {
       console.log(queries);
       if (queries) {
@@ -57,21 +56,23 @@ const QueryHome = observer(() => {
     }, [queries]);
 
 
-  return (
-    <div class="container">
-      <h5>Your queries here</h5>
-      <br/>
-      <div>
-        <div>
-          <List
-            key="Your Queries"
-            title=""
-            list={queries}
-          />
+    // @ts-ignore
+    let div = <>
+        <div className="container">
+            <h5>Your queries here</h5>
+            <br/>
+            <div>
+                <div>
+                    <List
+                        key="Your Queries"
+                        title=""
+                        list={queries}
+                    />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    </>;
+    return div;
 });
 QueryHome.displayName = 'QueryHome';
 

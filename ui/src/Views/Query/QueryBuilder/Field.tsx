@@ -34,6 +34,7 @@ import RequiredFlag from './Field/RequiredFlag';
 import TargetName from './Field/TargetName';
 import Type from './Field/Type';
 import type FieldClass from '../../../Stores/Field';
+import PropertyTypes from "../../PropertyTypes";
 
 const useStyles = createUseStyles({
   container: {
@@ -105,12 +106,14 @@ const useStyles = createUseStyles({
       }
     },
     '&.is-invalid, &.is-unknown.is-invalid': {
-      background: 'var(--bg-color-error-quiet)',
+      background: '#FFE0E1',
+      // background: 'var(--bg-color-error-quiet)',
       '&&.selected': {
-        background: 'var(--bg-color-error-normal)'
+        // background: 'var(--bg-color-error-normal)',
+        background: '#FFE0E1'
       },
       '&:hover, &.selected:hover': {
-        background: 'var(--bg-color-error-loud)'
+        background: '#ff9497'
       }
     },
     '& small': {
@@ -180,9 +183,8 @@ const Field = observer(({ field }: FieldProps) => {
         onClick={handleSelectField}
       >
         <ChildrenFlag field={field} />
-        <RequiredFlag field={field} />
         <Type field={field} />
-        <TargetName field={field} />
+        <RequiredFlag field={field} />
         <Actions field={field} className={classes.actions} />
       </div>
       <Children field={field} className={classes.children} />

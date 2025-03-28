@@ -40,8 +40,8 @@ const UndoChangesButton = observer(() => {
   }
 
   return (
-    <Button variant={'primary'} onClick={onClick}>
-      <FontAwesomeIcon icon={faUndoAlt} />&nbsp;Undo changes
+    <Button variant={'primary'} onClick={onClick} title={'Undo changes'}>
+      <FontAwesomeIcon icon={faUndoAlt} />
     </Button>
   );
 });

@@ -23,7 +23,7 @@
 
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, useState } from 'react';
-import { JssProvider, ThemeProvider } from 'react-jss';//NOSONAR
+import { JssProvider, ThemeProvider } from 'react-jss'; //NOSONAR
 import { BrowserRouter, Navigate, Routes, Route, useLocation, matchPath } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -42,8 +42,7 @@ import WelcomeTip from './Views/WelcomeTip';
 import type API from './Services/API';
 import type AuthAdapter from './Services/AuthAdapter';
 import type RootStore from './Stores/RootStore';
-import Breadcrumbs from './Views/Breadcrumbs';
-import MyQueriesHeader from './Views/MyQueriesHeader';
+import { PageTitleProvider } from './Contexts/PageTitleContext';
 
 const Authenticate = React.lazy(() => import('./Views/Authenticate'));
 const UserProfile = React.lazy(() => import('./Views/UserProfile'));
@@ -51,7 +50,7 @@ const Spaces = React.lazy(() => import('./Views/Spaces'));
 const Types = React.lazy(() => import('./Views/Types'));
 const Logout = React.lazy(() => import('./Views/Logout'));
 const Home = React.lazy(() => import('./Views/Home'));
-const QueryByType = React.lazy(() => import('./Views/QueryByType'));
+// const QueryByType = React.lazy(() => import('./Views/QueryByType'));
 const Query = React.lazy(() => import('./Views/Query'));
 const QueryHome = React.lazy(() => import('./Views/Home/QueryHome'));
 
@@ -77,20 +76,43 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     setShowWelcomeTip(false);
   };
 
-  const breadcrumbItems = [
-      { label: 'Home', path: '/' },
-    ];
+  // const breadcrumbItems = [
+  //     { label: 'Home', path: '/' },
+  //   ];
+  //
+  // const handleButton1Click = () => {
+  //     console.log('Button 1 clicked');
+  //   };
+  //
+  // const handleButton2Click = () => {
+  //     console.log('Button 2 clicked');
+  //   };
 
-  const handleButton1Click = () => {
-      console.log('Button 1 clicked');
+    // Using a more generic type
+    const pageTitles: {[key: string]: string} = {
+        '/': 'My queries',
+        '/queries': 'Shared queries',
+        '/queries/:id': 'Query builder',
+        // Add more as needed
     };
 
-  const handleButton2Click = () => {
-      console.log('Button 2 clicked');
+    const PageTitle = () => {
+        const location = useLocation();
+        // Find the matching route pattern
+        const matchingRoute = Object.keys(pageTitles).find(pattern =>
+            matchPath({ path: pattern }, location.pathname)
+        );
+        return <h1 className="container">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h1>;
     };
+
+  // const PageTitle = () => {
+  //     const location = useLocation();
+  //     return <h1 className={'container'}>{pageTitles[location.pathname] || 'Query builder'}</h1>;
+  // };
 
   return (
     <ThemeProvider theme={theme}>
+        <PageTitleProvider>
       <Styles />
       <APIProvider api={api}>
         <AuthProvider adapter={authAdapter} >
@@ -110,9 +132,9 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
                               <Types>
                                 <Shortcuts />
                                 <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                                  <Breadcrumbs items={breadcrumbItems} />
-                                  <MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />
-                                  <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} />
+                                  {/*<Breadcrumbs items={breadcrumbItems} /> */}
+                                  {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
+                                  <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
                                   <Routes>
                                     <Route path="/" element={<QueryHome />} />
                                     <Route path="queries" element={<Home />} />
@@ -136,6 +158,7 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
           </StoresProvider>
         </AuthProvider>
       </APIProvider>
+        </PageTitleProvider>
     </ThemeProvider>
   );
 });

@@ -42,27 +42,23 @@ const Types = observer(({ field }: FieldProps) => {
 
   if (field.typeFilterEnabled && field.typeFilter && field.typeFilter.length) {
     return (
-      <React.Fragment>
-        &nbsp;(&nbsp;
+      <div>
         <FontAwesomeIcon
           icon={faFilter}
           className={classes.typeFilter}
           title="filtered types"
         />
         &nbsp;
-        <PropertyTypes types={field.typeFilter} />
-        &nbsp;)
-      </React.Fragment>
+          <small><PropertyTypes types={field.typeFilter} /></small>
+      </div>
     );
   }
 
   if (field.schema?.canBe && field.schema?.canBe.length > 0) {
     return (
-      <React.Fragment>
-        &nbsp;(&nbsp;
-        <PropertyTypes types={field.schema.canBe} />
-        &nbsp;)
-      </React.Fragment>
+      <div>
+          <small><PropertyTypes types={field.schema.canBe} /></small>
+      </div>
     );
   }
   return null;

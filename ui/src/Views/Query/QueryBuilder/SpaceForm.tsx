@@ -25,7 +25,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 
-import Toggle from '../../../Components/Toggle';
+import Checkbox from '../../../Components/Checkbox';
 import useStores from '../../../Hooks/useStores';
 import type { ToggleItemValue } from '../../../Components/Toggle/types';
 
@@ -34,7 +34,7 @@ import type { ChangeEvent } from 'react';
 const useStyles = createUseStyles({
   container: {
     display: 'flex',
-    alignItems: 'baseline',
+    alignItems: 'anchor-center',
     whiteSpace: 'nowrap'
   },
   toggle: {
@@ -123,30 +123,55 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
   };
 
   const handleChangePrivate = (_?: string, spaceShared?: ToggleItemValue) => {
-    if (!isReadMode) {
-      const isSpaceShared = spaceShared as boolean|undefined;
-      if (isSpaceShared && spacesStore.sharedSpaces.length) {
-        queryBuilderStore.setSpace(spacesStore.sharedSpaces[0]);
-      } else {
-        if (spacesStore.privateSpace) {
-          queryBuilderStore.setSpace(spacesStore.privateSpace);
-        }
-      }
+    console.log('isReadMode:', isReadMode);
+    console.log('spaceShared:', spaceShared);
+
+    // Remove the conditional check that was blocking updates
+    const shouldBeShared = spaceShared === true;
+
+    if (shouldBeShared && spacesStore.sharedSpaces.length) {
+      queryBuilderStore.setSpace(spacesStore.sharedSpaces[0]);
+    } else if (spacesStore.privateSpace) {
+      queryBuilderStore.setSpace(spacesStore.privateSpace);
     }
   };
 
+  // const handleChangePrivate = (_?: string, spaceShared?: ToggleItemValue) => {
+  //   console.log(isReadMode);
+  //   console.log(spaceShared);
+  //   if (!isReadMode) {
+  //     const isSpaceShared = spaceShared !== undefined ? spaceShared as boolean : true;
+  //
+  //     // const isSpaceShared = spaceShared as boolean|undefined || true;
+  //     // isSpaceShared is never True for an existing query.
+  //     if (isSpaceShared && spacesStore.sharedSpaces.length) {
+  //       queryBuilderStore.setSpace(spacesStore.sharedSpaces[0]);
+  //     } else {
+  //       // Also this for private queries
+  //       if (spacesStore.privateSpace) {
+  //         queryBuilderStore.setSpace(spacesStore.privateSpace);
+  //       }
+  //     }
+  //   }
+  // };
+
   return (
     <div className={`${classes.container} ${className ? className : ''}`}>
-      <Toggle
-        className={classes.toggle}
-        option={{ name: '', value: isShared ? true : undefined }}
-        label="Shared"
-        show={true}
-        onChange={handleChangePrivate}
+      {/*<Checkbox*/}
+      {/*  className={classes.toggle}*/}
+      {/*  checked={!!isShared}*/}
+      {/*  onChange={(checked) => handleChangePrivate(checked ? true : undefined)}*/}
+      {/*  label="Shared"*/}
+      {/*/>*/}
+      <Checkbox
+          checked={Boolean(isShared)}
+          onChange={(checked) => handleChangePrivate(undefined, checked)}
+          label="Shared"
+          disabled={isReadMode} // Add this line to disable the checkbox in read mode
       />
       {isShared ? (
         <>
-          &nbsp;in space
+          &nbsp;<span>in space</span>
           <div className={sharedSpaceClass}>
             <select
               title="select space"

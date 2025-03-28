@@ -25,6 +25,7 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 
+import Checkbox from '../../../../../Components/Checkbox';
 import Toggle from '../../../../../Components/Toggle';
 import useStores from '../../../../../Hooks/useStores';
 import { Type as PropertyType } from '../../../../PropertyTypes';
@@ -49,9 +50,9 @@ const useStyles = createUseStyles({
   },
   typeFilter: {
     display: 'inline-block',
-    border: '1px solid var(--bg-color-ui-contrast4)',
-    borderRadius: '20px',
-    padding: '7px 4px 7px 10px',
+    // border: '1px solid var(--bg-color-ui-contrast4)',
+    // borderRadius: '20px',
+    // padding: '7px 4px 7px 10px',
     float: 'left',
     marginRight: '10px',
     marginBottom: '10px',
@@ -74,7 +75,7 @@ const useStyles = createUseStyles({
   },
   toggle: {
     display: 'inline-block',
-    paddingLeft: '6px'
+//     paddingLeft: '6px'
   }
 });
 
@@ -94,14 +95,18 @@ const TypeFilterItem = ({ type, onClick }: TypeFilterItemProps) => {
   return(
     <div className={`${classes.typeFilter} ${type.isUnknown?'isUnknown':''} ${type.selected?'selected':''}`} onClick={handleOnClick} >
       <PropertyType type={type.id} />
-      <div className={classes.toggle}>
-        <Toggle
+      <div>
+        <Checkbox
+          checked={!!type.selected}
+          onChange={handleToggleClick}>
+        </Checkbox>
+        {/* }<Toggle
           option={{
             name: type.id,
             value: type.selected?true:undefined
           }}
           show={true}
-          onChange={handleToggleClick} />
+          onChange={handleToggleClick} />  */}
       </div>
     </div>
   );
@@ -124,14 +129,19 @@ const TypeFilter = observer(() => {
   return (
     <div className={classes.container}>
       <div>
-        <Toggle
+      <Checkbox
+              label="Type Filter"
+              checked={!!queryBuilderStore.currentField.typeFilterEnabled}
+              onChange={handleToggleTypeFilter}
+            />
+       {/* }<Toggle
           label="Type Filter"
           option={{
             name: 'Type Filter',
             value: queryBuilderStore.currentField.typeFilterEnabled?true:undefined
           }}
           show={true}
-          onChange={handleToggleTypeFilter} />
+          onChange={handleToggleTypeFilter} /> */}
       </div>
       {queryBuilderStore.currentField.typeFilterEnabled && (
         <div className={classes.panel}>

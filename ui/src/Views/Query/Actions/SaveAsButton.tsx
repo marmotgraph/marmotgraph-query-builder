@@ -44,8 +44,8 @@ const SaveAsButton = observer(({ disabled }:SaveAsButtonProps) => {
   };
 
   return (
-    <Button variant="secondary" disabled={disabled} onClick={onClick}>
-      <FontAwesomeIcon icon={faSave} />&nbsp;Save As
+    <Button variant="secondary" disabled={disabled} onClick={onClick} title={'Save as'}>
+      <FontAwesomeIcon icon={faSave} />
     </Button>
   );
 });
