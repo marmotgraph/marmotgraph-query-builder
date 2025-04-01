@@ -21,5 +21,8 @@ export default defineConfig({
         setupFiles: './src/setupTests.ts',
         css: true,
         reporters: ['verbose']
+    },
+    build: {
+        outDir: 'build'
     }
 })

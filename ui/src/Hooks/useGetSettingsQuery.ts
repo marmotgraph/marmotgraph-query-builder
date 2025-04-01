@@ -25,7 +25,7 @@ import { useMemo } from 'react';
 import useAPI from './useAPI';
 import useGenericQuery from './useGenericQuery';
 import type { GenericQuery } from './useGenericQuery';
-import type { Config } from '../../src/types';
+import type { Config } from '../types';
 
 export type GetSettingsQuery = GenericQuery<Config>;
 
