@@ -32,18 +32,16 @@ interface CheckboxProps {
   disabled?: boolean;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, comment }) => {
-  return (
-    <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-      />
-      {label && <span>{label}</span>}
-      {comment && <small>({comment})</small>}
-    </label>
-  );
-};
+const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, comment }) =>
+  <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <input
+      type="checkbox"
+      checked={checked}
+      onChange={(e) => onChange(e.target.checked)}
+    />
+    {label && <span>{label}</span>}
+    {comment && <small>({comment})</small>}
+  </label>;
+
 
 export default Checkbox;

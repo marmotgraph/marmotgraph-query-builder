@@ -46,11 +46,11 @@ const useStyles = createUseStyles({
     cursor: 'pointer',
     transition: 'background .3s ease-in-out',
     borderBottom: '1px solid #E6E7E8',
-//     background: 'rgba(0,0,0,0.4)',
-//     '& small': {
-//       color: 'var(--ft-color-quiet)',
-//       fontStyle: 'italic'
-//     },
+    //     background: 'rgba(0,0,0,0.4)',
+    //     '& small': {
+    //       color: 'var(--ft-color-quiet)',
+    //       fontStyle: 'italic'
+    //     },
     '&:hover': {
       background: 'rgba(145, 145, 145, 0.4)',
       '& $nextIcon': {
@@ -58,7 +58,7 @@ const useStyles = createUseStyles({
       }
     },
     '&$selected': {
-       background: 'rgba(145, 145, 145, 0.2)',
+      background: 'rgba(145, 145, 145, 0.2)',
     },
   },
   selected: {},

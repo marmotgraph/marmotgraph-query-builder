@@ -58,10 +58,10 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
 
   useEffect(() => {
     if (settings) {
-      const titleEl = document.getElementById('title');
+      //const titleEl = document.getElementById('title');
       const applicationName =  settings.tenant?.title+' Query Builder';
       appStore.setAppName(applicationName);
-      appStore.setContactEmail(settings.tenant ? settings.tenant.contactEmail : "support@marmotgraph.org");
+      appStore.setContactEmail(settings.tenant ? settings.tenant.contactEmail : 'support@marmotgraph.org');
       appStore.setCopyright( settings.tenant? settings.tenant.copyright : '');
       Matomo.initialize(settings?.matomo);
       Sentry.initialize(settings?.sentry);

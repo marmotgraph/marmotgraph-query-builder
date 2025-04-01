@@ -33,7 +33,7 @@ import Field from './Field';
 const useStyles = createUseStyles({
   container: {
     position:'relative',
-//     background: 'linear-gradient(135deg, rgba(15,35,45,0.2) 0%, rgba(5,20,35,0.6) 100%)',
+    // background: 'linear-gradient(135deg, rgba(15,35,45,0.2) 0%, rgba(5,20,35,0.6) 100%)',
     borderTop: '1px solid #E6E7E8',
     padding: '15px',
     color:'var(--ft-color-normal)'

@@ -26,7 +26,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 
 import Checkbox from '../../../../../Components/Checkbox';
-import Toggle from '../../../../../Components/Toggle';
+
 import useStores from '../../../../../Hooks/useStores';
 import { Type as PropertyType } from '../../../../PropertyTypes';
 import type { ToggleItemValue } from '../../../../../Components/Toggle/types';
@@ -75,7 +75,7 @@ const useStyles = createUseStyles({
   },
   toggle: {
     display: 'inline-block',
-//     paddingLeft: '6px'
+    //     paddingLeft: '6px'
   }
 });
 
@@ -98,8 +98,7 @@ const TypeFilterItem = ({ type, onClick }: TypeFilterItemProps) => {
       <div>
         <Checkbox
           checked={!!type.selected}
-          onChange={handleToggleClick}>
-        </Checkbox>
+          onChange={handleToggleClick} />
         {/* }<Toggle
           option={{
             name: type.id,
@@ -129,12 +128,12 @@ const TypeFilter = observer(() => {
   return (
     <div className={classes.container}>
       <div>
-      <Checkbox
-              label="Type Filter"
-              checked={!!queryBuilderStore.currentField.typeFilterEnabled}
-              onChange={handleToggleTypeFilter}
-            />
-       {/* }<Toggle
+        <Checkbox
+          label="Type Filter"
+          checked={!!queryBuilderStore.currentField.typeFilterEnabled}
+          onChange={handleToggleTypeFilter}
+        />
+        {/* }<Toggle
           label="Type Filter"
           option={{
             name: 'Type Filter',

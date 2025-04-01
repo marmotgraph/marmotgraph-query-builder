@@ -21,11 +21,12 @@
  *
  */
 
- import { observer } from 'mobx-react-lite';
- import React from 'react';
- import { createUseStyles } from 'react-jss';
- import { useNavigate } from 'react-router-dom';
- import useStores from "../Hooks/useStores";
+
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import {Link} from 'react-router-dom';
+
+
 
 const useStyles = createUseStyles({
   breadcrumb: {
@@ -44,18 +45,19 @@ const useStyles = createUseStyles({
 });
 
 
+// @ts-expect-error items are not currently typed correctly //FIXME
 const Breadcrumbs = ({ items }) => {
   const classes = useStyles();
 
   return (
     <nav aria-label="breadcrumb">
-        <ol className={classes.breadcrumb}>
-          {items.map((item, index) => (
-            <li key={index} className={`classes.breadcrumb_item ${index === items.length - 1 ? 'active' : ''}`}>
-              {index < items.length - 1 ? <Link to={item.path}>{item.label}</Link> : item.label}
-            </li>
-          ))}
-        </ol>
+      <ol className={classes.breadcrumb}>
+        {items.map((item, index) => (
+          <li key={index} className={`classes.breadcrumb_item ${index === items.length - 1 ? 'active' : ''}`}>
+            {index < items.length - 1 ? <Link to={item.path}>{item.label}</Link> : item.label}
+          </li>
+        ))}
+      </ol>
     </nav>
   );
 };

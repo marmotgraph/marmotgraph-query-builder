@@ -21,83 +21,83 @@
  *
  */
 
- import { observer } from 'mobx-react-lite';
- import React from 'react';
- import { createUseStyles } from 'react-jss';
- import { Link, useLocation, useNavigate } from 'react-router-dom';
- import useStores from "../Hooks/useStores";
- import Icon from '../../Components/Icon';
- import Queries from './Selection/Queries';
- import type { Type } from '../../types';
- import { v4 as uuidv4 } from 'uuid';
+
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import { Link,  useNavigate } from 'react-router-dom';
+
+import { v4 as uuidv4 } from 'uuid';
+
+
+
 
 const useStyles = createUseStyles({
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between', // Pushes elements apart
-        padding: '16px',
-    },
-    buttonContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px', // Adds spacing between the link and button
-        marginLeft: 'auto', // Moves it to the right
-    },
-    link: {
-        color: '#007bff', // Blue like a standard link
-        textDecoration: 'underline',
-        fontSize: '14px',
-        cursor: 'pointer',
-        background: 'none',
-        border: 'none',
-        padding: '0',
-        marginRight: '20px',
-    },
-    linkButton: {
-        display: 'inline-block',
-        textDecoration: 'none',
-        boxSizing: 'border-box',
-        width: '150px',
-        height: '34px',
-        lineHeight: '32px',
-        textAlign: 'center',
-        borderRadius: '6px',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-    },
-    primary: {
-        background: '#2E2E2E',
-        border: '1px solid #E6E7E8',
-        color: '#F5F5F5',
-    },
-    secondary: {
-        border: '1px solid #2E2E2E',
-        color: '#2E2E2E',
-        marginRight: '10px',
-    },
- });
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Pushes elements apart
+    padding: '16px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px', // Adds spacing between the link and button
+    marginLeft: 'auto', // Moves it to the right
+  },
+  link: {
+    color: '#007bff', // Blue like a standard link
+    textDecoration: 'underline',
+    fontSize: '14px',
+    cursor: 'pointer',
+    background: 'none',
+    border: 'none',
+    padding: '0',
+    marginRight: '20px',
+  },
+  linkButton: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    boxSizing: 'border-box',
+    width: '150px',
+    height: '34px',
+    lineHeight: '32px',
+    textAlign: 'center',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+  },
+  primary: {
+    background: '#2E2E2E',
+    border: '1px solid #E6E7E8',
+    color: '#F5F5F5',
+  },
+  secondary: {
+    border: '1px solid #2E2E2E',
+    color: '#2E2E2E',
+    marginRight: '10px',
+  },
+});
 
-const MyQueriesHeader = ({ onButton1Click, onButton2Click }) => {
- const classes = useStyles();
- const navigate = useNavigate();
+const MyQueriesHeader = () => {
+  const classes = useStyles();
+  const navigate = useNavigate();
 
-   const { queryBuilderStore, queriesStore, typeStore, appStore } = useStores();
+  // const { queryBuilderStore,  typeStore  } = useStores();
 
-   const handleNewQueryClick = () => {
-     const uuid = uuidv4();
-     navigate(`/queries/${uuid}`);
-   };
+  const handleNewQueryClick = () => {
+    const uuid = uuidv4();
+    navigate(`/queries/${uuid}`);
+  };
 
-   const handleShowSavedClick = () => {
-     navigate('/queries/');
-//      queriesStore.toggleShowSavedQueries(
-//        !queriesStore.showSavedQueries
-//      )
-     };
-
-   const type = queryBuilderStore.typeId && typeStore.types.get(queryBuilderStore.typeId);
+  // const handleShowSavedClick = () => {
+  //   navigate('/queries/');
+  //   //      queriesStore.toggleShowSavedQueries(
+  //   //        !queriesStore.showSavedQueries
+  //   //      )
+  // };
+  //
+  // const type = queryBuilderStore.typeId && typeStore.types.get(queryBuilderStore.typeId);
 
   return (
     <header className={classes.header}>
@@ -105,10 +105,10 @@ const MyQueriesHeader = ({ onButton1Click, onButton2Click }) => {
       {/*<h1 className="m-0">{title}</h1>*/}
 
       {/* Buttons */}
-        <div className={classes.buttonContainer}>
-          <Link to="/queries" className={classes.link}>
+      <div className={classes.buttonContainer}>
+        <Link to="/queries" className={classes.link}>
               Select shared query
-          </Link>
+        </Link>
         <button className={`${classes.linkButton} ${classes.primary}`}
           onClick={handleNewQueryClick}>
           <span>Create a new query</span>

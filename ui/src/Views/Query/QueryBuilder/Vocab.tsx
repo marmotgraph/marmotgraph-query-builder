@@ -21,11 +21,9 @@
  *
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 
-import Toggle from '../../../Components/Toggle';
 import Checkbox from '../../../Components/Checkbox';
-import type { ToggleItemValue } from '../../../Components/Toggle/types';
 
 interface VocabProps{
   defaultValue?: string;

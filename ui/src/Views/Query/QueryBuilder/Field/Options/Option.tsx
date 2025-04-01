@@ -23,7 +23,7 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import Toggle from '../../../../../Components/Toggle';
+
 import Checkbox from '../../../../../Components/Checkbox';
 import Filter from './Filter';
 import SingleItemStrategy from './SingleItemStrategy';
@@ -54,14 +54,14 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Required"
         />
-          ),
-//       <Toggle
-//         option={option}
-//         label="Required"
-//         comment="only applicable if parent field is not flattened"
-//         show={showRequired}
-//         onChange={onChange}
-//       />
+      )
+    //       <Toggle
+    //         option={option}
+    //         label="Required"
+    //         comment="only applicable if parent field is not flattened"
+    //         show={showRequired}
+    //         onChange={onChange}
+    //       />
     );
   }
 
@@ -70,16 +70,16 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
     return (
       showSort && (
         <Checkbox
-            checked={option.value ?? false}
-            onChange={(checked) => onChange(name, checked ? true : undefined)}
-            label="Sort result by this property"
-          /> ),
-//       <Toggle
-//         option={option}
-//         label="Sort result by this property"
-//         show={showSort}
-//         onChange={onChange}
-//       />
+          checked={option.value ?? false}
+          onChange={(checked) => onChange(name, checked ? true : undefined)}
+          label="Sort result by this property"
+        /> )
+    //       <Toggle
+    //         option={option}
+    //         label="Sort result by this property"
+    //         show={showSort}
+    //         onChange={onChange}
+    //       />
     );
   }
 
@@ -92,14 +92,14 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Ensure original order"
           comment="only applicable if parent field is not flattened"
-        /> ),
-//       <Toggle
-//         option={option}
-//         label="Ensure original order"
-//         comment="only applicable if parent field is not flattened"
-//         show={showEnsureOrder}
-//         onChange={onChange}
-//       />
+        /> )
+    //       <Toggle
+    //         option={option}
+    //         label="Ensure original order"
+    //         comment="only applicable if parent field is not flattened"
+    //         show={showEnsureOrder}
+    //         onChange={onChange}
+    //       />
     );
   }
 

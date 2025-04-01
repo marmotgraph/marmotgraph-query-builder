@@ -32,8 +32,6 @@ import { createUseStyles } from 'react-jss';
 import { normalizeQuery } from '../../Helpers/QueryHelpers';
 import useStores from '../../Hooks/useStores';
 import { FIELD_FLAGS } from '../../Stores/Field';
-import ThemeRJV from '../../Themes/ThemeRJV';
-import Actions from './Actions';
 import type { QuerySpecification } from '../../Types/QuerySpecification';
 import type { InteractionProps } from '@microlink/react-json-view';
 import type jsonld from 'jsonld';
@@ -161,7 +159,7 @@ const QueryEditor = observer(() => {
       </div>
       <div className={classes.body}>
         <Scrollbars autoHide>
-          <ReactJson collapsed={false} name={false} theme={"grayscale:inverted"}
+          <ReactJson collapsed={false} name={false} theme={'grayscale:inverted'}
             src={queryBuilderStore.querySpecification}
             onEdit={handleOnEdit}
             onAdd={handleOnAdd}

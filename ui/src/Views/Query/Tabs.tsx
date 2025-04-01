@@ -30,9 +30,9 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
 import useStores from '../../Hooks/useStores';
+import Matomo from '../../Services/Matomo';
 import Actions from './Actions';
 
-import Matomo from '../../Services/Matomo';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 const useStyles = createUseStyles({
@@ -49,9 +49,9 @@ const useStyles = createUseStyles({
 
       alignSelf: 'end',
       padding: 0,
-//       color: 'var(--ft-color-normal)',
+      // color: 'var(--ft-color-normal)',
       borderLeft: '2px solid transparent',
-//       opacity: '0.5',
+      // opacity: '0.5',
       cursor: 'pointer',
       height: '35px',
       width: '35px',
@@ -70,7 +70,7 @@ const useStyles = createUseStyles({
         background: '#2E2E2E',
         color: '#F5F5F5',
         opacity: '1'
-        },
+      },
       '&.disabled, &.disabled:hover':{
         background: 'transparent',
         color: 'var(--ft-color-normal)',

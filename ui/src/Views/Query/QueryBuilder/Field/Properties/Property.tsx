@@ -45,25 +45,25 @@ const useStyles = createUseStyles({
     '&:last-of-type': {
       borderBottom: 'transparent',
     },
-//     background: 'rgba(0,0,0,0.4)',
+    //     background: 'rgba(0,0,0,0.4)',
     '& small': {
       color: 'var(--ft-color-quiet)',
       fontStyle: 'italic'
     },
   },
   propertyInfo: {
-      display: 'flex',
-      flexDirection: 'column', // Stacks label and PropertyTypes vertically
-      gap: '8px', // Adds spacing between label and PropertyTypes
-    },
-    propertyTypes: {
-//         marginTop: '5px', // Adds a little margin for visual separation
-      },
-    propertyActions: {
-      display: 'flex',
-          flexDirection: 'column', // Ensures button stays on a separate line
-          alignItems: 'flex-start',
-          gap: '10px', // Adds spacing between the button and other elements if needed
+    display: 'flex',
+    flexDirection: 'column', // Stacks label and PropertyTypes vertically
+    gap: '8px', // Adds spacing between label and PropertyTypes
+  },
+  propertyTypes: {
+    //         marginTop: '5px', // Adds a little margin for visual separation
+  },
+  propertyActions: {
+    display: 'flex',
+    flexDirection: 'column', // Ensures button stays on a separate line
+    alignItems: 'flex-start',
+    gap: '10px', // Adds spacing between the button and other elements if needed
   },
   addProperty: {
     background: '#F5F5F5',
@@ -76,7 +76,7 @@ const useStyles = createUseStyles({
     border: '1px solid #2E2E2E',
     padding: '0 7px',
     '&:hover': {
-//       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
+      //       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
       background: '#F0F0F0'
     }
   },
@@ -110,14 +110,14 @@ const Property = observer(({ property, onClick }: PropertyProps) => {
         )}
         {label} - <small>{attribute}</small></div>
         <div className={classes.propertyTypes}>
-           <small><PropertyTypes types={canBe} /></small>
-         </div>
+          <small><PropertyTypes types={canBe} /></small>
+        </div>
       </div>
       {/* Right side */}
       <div className={classes.propertyActions}>
         <button
-            className={classes.addProperty}
-            onClick={handleClick}>
+          className={classes.addProperty}
+          onClick={handleClick}>
           <FontAwesomeIcon icon={faPlus} title="Add property"/> Add</button>
       </div>
     </div>

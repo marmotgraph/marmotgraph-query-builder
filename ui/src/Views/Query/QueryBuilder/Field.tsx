@@ -27,14 +27,14 @@ import { createUseStyles } from 'react-jss';
 
 import useStores from '../../../Hooks/useStores';
 
+
 import Actions from './Field/Actions';
 import Children from './Field/Children';
 import ChildrenFlag from './Field/ChildrenFlag';
 import RequiredFlag from './Field/RequiredFlag';
-import TargetName from './Field/TargetName';
+
 import Type from './Field/Type';
 import type FieldClass from '../../../Stores/Field';
-import PropertyTypes from "../../PropertyTypes";
 
 const useStyles = createUseStyles({
   container: {
@@ -75,23 +75,23 @@ const useStyles = createUseStyles({
   content: {
     padding: '10px 35px 10px 10px',
     margin: '1px',
-//     background:
-//       'linear-gradient(180deg, rgba(5,20,40,1) 0%, rgba(5,25,40,0.9) 100%)',
+    //     background:
+    //       'linear-gradient(180deg, rgba(5,20,40,1) 0%, rgba(5,25,40,0.9) 100%)',
     position: 'relative',
     zIndex: 2,
     cursor: 'pointer',
     '&:hover': {
       background: '#F0F0F0',
-//       background:
-//         'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
+      //       background:
+      //         'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
       '& $actions': {
         opacity: 1
       }
     },
     '&.selected': {
-    background: '#F0F0F0',
-//       background:
-//         'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
+      background: '#F0F0F0',
+      //       background:
+      //         'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
       '& $actions': {
         opacity: 1
       }

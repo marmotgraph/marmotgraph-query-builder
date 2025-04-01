@@ -39,7 +39,7 @@ const useStyles = createUseStyles({
     color: 'var(--ft-color-loud)',
     padding: '10px',
     marginBottom: '20px',
-     '& h5': {
+    '& h5': {
       margin: '18px 0 6px 5px',
       '& small': {
         color: 'var(--ft-color-quiet)',

@@ -23,13 +23,13 @@
 
 import { observable, action, computed, makeObservable } from 'mobx';
 
+
 import BrightTheme from '../Themes/Bright';
 import DefaultTheme from '../Themes/Default';
 import type RootStore from './RootStore';
 import type { Theme } from '../Themes/Theme';
 
 import type { ErrorInfo } from 'react';
-import app from "../App";
 
 interface GlobalError {
   error: Error,

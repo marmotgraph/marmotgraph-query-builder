@@ -49,7 +49,7 @@ const useStyles = createUseStyles({
     background: '#FFFFFF',
     boxShadow: '0px 4px 4px #E6E7E8',
     borderRadius: '12px',
-//     padding: '10px',
+    //     padding: '10px',
     margin: '20px',
     display: 'grid',
     height: '100%',

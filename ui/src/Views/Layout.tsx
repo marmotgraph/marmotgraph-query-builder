@@ -24,6 +24,7 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 
+import { usePageTitle } from '../Contexts/PageTitleContext';
 import Commit from './Commit';
 import Copyright from './Copyright';
 import Logo from './Logo';
@@ -31,46 +32,42 @@ import Nav from './Nav';
 
 import type { ReactNode } from 'react';
 import type { DefaultTheme, Styles } from 'react-jss';
-import { usePageTitle } from '../Contexts/PageTitleContext';
 
 
 
-const useStyles = createUseStyles(() => {
-
-  return {
-    container: {
-      background: '#F9F9F9',
-      height: '100vh',
-      display: 'grid',
-      overflow: 'hidden',
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: 'auto 1fr 20px',
-    },
-    header: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '1fr',
-      gridTemplateColumns: 'auto 1fr',
-      background: 'white',
-      color: 'var(--ft-color-loud)',
-    },
-    main: {
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    footer: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '1fr',
-      gridTemplateColumns: '1fr auto',
-      background: 'var(--bg-color-ui-contrast1)',
-      color: 'var(--ft-color-loud)',
-      padding: '0 10px'
-    }
-  } as Styles;
-});
+const useStyles = createUseStyles(() => ({
+  container: {
+    background: '#F9F9F9',
+    height: '100vh',
+    display: 'grid',
+    overflow: 'hidden',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: 'auto 1fr 20px',
+  },
+  header: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '1fr',
+    gridTemplateColumns: 'auto 1fr',
+    background: 'white',
+    color: 'var(--ft-color-loud)',
+  },
+  main: {
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  footer: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '1fr',
+    gridTemplateColumns: '1fr auto',
+    background: 'var(--bg-color-ui-contrast1)',
+    color: 'var(--ft-color-loud)',
+    padding: '0 10px'
+  }
+} as Styles));
 
 interface LayoutProps {
   children?: ReactNode;

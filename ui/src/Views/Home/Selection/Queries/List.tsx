@@ -59,7 +59,7 @@ interface ListProps {
   list: QueryProps.Query[];
 }
 
-const List = observer(({ title, list }: ListProps) => {
+const List = observer(({  list }: ListProps) => {
   const classes = useStyles();
   if (!list || !list.length) {
     return null;

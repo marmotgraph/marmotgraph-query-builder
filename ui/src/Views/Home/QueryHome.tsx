@@ -21,9 +21,9 @@
  *
  */
 
-import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { createUseStyles } from 'react-jss';
+import {observer} from 'mobx-react-lite';
+import React, {useEffect} from 'react';
+
 import useListQueriesQuery from '../../Hooks/useListQueriesQuery';
 import useStores from '../../Hooks/useStores';
 import List from './Selection/Queries/List';
@@ -36,43 +36,38 @@ import List from './Selection/Queries/List';
 
 
 const QueryHome = observer(() => {
-  const { queriesStore, queryBuilderStore } = useStores();
-//   const classes = useStyles();
+  const {queriesStore} = useStores();
+  //   const classes = useStyles();
 
-  let {
-      data: queries,
-      error,
-      isUninitialized,
-      isFetching,
-      isError,
-      refetch,
-    } = useListQueriesQuery(null, false);
-    useEffect(() => {
-      console.log(queries);
-      if (queries) {
-        queriesStore.setQueries("*", queries);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queries]);
+  const {
+    data: queries
 
 
-    // @ts-ignore
-    let div = <>
-        <div className="container">
-            <h5>Your queries here</h5>
-            <br/>
-            <div>
-                <div>
-                    <List
-                        key="Your Queries"
-                        title=""
-                        list={queries}
-                    />
-                </div>
-            </div>
+    ,
+  } = useListQueriesQuery(null, false);
+  useEffect(() => {
+    console.log(queries);
+    if (queries) {
+      queriesStore.setQueries('*', queries);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queries]);
+
+  return <>
+    <div className="container">
+      <h5>Your queries here</h5>
+      <br/>
+      <div>
+        <div>
+          <List
+            key="Your Queries"
+            title=""
+            list={queries ? queries : []}
+          />
         </div>
-    </>;
-    return div;
+      </div>
+    </div>
+  </>;
 });
 QueryHome.displayName = 'QueryHome';
 

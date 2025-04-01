@@ -49,7 +49,7 @@ const Types = observer(({ field }: FieldProps) => {
           title="filtered types"
         />
         &nbsp;
-          <small><PropertyTypes types={field.typeFilter} /></small>
+        <small><PropertyTypes types={field.typeFilter} /></small>
       </div>
     );
   }
@@ -57,7 +57,7 @@ const Types = observer(({ field }: FieldProps) => {
   if (field.schema?.canBe && field.schema?.canBe.length > 0) {
     return (
       <div>
-          <small><PropertyTypes types={field.schema.canBe} /></small>
+        <small><PropertyTypes types={field.schema.canBe} /></small>
       </div>
     );
   }

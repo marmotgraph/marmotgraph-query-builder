@@ -66,7 +66,7 @@ const Options = observer(() => {
   const rootField = queryBuilderStore.rootField;
 
   if (!field) {
-      return null;
+    return null;
   }
 
   const handleChangeFlatten = (value: boolean) => field.setCurrentFieldFlattened(value);

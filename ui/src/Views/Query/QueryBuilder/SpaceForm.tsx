@@ -164,10 +164,10 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
       {/*  label="Shared"*/}
       {/*/>*/}
       <Checkbox
-          checked={Boolean(isShared)}
-          onChange={(checked) => handleChangePrivate(undefined, checked)}
-          label="Shared"
-          disabled={isReadMode} // Add this line to disable the checkbox in read mode
+        checked={Boolean(isShared)}
+        onChange={(checked) => handleChangePrivate(undefined, checked)}
+        label="Shared"
+        disabled={isReadMode} // Add this line to disable the checkbox in read mode
       />
       {isShared ? (
         <>

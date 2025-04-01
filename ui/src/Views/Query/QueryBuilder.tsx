@@ -21,14 +21,14 @@
  *
  */
 
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import useStores from '../../Hooks/useStores';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear } from '@fortawesome/free-solid-svg-icons';
 
-import Actions from './Actions';
+
 import Options from './QueryBuilder/Field/Options';
 import Properties from './QueryBuilder/Field/Properties';
 import QueryForm from './QueryBuilder/QueryForm';
@@ -87,8 +87,8 @@ const useStyles = createUseStyles({
     position:'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr',
-//     background: 'linear-gradient(135deg, rgba(5,20,40,0.6) 0%, rgba(5,25,40,0.9) 100%)',
-//     border: '1px solid var(--border-color-ui-contrast1)',
+    //     background: 'linear-gradient(135deg, rgba(5,20,40,0.6) 0%, rgba(5,25,40,0.9) 100%)',
+    //     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
     padding: '10px'
   },
@@ -96,7 +96,7 @@ const useStyles = createUseStyles({
   representation:{},
   actions: {
     position: 'relative',
-//     border: '1px solid var(--border-color-ui-contrast1)',
+    //     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
     padding: '10px 10px 0 0',
     '& > div': {
@@ -136,34 +136,34 @@ const QueryBuilder = observer(() => {
           <button className={classes.settingsButton} onClick={handleSettingsClick}>
             <FontAwesomeIcon icon={faGear} />
           </button>
-         {/*<QueryForm className={classes.form} />*/}
-        {/* Settings button */}
+          {/*<QueryForm className={classes.form} />*/}
+          {/* Settings button */}
         </div>
         <Representation className={classes.representation} />
       </div>
 
-        {/*<div className={classes.actions}>*/}
-        {/*  /!* <div>*/}
-        {/*    <Actions />*/}
-        {/*  </div> *!/*/}
-        {/*</div>*/}
-        {/*<Options />*/}
-        {/*<Properties />*/}
-        {/*<p>hello</p>*/}
-        {/* Conditionally render Options and Properties or just the QueryForm */}
+      {/*<div className={classes.actions}>*/}
+      {/*  /!* <div>*/}
+      {/*    <Actions />*/}
+      {/*  </div> *!/*/}
+      {/*</div>*/}
+      {/*<Options />*/}
+      {/*<Properties />*/}
+      {/*<p>hello</p>*/}
+      {/* Conditionally render Options and Properties or just the QueryForm */}
       {showQueryForm ? (
-          <QueryForm className={classes.form} />
+        <QueryForm className={classes.form} />
       ) : (
 
-            <div className={classes.options}>
-              {/*<div className={classes.actions}>*/}
-              {/*   <Actions /> */}
-              {/*</div>*/}
-              <Options />
-              <Properties />
-            </div>
-        )}
-      </div>
+        <div className={classes.options}>
+          {/*<div className={classes.actions}>*/}
+          {/*   <Actions /> */}
+          {/*</div>*/}
+          <Options />
+          <Properties />
+        </div>
+      )}
+    </div>
 
   );
 });

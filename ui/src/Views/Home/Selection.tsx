@@ -21,16 +21,16 @@
  *
  */
 
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+
 import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
-import { faFile } from '@fortawesome/free-solid-svg-icons/faFile';
-import { faTag } from '@fortawesome/free-solid-svg-icons/faTag';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
+
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+
+
 
 import Icon from '../../Components/Icon';
 import useStores from '../../Hooks/useStores';
@@ -44,10 +44,10 @@ const useStyles = createUseStyles({
     height: '100%',
     width: '100%',
     padding: '10px',
-//  background:
-//       'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)',
+    //  background:
+    //       'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)',
     color: 'var(--ft-color-normal)',
-//     border: '1px solid var(--border-color-ui-contrast2)',
+    //     border: '1px solid var(--border-color-ui-contrast2)',
     overflow: 'hidden'
   },
   noSelection: {
@@ -150,19 +150,19 @@ const TypeInfo = observer(({ className, type }: TypeInfoProps) => (
 const Selection = observer(() => {
   const classes = useStyles();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const { queryBuilderStore, queriesStore, typeStore, appStore } = useStores();
+  const { queryBuilderStore,  typeStore, appStore } = useStores();
 
-  const handleNewQueryClick = () => {
-    const uuid = uuidv4();
-    navigate(`/queries/${uuid}`);
-  };
-
-  const handlShowSavedClick = () =>
-    queriesStore.toggleShowSavedQueries(
-      !queriesStore.showSavedQueries
-    );
+  // const handleNewQueryClick = () => {
+  //   const uuid = uuidv4();
+  //   navigate(`/queries/${uuid}`);
+  // };
+  //
+  // const handlShowSavedClick = () =>
+  //   queriesStore.toggleShowSavedQueries(
+  //     !queriesStore.showSavedQueries
+  //   );
 
   const type = queryBuilderStore.typeId && typeStore.types.get(queryBuilderStore.typeId);
 

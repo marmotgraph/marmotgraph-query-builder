@@ -86,7 +86,7 @@ const UserProfile = observer(({ children }: UserProfileProps) => {
           <h1>Welcome</h1>
           <p>You are currently not granted permission to acccess the application.</p>
           <p>Please contact our team by email at : <a
-              href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></p>
+            href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></p>
           <Button onClick={logout}>Logout</Button>
         </ErrorPanel>
       );

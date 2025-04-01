@@ -52,7 +52,7 @@ const TargetName = observer(({ field }: FieldProps) => {
     return null;
   }
   const className = field.alias ? classes.alias : classes.default;
- const name = field.alias ? field.alias : field.defaultAlias;
+  const name = field.alias ? field.alias : field.defaultAlias;
   return (
     <span>
       [ <span className={className}>

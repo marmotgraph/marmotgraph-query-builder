@@ -45,14 +45,14 @@ const useStyles = createUseStyles({
     height: '100%',
     width: '100%',
     color: 'var(--ft-color-normal)',
-//     border: '1px solid var(--border-color-ui-contrast2)',
-//     overflow: 'hidden'
+    //     border: '1px solid var(--border-color-ui-contrast2)',
+    //     overflow: 'hidden'
   },
   filter: {
     paddingBottom: '20px',
-//     background:
-//       'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
- },
+    //     background:
+    //       'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
+  },
   body: {
     borderTop: '1px solid #E6E7E8',
   },

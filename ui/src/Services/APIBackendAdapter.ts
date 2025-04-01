@@ -169,9 +169,9 @@ class APIBackendAdapter implements API {
   }
 
   async getAllQueries(): Promise<KGCoreResult<QuerySpecification.QuerySpecification[]>> {
-      const { data } = await this._axios.get(endpoints.getAllQueries());
-      return data;
-    }
+    const { data } = await this._axios.get(endpoints.getAllQueries());
+    return data;
+  }
 
   async getQuery(queryId: UUID): Promise<QuerySpecification.QuerySpecification> {
     const { data } = await this._axios.get(endpoints.getQuery(queryId));

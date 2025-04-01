@@ -21,18 +21,18 @@
  *
  */
 
+import {faLongArrowAltLeft} from '@fortawesome/free-solid-svg-icons/faLongArrowAltLeft';
+import {faLongArrowAltRight} from '@fortawesome/free-solid-svg-icons/faLongArrowAltRight';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
+import {createUseStyles} from 'react-jss';
 import useStores from '../../../../Hooks/useStores';
 import PropertyTypes from '../../../PropertyTypes';
+import TargetName from './TargetName';
 import Types from './Types';
 import type Field from '../../../../Stores/Field';
-import TargetName from "./TargetName";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLongArrowAltLeft} from "@fortawesome/free-solid-svg-icons/faLongArrowAltLeft";
-import {faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons/faLongArrowAltRight";
-import {createUseStyles} from "react-jss";
 
 
 const useStyles = createUseStyles({

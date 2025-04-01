@@ -26,8 +26,8 @@ import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 
-import Filter from '../../../../Components/Filter';
 import Checkbox from '../../../../Components/Checkbox';
+import Filter from '../../../../Components/Filter';
 import useStores from '../../../../Hooks/useStores';
 
 import Groups from './Properties/Groups';
@@ -63,11 +63,11 @@ const useStyles = createUseStyles({
     position: 'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr auto auto auto auto ',
-//     border: '1px solid var(--bg-color-ui-contrast1)',
+    //     border: '1px solid var(--bg-color-ui-contrast1)',
     height: '100%'
   },
   filterRow: {
-//     position: 'relative',
+    //     position: 'relative',
     display: 'grid',
     alignItems: 'left',
     gridTemplateColumn: '2fr 1fr',
@@ -79,21 +79,21 @@ const useStyles = createUseStyles({
     '& input': {
       marginLeft: 0,
     },
-//     background: 'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
+    //     background: 'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
   },
   body: {
     padding: '0 10px 20px 0'
-//     borderTop: '1px solid var(--bg-color-ui-contrast1)'
+    //     borderTop: '1px solid var(--bg-color-ui-contrast1)'
   },
   advancedPropertiesCheckbox: {
     padding: '10px',
     gridColumn: '2',
     paddingLeft: '1.5em',
-//     borderTop: '1px solid var(--bg-color-ui-contrast1)'
+    //     borderTop: '1px solid var(--bg-color-ui-contrast1)'
   }
 });
 
-  const Properties = observer(() => {
+const Properties = observer(() => {
 
   const classes = useStyles();
 
@@ -122,10 +122,10 @@ const useStyles = createUseStyles({
   const handleChildrenFilterChange = (value: string) => queryBuilderStore.setChildrenFilterValue(value);
 
   const handleToggleAdvancedProperties = () => queryBuilderStore.toggleIncludeAdvancedAttributes();
-//   const handleToggleAdvancedProperties = (event: React.ChangeEvent<HTMLInputElement>) => {
-//       setValue(event.target.checked);
-//       queryBuilderStore.toggleIncludeAdvancedAttributes();
-//     };
+  //   const handleToggleAdvancedProperties = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //       setValue(event.target.checked);
+  //       queryBuilderStore.toggleIncludeAdvancedAttributes();
+  //     };
 
   return (
     <div className={`${classes.container} ${queryBuilderStore.currentField === queryBuilderStore.rootField?'':'has-options'}`}>
@@ -137,7 +137,7 @@ const useStyles = createUseStyles({
         <div className={classes.filterRow}>
           <div className={classes.filter}>
             <Filter value={queryBuilderStore.childrenFilterValue} placeholder="Filter properties"
-                    onChange={handleChildrenFilterChange} className={''}/>
+              onChange={handleChildrenFilterChange} className={''}/>
           </div>
           <div className={classes.advancedPropertiesCheckbox} >
             <Checkbox
@@ -145,7 +145,7 @@ const useStyles = createUseStyles({
               checked={queryBuilderStore.includeAdvancedAttributes}
               onChange={() => handleToggleAdvancedProperties()}
             />
-         </div>
+          </div>
         </div>
         <div className={classes.body}>
           <Scrollbars autoHide>

@@ -14,7 +14,8 @@
 //
 // export const usePageTitle = () => useContext(PageTitleContext);
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react';
 
 // Define the shape of your context
 interface PageTitleContextType {
@@ -31,19 +32,19 @@ interface PageTitleProviderProps {
 }
 
 export const PageTitleProvider = ({ children }: PageTitleProviderProps) => {
-    const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
 
-    return (
-        <PageTitleContext.Provider value={{ title, setTitle }}>
-            {children}
-        </PageTitleContext.Provider>
-    );
+  return (
+    <PageTitleContext.Provider value={{ title, setTitle }}>
+      {children}
+    </PageTitleContext.Provider>
+  );
 };
 
 export const usePageTitle = (): PageTitleContextType => {
-    const context = useContext(PageTitleContext);
-    if (context === undefined) {
-        throw new Error('usePageTitle must be used within a PageTitleProvider');
-    }
-    return context;
+  const context = useContext(PageTitleContext);
+  if (context === undefined) {
+    throw new Error('usePageTitle must be used within a PageTitleProvider');
+  }
+  return context;
 };

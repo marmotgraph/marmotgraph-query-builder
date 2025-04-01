@@ -22,7 +22,7 @@
  */
 
 import { observer } from 'mobx-react-lite';
-import React , { useState } from 'react';
+import React from 'react';
 import { createUseStyles } from 'react-jss';
 
 import useStores from '../../../Hooks/useStores';
@@ -124,15 +124,14 @@ const QueryForm = observer(({ className }: QueryFormProps) => {
       {(queryBuilderStore.isQuerySaved || queryBuilderStore.saveAsMode) && (
         <React.Fragment>
           <div className={classes.label}>
-             <h6>Query name</h6>
-
-              <input
-                className={`form-control ${classes.input}`}
-                disabled={!queryBuilderStore.saveAsMode && !queryBuilderStore.canSaveQuery}
-                type="text"
-                value={queryBuilderStore.label}
-                onChange={handleChangeLabel}
-              />
+            <h6>Query name</h6>
+            <input
+              className={`form-control ${classes.input}`}
+              disabled={!queryBuilderStore.saveAsMode && !queryBuilderStore.canSaveQuery}
+              type="text"
+              value={queryBuilderStore.label}
+              onChange={handleChangeLabel}
+            />
           </div>
           <div className={classes.description}>
             <h6>Description</h6>
@@ -152,12 +151,12 @@ const QueryForm = observer(({ className }: QueryFormProps) => {
         </React.Fragment>
       )}
 
-    <div className={classes.vocab}>
+      <div className={classes.vocab}>
         <Vocab
           defaultValue={queryBuilderStore.defaultResponseVocab}
           value={!!queryBuilderStore.responseVocab}
           onChange={handleChangeVocab}/>
-    </div>
+      </div>
 
       <Links />
     </div>
