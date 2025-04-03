@@ -23,20 +23,17 @@
 
 
 import React from 'react';
-import { createUseStyles } from 'react-jss';
+import {createUseStyles} from 'react-jss';
 import {Link} from 'react-router-dom';
-
 
 
 const useStyles = createUseStyles({
   breadcrumb: {
     display: 'flex',
     listStyle: 'none',
-    padding: 0,
     margin: 0,
     color: 'white',
-    padding: '1rem',
-
+    padding: '1rem'
   },
   breadcrumb_item: {
     display: 'flex',
@@ -44,17 +41,15 @@ const useStyles = createUseStyles({
   }
 });
 
-
-// @ts-expect-error items are not currently typed correctly //FIXME
-const Breadcrumbs = ({ items }) => {
+const Breadcrumbs = (items: Array<Map<string, string>>) => {
   const classes = useStyles();
-
   return (
     <nav aria-label="breadcrumb">
       <ol className={classes.breadcrumb}>
-        {items.map((item, index) => (
+        {items.map((item: Map<string, string>, index: number) => (
           <li key={index} className={`classes.breadcrumb_item ${index === items.length - 1 ? 'active' : ''}`}>
-            {index < items.length - 1 ? <Link to={item.path}>{item.label}</Link> : item.label}
+            {index < items.length - 1 ?
+              <Link to={{pathname: item.get('path')}}>{item.get('label')}</Link> : item.get('label')}
           </li>
         ))}
       </ol>

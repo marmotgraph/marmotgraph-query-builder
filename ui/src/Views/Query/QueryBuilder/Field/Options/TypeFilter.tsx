@@ -29,7 +29,6 @@ import Checkbox from '../../../../../Components/Checkbox';
 
 import useStores from '../../../../../Hooks/useStores';
 import { Type as PropertyType } from '../../../../PropertyTypes';
-import type { ToggleItemValue } from '../../../../../Components/Toggle/types';
 import type { Query } from '../../../../../Types/Query';
 
 const useStyles = createUseStyles({
@@ -81,24 +80,23 @@ const useStyles = createUseStyles({
 
 interface TypeFilterItemProps {
   type: Query.TypeFilter;
-  onClick: (id?: string, selected?: boolean) => void;
+  onChange: (id?: string, selected?: boolean) => void;
 }
 
-const TypeFilterItem = ({ type, onClick }: TypeFilterItemProps) => {
+const TypeFilterItem = ({ type, onChange }: TypeFilterItemProps) => {
 
   const classes = useStyles();
 
-  const handleOnClick = () => onClick(type.id, !type.selected);
+  const handleOnClick = () => onChange(type.id, !type.selected);
 
-  const handleToggleClick = (name?: string, value?:ToggleItemValue) => onClick(name, !!(value as boolean|undefined));
 
   return(
     <div className={`${classes.typeFilter} ${type.isUnknown?'isUnknown':''} ${type.selected?'selected':''}`} onClick={handleOnClick} >
       <PropertyType type={type.id} />
       <div>
         <Checkbox
-          checked={!!type.selected}
-          onChange={handleToggleClick} />
+          checked={type.selected}
+          onChange={handleOnClick} />
         {/* }<Toggle
           option={{
             name: type.id,
@@ -145,7 +143,7 @@ const TypeFilter = observer(() => {
       {queryBuilderStore.currentField.typeFilterEnabled && (
         <div className={classes.panel}>
           {queryBuilderStore.currentField.types.map((type, index) =>
-            <TypeFilterItem key={type.id?type.id:index} type={type} onClick={toggleTypeFilter} />)}
+            <TypeFilterItem key={type.id?type.id:index} type={type} onChange={toggleTypeFilter} />)}
         </div>
       )}
     </div>

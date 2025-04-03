@@ -27,7 +27,7 @@ import React, { useRef, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { createUseStyles } from 'react-jss';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import type { ChangeEvent, KeyboardEvent, RefObject } from 'react';
+import type {ChangeEvent, KeyboardEvent, RefObject } from 'react';
 
 const useStyles = createUseStyles({
   container: {
@@ -45,7 +45,6 @@ const useStyles = createUseStyles({
     border: '1px solid #BCBEC0',
     borderRadius: '6px',
     paddingLeft: '30px',
-    borderRadius: '6px',
     //     backgroundColor: 'var(--bg-color-blend-contrast1)',
     //     '&:focus': {
     //       color: 'var(--ft-color-loud)',
@@ -109,6 +108,13 @@ const Filter = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleClick = () => {
+    if (ref.current && ref.current.value) {
+      onChange(ref.current.value);
+    }
+  };
+
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChange(e.target.value);
 
@@ -126,7 +132,7 @@ const Filter = ({
         value={value}
         placeholder={placeholder}
       />
-      <button className={classes.filterButton} onClick={handleChange}>
+      <button className={classes.filterButton} onClick={handleClick}>
         <FontAwesomeIcon icon={icon}/>
       </button>
     </div>

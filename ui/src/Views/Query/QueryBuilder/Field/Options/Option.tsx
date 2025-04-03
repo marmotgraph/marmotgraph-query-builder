@@ -21,6 +21,7 @@
  *
  */
 
+import {isBoolean} from 'lodash';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
@@ -50,7 +51,7 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
     return (
       showRequired && (
         <Checkbox
-          checked={option.value ?? false}
+          checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Required"
         />
@@ -70,7 +71,7 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
     return (
       showSort && (
         <Checkbox
-          checked={option.value ?? false}
+          checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Sort result by this property"
         /> )
@@ -88,7 +89,7 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
     return (
       showEnsureOrder  && (
         <Checkbox
-          checked={option.value ?? false}
+          checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Ensure original order"
           comment="only applicable if parent field is not flattened"

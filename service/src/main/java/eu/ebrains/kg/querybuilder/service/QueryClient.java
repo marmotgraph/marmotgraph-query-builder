@@ -24,7 +24,7 @@
 package eu.ebrains.kg.querybuilder.service;
 
 import eu.ebrains.kg.querybuilder.constants.SchemaFieldsConstants;
-import eu.ebrains.kg.querybuilder.controller.IdController;
+import org.marmotgraph.commons.controller.IdController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,7 +66,7 @@ public class QueryClient {
         if (queriesResult != null) {
             List<Map<String, Object>> data = (List<Map<String, Object>>) queriesResult.get("data");
             data.forEach(query -> {
-                UUID resolvedQueryId = idController.getSimplifyFullyQualifiedId(query);
+                UUID resolvedQueryId = getSimplifyFullyQualifiedId(query);
                 if (resolvedQueryId != null) {
                     query.put("@id", resolvedQueryId.toString());
                 }
@@ -85,7 +85,7 @@ public class QueryClient {
                 .block();
         if (result != null) {
             Map<String, Object> query = (Map<String, Object>) result.get("data");
-            UUID resolvedQueryId = idController.getSimplifyFullyQualifiedId(query);
+            UUID resolvedQueryId = getSimplifyFullyQualifiedId(query);
             if (resolvedQueryId != null) {
                 query.put("@id", resolvedQueryId.toString());
             }
@@ -161,5 +161,22 @@ public class QueryClient {
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
+    }
+
+
+    private UUID getSimplifyFullyQualifiedId(Map<String, Object> data) {
+        if (data == null) {
+            return null;
+        }
+        String id;
+        try {
+            id = (String) data.get("@id");
+        } catch (ClassCastException exc) {
+            id = null;
+        }
+        if (id == null) {
+            return null;
+        }
+        return idController.simplifyFullyQualifiedId(id);
     }
 }

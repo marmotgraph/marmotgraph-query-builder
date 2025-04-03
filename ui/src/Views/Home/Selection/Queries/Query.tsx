@@ -98,7 +98,7 @@ const Query = observer(({query}: QueryProps) => {
     return type;
   };
 
-  const type = extractType(query.meta.type);
+  const type = query.meta.type ? extractType(query.meta.type) : undefined;
 
   return (
     <div className={classes.container} key={query.id} onClick={handleSelect} >
