@@ -16,10 +16,10 @@
 
 package eu.ebrains.kg.querybuilder.api;
 
+import eu.ebrains.kg.querybuilder.controller.IdController;
 import eu.ebrains.kg.querybuilder.model.KGCoreResult;
 import eu.ebrains.kg.querybuilder.model.UserProfile;
 import eu.ebrains.kg.querybuilder.service.UserClient;
-import org.marmotgraph.commons.controller.IdController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +30,7 @@ import java.util.UUID;
 @RestController
 public class Users {
 
-    private final org.marmotgraph.commons.controller.IdController idController;
+    private final IdController idController;
     private final UserClient userClient;
 
     public Users(IdController idController, UserClient userClient) {

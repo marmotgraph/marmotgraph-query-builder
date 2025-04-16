@@ -142,23 +142,12 @@ const QueryBuilder = observer(() => {
         <Representation className={classes.representation} />
       </div>
 
-      {/*<div className={classes.actions}>*/}
-      {/*  /!* <div>*/}
-      {/*    <Actions />*/}
-      {/*  </div> *!/*/}
-      {/*</div>*/}
-      {/*<Options />*/}
-      {/*<Properties />*/}
-      {/*<p>hello</p>*/}
-      {/* Conditionally render Options and Properties or just the QueryForm */}
       {showQueryForm ? (
         <QueryForm className={classes.form} />
       ) : (
 
         <div className={classes.options}>
-          {/*<div className={classes.actions}>*/}
-          {/*   <Actions /> */}
-          {/*</div>*/}
+
           <Options />
           <Properties />
         </div>

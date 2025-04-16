@@ -48,7 +48,7 @@ const useStyles = createUseStyles({
     transform: 'translateY(1px)'
   },
   reverseLink: {
-    color: 'greenyellow',
+    color: '#6ab04c',
     transform: 'translateY(1px)'
   }
 });

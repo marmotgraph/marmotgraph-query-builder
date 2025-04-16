@@ -37,6 +37,12 @@ const useStyles = createUseStyles({
     borderRadius: '12px',
     padding: '20px',
     marginBottom: '20px',
+    // --col1Width: '1fr',
+    // --col2Width: '1fr',
+    // --col3Width: '2fr',
+  },
+  gridLayout: {
+    width: '100%'
   },
   title: {
     display: 'flex',
@@ -51,7 +57,30 @@ const useStyles = createUseStyles({
       padding: 0,
       fontSize: '1.2rem'
     }
-  }
+  },
+  myQueryHeader: {
+    display: 'grid',
+    gridTemplateColumns: '3fr 2fr 2fr',
+    borderBottom: '1px solid #eee',
+    padding: '8px 0',
+    h5: {
+      margin: '0',
+      fontWeight: '600',
+    }
+  },
+
+  queryList :{
+    width: '100%'
+  },
+
+/* Ensure the Query component also uses the same grid layout */
+/* You would need to apply this class to your Query component */
+queryItem :{
+  display: 'grid',
+  gridTemplateColumns: '3fr 2fr 2fr',
+  padding: '8px 0',
+  borderBottom: '1px solid #eee',
+}
 });
 
 interface ListProps {
@@ -67,16 +96,21 @@ const List = observer(({  list }: ListProps) => {
 
   return (
     <div className={classes.container}>
-      {/* <div className={classes.title}>
-        <h4>{title} --</h4>
-      </div> */}
-
-      {list.map(query => (
-        <Query
-          key={query.id}
-          query={query}
-        />
-      ))}
+      <div className={classes.gridLayout}>
+        <div className={classes.myQueryHeader}>
+          <h5>Type</h5>
+          <h5>Space</h5>
+          <h5>Query title</h5>
+        </div>
+        <div className={classes.queryList}>
+          {list.map(query => (
+            <Query
+              key={query.id}
+              query={query}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 });

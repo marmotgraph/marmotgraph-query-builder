@@ -29,45 +29,48 @@ import Commit from './Commit';
 import Copyright from './Copyright';
 import Logo from './Logo';
 import Nav from './Nav';
+import PoweredBy from './PoweredBy';
 
 import type { ReactNode } from 'react';
 import type { DefaultTheme, Styles } from 'react-jss';
 
 
+const useStyles = createUseStyles(() => {
 
-const useStyles = createUseStyles(() => ({
-  container: {
-    background: '#F9F9F9',
-    height: '100vh',
-    display: 'grid',
-    overflow: 'hidden',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: 'auto 1fr 20px',
-  },
-  header: {
-    position: 'relative',
-    display: 'grid',
-    gridTemplateRows: '1fr',
-    gridTemplateColumns: 'auto 1fr',
-    background: 'white',
-    color: 'var(--ft-color-loud)',
-  },
-  main: {
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  footer: {
-    position: 'relative',
-    display: 'grid',
-    gridTemplateRows: '1fr',
-    gridTemplateColumns: '1fr auto',
-    background: 'var(--bg-color-ui-contrast1)',
-    color: 'var(--ft-color-loud)',
-    padding: '0 10px'
-  }
-} as Styles));
+  return {
+    container: {
+      background: '#F9F9F9',
+      height: '100vh',
+      display: 'grid',
+      overflow: 'hidden',
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: 'auto 1fr 50px',
+    },
+    header: {
+      position: 'relative',
+      display: 'grid',
+      gridTemplateRows: '1fr',
+      gridTemplateColumns: 'auto 1fr',
+      background: 'white',
+      color: 'var(--ft-color-loud)',
+    },
+    main: {
+      position: 'relative',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    footer: {
+      position: 'relative',
+      display: 'grid',
+      gridTemplateRows: '2fr',
+      gridTemplateColumns: '1fr 1fr auto',
+      background: 'var(--bg-color-ui-contrast1)',
+      color: '#F9F9F9',
+      padding: '10px'
+    }
+  } as Styles;
+});
 
 interface LayoutProps {
   children?: ReactNode;
@@ -86,10 +89,10 @@ const Layout = ({ children }: LayoutProps) => {
         <Nav />
       </header>
       <main className={classes.main}>
-        <h1>{title}</h1>
         {children}
       </main>
       <footer className={classes.footer}>
+        <PoweredBy />
         <Copyright />
         <Commit />
       </footer>

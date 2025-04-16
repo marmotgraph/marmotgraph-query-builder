@@ -42,32 +42,32 @@ const useStyles = createUseStyles({
     '&:firstChild': {
       borderTop: '1px solid #E6E6E6',
     },
-    color:'var(--ft-color-normal)',
+    color: 'var(--ft-color-normal)',
     '&:hover': {
       background: '#F0F0F0'
     },
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 2fr',
+    gridTemplateColumns: '2fr 2fr 2fr',
     gridGap: '10px',
   },
   name: {
-    //     position: 'relative',
+//     position: 'relative',
     width: '100%',
-    //     display: 'inline-block',
+//     display: 'inline-block',
     color:'var(--ft-color-louder)',
     textTransform: 'capitalize',
     '& small': {
-      color:'var(--ft-color-quiet)',
-      fontStyle:'italic',
+      color: 'var(--ft-color-quiet)',
+      fontStyle: 'italic',
       textTransform: 'none'
     }
   },
   description: {
-    overflow:'hidden',
-    marginTop:'5px',
-    whiteSpace:'nowrap',
-    textOverflow:'ellipsis',
-    fontSize:'0.9em'
+    overflow: 'hidden',
+    marginTop: '5px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '0.9em'
   }
 });
 
@@ -110,13 +110,16 @@ const Query = observer(({query}: QueryProps) => {
       <div>
         {query.space}
       </div>
-      <div><h6>{query.label?query.label:query.id}</h6>
+      <div>
+        <h6>{query.label ? query.label : query.id}</h6>
         {query.description && (
-          <div className={classes.description} title={query.description}>{query.description}</div>
-        )}</div>
+            <div className={classes.description} title={query.description}>{query.description}</div>
+        )}
+      </div>
     </div>
   );
 });
+
 Query.displayName = 'Query';
 
 export default Query;
