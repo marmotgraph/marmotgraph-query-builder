@@ -31,7 +31,8 @@ const useStyles = createUseStyles({
     left: '0',
     width: '100%',
     height: '100%',
-    background: 'var(--bg-color-blend-contrast1)',
+    background: 'white',
+
     zIndex: '1200',
     '& > div': {
       position: 'absolute',

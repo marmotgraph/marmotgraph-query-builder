@@ -73,26 +73,6 @@ const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) =>
         }
     }
 
-    // const navigate = useNavigate();
-    //
-    // const queryParams = new URLSearchParams(location.search);
-    // const typeId = queryParams.get('type');
-    // const instanceId = queryParams.get('instanceId');
-    // useEffect(() => {
-    //     const type = typeId && typeStore.types.get(typeId);
-    //     if (type) {
-    //         localStorage.setItem('type', type.id);
-    //         queriesStore.toggleShowSavedQueries(false);
-    //         queriesStore.clearQueries();
-    //         queryBuilderStore.setType(type);
-    //         const uuid = uuidv4();
-    //         if (instanceId) {
-    //             queryRunStore.setInstanceId(instanceId);
-    //         }
-    //         navigate(`/queries/${uuid}`,  { replace: true });
-    //     } else {
-    //         navigate('/', { replace: true });
-    //     }
     return (
         <Modal show={show} className={classes.container}>
             <Modal.Header closeButton>
