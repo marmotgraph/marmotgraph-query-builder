@@ -52,7 +52,8 @@ const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) =>
   const navigate = useNavigate();
   const [selectedTypeId, setSelectedTypeId] = useState('');
   const {typeStore, queryBuilderStore} = useStores();
-  const typeArray = Array.from(typeStore.types, ([id, type]) => ({id, ...type}));
+
+  const typeArray = Array.from(typeStore.types, ([key, type]) => ({key, ...type}));
 
   const handleChange = (e: { target: { value: any; }; }) => {
     const selectedId = e.target.value;
