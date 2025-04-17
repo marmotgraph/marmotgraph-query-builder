@@ -27,7 +27,7 @@ import React from 'react';
 
 const Copyright = observer(() => {
   //const {appStore} = useStores();
-  const logo = '/api/theme/logo?darkMode=false';
+  const logo = '/assets/marmotgraph_dark.svg';
   return (
     <div>
       <span>PoweredBy </span>
