@@ -51,9 +51,9 @@ const useStyles = createUseStyles({
     gridGap: '10px',
   },
   name: {
-//     position: 'relative',
+    //     position: 'relative',
     width: '100%',
-//     display: 'inline-block',
+    //     display: 'inline-block',
     color:'var(--ft-color-louder)',
     textTransform: 'capitalize',
     '& small': {
@@ -113,7 +113,7 @@ const Query = observer(({query}: QueryProps) => {
       <div>
         <h6>{query.label ? query.label : query.id}</h6>
         {query.description && (
-            <div className={classes.description} title={query.description}>{query.description}</div>
+          <div className={classes.description} title={query.description}>{query.description}</div>
         )}
       </div>
     </div>

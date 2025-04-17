@@ -73,14 +73,14 @@ const useStyles = createUseStyles({
     width: '100%'
   },
 
-/* Ensure the Query component also uses the same grid layout */
-/* You would need to apply this class to your Query component */
-queryItem :{
-  display: 'grid',
-  gridTemplateColumns: '3fr 2fr 2fr',
-  padding: '8px 0',
-  borderBottom: '1px solid #eee',
-}
+  /* Ensure the Query component also uses the same grid layout */
+  /* You would need to apply this class to your Query component */
+  queryItem :{
+    display: 'grid',
+    gridTemplateColumns: '3fr 2fr 2fr',
+    padding: '8px 0',
+    borderBottom: '1px solid #eee',
+  }
 });
 
 interface ListProps {

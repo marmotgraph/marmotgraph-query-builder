@@ -107,10 +107,10 @@ const ExecutionResult = observer(({ data }: ResultProps) => {
       <div className={classes.result}>
         <Scrollbars autoHide>
           <ReactJson
-              collapsed={isExpanded ? false : 1}
-              name={false}
-              theme={ThemeRJV}
-              src={data}
+            collapsed={isExpanded ? false : 1}
+            name={false}
+            theme={ThemeRJV}
+            src={data}
           />
         </Scrollbars>
       </div>

@@ -21,15 +21,14 @@
  *
  */
 
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uniqueId from 'lodash/uniqueId';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleChevronDown, faCircleChevronRight, faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
+import {createUseStyles} from 'react-jss';
 import Field from '../Field';
 import type { FieldProps } from '../Field';
-import {createUseStyles} from "react-jss";
 
 interface ChildrenProps extends FieldProps {
   className: string;
@@ -81,24 +80,24 @@ const Children = observer(({ field, className }: ChildrenProps) => {
   }
 
   return (
-      <div className={className}>
-        <div className={classes.treeToggleContainer}>
-          <button
-              className={classes.treeToggleButton}
-              onClick={toggleExpand}
-              title={isExpanded ? "Collapse" : "Expand"}
-          >
-            <FontAwesomeIcon
-                icon={isExpanded ? faChevronDown : faChevronRight}
-                size="sm"
-            />
-          </button>
-        </div>
-
-        {isExpanded && field.structure.map(structureField => (
-            <Field field={structureField} key={uniqueId('field_')} />
-        ))}
+    <div className={className}>
+      <div className={classes.treeToggleContainer}>
+        <button
+          className={classes.treeToggleButton}
+          onClick={toggleExpand}
+          title={isExpanded ? 'Collapse' : 'Expand'}
+        >
+          <FontAwesomeIcon
+            icon={isExpanded ? faChevronDown : faChevronRight}
+            size="sm"
+          />
+        </button>
       </div>
+
+      {isExpanded && field.structure.map(structureField => (
+        <Field field={structureField} key={uniqueId('field_')} />
+      ))}
+    </div>
   );
 });
 

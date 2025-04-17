@@ -24,86 +24,85 @@
 
 import React, {useState} from 'react';
 import {createUseStyles} from 'react-jss';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import {v4 as uuidv4} from 'uuid';
-import NewQueryModal from "./Query/QueryBuilder/NewQueryModal";
+import NewQueryModal from './Query/QueryBuilder/NewQueryModal';
 
 
 const useStyles = createUseStyles({
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between', // Pushes elements apart
-        padding: '16px',
-    },
-    buttonContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px', // Adds spacing between the link and button
-        marginLeft: 'auto', // Moves it to the right
-    },
-    link: {
-        color: '#007bff', // Blue like a standard link
-        textDecoration: 'underline',
-        fontSize: '14px',
-        cursor: 'pointer',
-        background: 'none',
-        border: 'none',
-        padding: '0',
-        marginRight: '20px',
-    },
-    linkButton: {
-        display: 'inline-block',
-        textDecoration: 'none',
-        boxSizing: 'border-box',
-        width: '150px',
-        height: '34px',
-        lineHeight: '32px',
-        textAlign: 'center',
-        borderRadius: '6px',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-    },
-    primary: {
-        background: '#2E2E2E',
-        border: '1px solid #E6E7E8',
-        color: '#F5F5F5',
-    },
-    secondary: {
-        border: '1px solid #2E2E2E',
-        color: '#2E2E2E',
-        marginRight: '10px',
-    },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Pushes elements apart
+    padding: '16px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px', // Adds spacing between the link and button
+    marginLeft: 'auto', // Moves it to the right
+  },
+  link: {
+    color: '#007bff', // Blue like a standard link
+    textDecoration: 'underline',
+    fontSize: '14px',
+    cursor: 'pointer',
+    background: 'none',
+    border: 'none',
+    padding: '0',
+    marginRight: '20px',
+  },
+  linkButton: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    boxSizing: 'border-box',
+    width: '150px',
+    height: '34px',
+    lineHeight: '32px',
+    textAlign: 'center',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+  },
+  primary: {
+    background: '#2E2E2E',
+    border: '1px solid #E6E7E8',
+    color: '#F5F5F5',
+  },
+  secondary: {
+    border: '1px solid #2E2E2E',
+    color: '#2E2E2E',
+    marginRight: '10px',
+  },
 });
 
 const MyQueriesHeader = () => {
-    const classes = useStyles();
-    const [showModal, setShowModal] = useState(false);
+  const classes = useStyles();
+  const [showModal, setShowModal] = useState(false);
 
 
-    const hideModal = () => {
-        setShowModal(false);
-    }
+  const hideModal = () => {
+    setShowModal(false);
+  };
 
-    return (
-        <>
-            <header className={classes.header}>
-                {/* Buttons */}
-                <div className={classes.buttonContainer}>
-                    <Link to="/queries" className={classes.link}>
+  return (
+    <>
+      <header className={classes.header}>
+        {/* Buttons */}
+        <div className={classes.buttonContainer}>
+          <Link to="/queries" className={classes.link}>
                         Select shared query
-                    </Link>
-                    <button className={`${classes.linkButton} ${classes.primary}`}
-                            onClick={() => setShowModal(true)}>
-                        <span>Create a new query</span>
-                    </button>
-                </div>
-            </header>
-            <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}></NewQueryModal>
-        </>
-    );
+          </Link>
+          <button className={`${classes.linkButton} ${classes.primary}`}
+            onClick={() => setShowModal(true)}>
+            <span>Create a new query</span>
+          </button>
+        </div>
+      </header>
+      <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/>
+    </>
+  );
 };
 
 export default MyQueriesHeader;
