@@ -24,7 +24,6 @@
 import React from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 
-import { usePageTitle } from '../Contexts/PageTitleContext';
 import Commit from './Commit';
 import Copyright from './Copyright';
 import Logo from './Logo';
@@ -35,42 +34,39 @@ import type { ReactNode } from 'react';
 import type { DefaultTheme, Styles } from 'react-jss';
 
 
-const useStyles = createUseStyles(() => {
-
-  return {
-    container: {
-      background: '#F9F9F9',
-      height: '100vh',
-      display: 'grid',
-      overflow: 'hidden',
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: 'auto 1fr 50px',
-    },
-    header: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '1fr',
-      gridTemplateColumns: 'auto 1fr',
-      background: 'white',
-      color: 'var(--ft-color-loud)',
-    },
-    main: {
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    footer: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '2fr',
-      gridTemplateColumns: '1fr 1fr auto',
-      background: 'var(--bg-color-ui-contrast1)',
-      color: '#F9F9F9',
-      padding: '10px'
-    }
-  } as Styles;
-});
+const useStyles = createUseStyles(() => ({
+  container: {
+    background: '#F9F9F9',
+    height: '100vh',
+    display: 'grid',
+    overflow: 'hidden',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: 'auto 1fr 50px',
+  },
+  header: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '1fr',
+    gridTemplateColumns: 'auto 1fr',
+    background: 'white',
+    color: 'var(--ft-color-loud)',
+  },
+  main: {
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  footer: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '2fr',
+    gridTemplateColumns: '1fr 1fr auto',
+    background: 'var(--bg-color-ui-contrast1)',
+    color: '#F9F9F9',
+    padding: '10px'
+  }
+} as Styles));
 
 interface LayoutProps {
   children?: ReactNode;
@@ -80,7 +76,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   const theme = useTheme<DefaultTheme>();
   const classes = useStyles({ theme });
-  const {title} = usePageTitle();
+  //const {title} = usePageTitle();
 
   return (
     <div className={classes.container}>

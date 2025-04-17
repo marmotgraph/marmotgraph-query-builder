@@ -23,19 +23,18 @@
 
 import {observer} from 'mobx-react-lite';
 import React from 'react';
-import useStores from '../Hooks/useStores';
 
 
 const Copyright = observer(() => {
-    const {appStore} = useStores();
-    const logo = '/api/theme/logo?darkMode=true';
-    return (
-        <div>
-            <span>PoweredBy </span>
-            <img src={logo} alt="" height="30"/>
-        </div>
-        // <div className="copyright">Copyright &copy; {new Date().getFullYear()} {appStore.copyright}</div>
-    );
+  //const {appStore} = useStores();
+  const logo = '/api/theme/logo?darkMode=false';
+  return (
+    <div>
+      <span>PoweredBy </span>
+      <img src={logo} alt="" height="30"/>
+    </div>
+  // <div className="copyright">Copyright &copy; {new Date().getFullYear()} {appStore.copyright}</div>
+  );
 });
 
 export default Copyright;

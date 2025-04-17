@@ -78,10 +78,10 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
 
   // Using a more generic type
   const pageTitles: {[key: string]: string} = {
-      '/': 'My queries',
-      '/queries': 'Shared queries',
-      '/queries/:id': 'Query builder',
-      // Add more as needed
+    '/': 'My queries',
+    '/queries': 'Shared queries',
+    '/queries/:id': 'Query builder',
+    // Add more as needed
   };
 
   const PageTitle = () => {
@@ -95,53 +95,53 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-        <PageTitleProvider>
-      <Styles />
-      <APIProvider api={api}>
-        <AuthProvider adapter={authAdapter} >
-          <StoresProvider stores={stores}>
-            <Layout>
-              {appStore.globalError?
-                <GlobalError />
-                :
-                <Settings authAdapter={authAdapter}>
-                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                    <Routes>
-                      <Route path={'/logout'} element={<Logout />}/>
-                      <Route path={'*'} element={
-                        <Authenticate >
-                          <UserProfile>
-                            <Spaces>
-                              <Types>
-                                <Shortcuts />
-                                <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                                  {/*<Breadcrumbs items={breadcrumbItems} /> */}
-                                  {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
-                                  <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
-                                  <Routes>
-                                    <Route path="/" element={<QueryHome />} />
-                                    <Route path="queries" element={<Home />} />
-                                    <Route path="queries/:id" element={<Query mode="build" />} />
-                                    <Route path="queries/:id/edit" element={<Query mode="edit" />} />
-                                    <Route path="queries/:id/execute" element={<Query mode="execute" />} />
-                                    <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
-                                    <Route path="*" element={<Navigate to="/" replace={true} />} />
-                                  </Routes>
-                                </Suspense>
-                              </Types>
-                            </Spaces>
-                          </UserProfile>
-                        </Authenticate>
-                      }/>
-                    </Routes>
-                  </Suspense>
-                </Settings>
-              }
-            </Layout>
-          </StoresProvider>
-        </AuthProvider>
-      </APIProvider>
-        </PageTitleProvider>
+      <PageTitleProvider>
+        <Styles />
+        <APIProvider api={api}>
+          <AuthProvider adapter={authAdapter} >
+            <StoresProvider stores={stores}>
+              <Layout>
+                {appStore.globalError?
+                  <GlobalError />
+                  :
+                  <Settings authAdapter={authAdapter}>
+                    <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                      <Routes>
+                        <Route path={'/logout'} element={<Logout />}/>
+                        <Route path={'*'} element={
+                          <Authenticate >
+                            <UserProfile>
+                              <Spaces>
+                                <Types>
+                                  <Shortcuts />
+                                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                                    {/*<Breadcrumbs items={breadcrumbItems} /> */}
+                                    {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
+                                    <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
+                                    <Routes>
+                                      <Route path="/" element={<QueryHome />} />
+                                      <Route path="queries" element={<Home />} />
+                                      <Route path="queries/:id" element={<Query mode="build" />} />
+                                      <Route path="queries/:id/edit" element={<Query mode="edit" />} />
+                                      <Route path="queries/:id/execute" element={<Query mode="execute" />} />
+                                      <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
+                                      <Route path="*" element={<Navigate to="/" replace={true} />} />
+                                    </Routes>
+                                  </Suspense>
+                                </Types>
+                              </Spaces>
+                            </UserProfile>
+                          </Authenticate>
+                        }/>
+                      </Routes>
+                    </Suspense>
+                  </Settings>
+                }
+              </Layout>
+            </StoresProvider>
+          </AuthProvider>
+        </APIProvider>
+      </PageTitleProvider>
     </ThemeProvider>
   );
 });

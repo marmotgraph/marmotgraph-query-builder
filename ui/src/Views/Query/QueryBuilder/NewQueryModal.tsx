@@ -23,23 +23,22 @@
 
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import {createUseStyles} from 'react-jss';
-
 import Modal from 'react-bootstrap/Modal';
-import useStores from "../../../Hooks/useStores";
+import {createUseStyles} from 'react-jss';
+import {useNavigate} from 'react-router-dom';
 import {v4 as uuidv4} from 'uuid';
-import {useNavigate} from "react-router-dom";
+import useStores from '../../../Hooks/useStores';
 
 const useStyles = createUseStyles({
-    container: {
-        '& h5': {
-            margin: '0',
-            paddingBottom: '20px'
-        },
-        '& button + button, & a + button, & a + a': {
-            marginLeft: '20px'
-        }
+  container: {
+    '& h5': {
+      margin: '0',
+      paddingBottom: '20px'
+    },
+    '& button + button, & a + button, & a + a': {
+      marginLeft: '20px'
     }
+  }
 });
 
 interface NewQueryModalProps {
@@ -49,66 +48,65 @@ interface NewQueryModalProps {
 }
 
 const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) => {
-    const classes = useStyles();
-    const navigate = useNavigate();
-    const [selectedTypeId, setSelectedTypeId] = useState('');
-    const {typeStore, queryBuilderStore, queriesStore, queryRunStore} = useStores();
-    // @ts-ignore
-    const typeArray = Array.from(typeStore.types, ([id, type]) => ({id, ...type}));
+  const classes = useStyles();
+  const navigate = useNavigate();
+  const [selectedTypeId, setSelectedTypeId] = useState('');
+  const {typeStore, queryBuilderStore} = useStores();
+  const typeArray = Array.from(typeStore.types, ([id, type]) => ({id, ...type}));
 
-    const handleChange = (e: { target: { value: any; }; }) => {
-        const selectedId = e.target.value;
-        setSelectedTypeId(selectedId);
-    };
+  const handleChange = (e: { target: { value: any; }; }) => {
+    const selectedId = e.target.value;
+    setSelectedTypeId(selectedId);
+  };
 
-    const onCreate = () => {
-        const type = selectedTypeId && typeStore.types.get(selectedTypeId);
-        if (type) {
-            localStorage.setItem('type', type.id);
-            queryBuilderStore.setType(type);
-            const uuid = uuidv4();
+  const onCreate = () => {
+    const type = selectedTypeId && typeStore.types.get(selectedTypeId);
+    if (type) {
+      localStorage.setItem('type', type.id);
+      queryBuilderStore.setType(type);
+      const uuid = uuidv4();
 
-            navigate(`/queries/${uuid}`, {replace: true});
-            onCreateSuccess()
-        }
+      navigate(`/queries/${uuid}`, {replace: true});
+      onCreateSuccess();
     }
+  };
 
-    return (
-        <Modal show={show} className={classes.container}>
-            <Modal.Header closeButton>
+  return (
+    <Modal show={show} className={classes.container}>
+      <Modal.Header closeButton>
                 Select a type
-            </Modal.Header>
-            <Modal.Body>
-                <div>
-                    <select
-                        id="type-select"
-                        className="form-select"
-                        value={selectedTypeId}
-                        onChange={handleChange}
-                    >
-                        <option value="">-- Select a Type --</option>
-                        {typeArray.map(type => (
-                            <option
-                                key={type.id}
-                                value={type.id}
-                                style={{color: type.color || 'inherit'}}
-                            >
-                                {type.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onCancel}>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          <select
+            id="type-select"
+            className="form-select"
+            value={selectedTypeId}
+            onChange={handleChange}
+          >
+            <option value="">-- Select a Type --</option>
+            {typeArray.map(type => (
+              <option
+                key={type.id}
+                value={type.id}
+                style={{color: type.color || 'inherit'}}
+              >
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onCancel}>
                     Cancel
-                </Button>
-                <Button variant={'primary'} onClick={onCreate}>
+        </Button>
+        <Button variant={'primary'} onClick={onCreate}>
                     Confirm
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    );
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
 export default NewQueryModal;
