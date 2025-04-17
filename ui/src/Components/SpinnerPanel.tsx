@@ -28,7 +28,8 @@ import Spinner from './Spinner';
 
 const useStyles = createUseStyles({
   container: {
-    height: '100%'
+    height: '100%',
+    backgroundColor: '#FFFFFF'
   },
   panel: {
     position: 'fixed',
