@@ -31,7 +31,7 @@ const theme: Theme = {
       // colorEnd: '#4895a4',
       // angle: '165deg'
     },
-    image: '/api/theme/background?darkMode=true',
+    image: '/api/theme/background?darkMode=false',
     size: 'cover'
   },
   contrast1: {
