@@ -102,6 +102,7 @@ const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) =>
                 <div>
                     <select
                         id="type-select"
+                        className="form-select"
                         value={selectedTypeId}
                         onChange={handleChange}
                     >
