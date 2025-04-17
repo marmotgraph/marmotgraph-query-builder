@@ -23,7 +23,7 @@
 
 import ReactJson from '@microlink/react-json-view';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState }  from 'react';
 import Button from 'react-bootstrap/Button';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
@@ -39,15 +39,20 @@ const useStyles = createUseStyles({
     gridTemplateRows: 'auto 1fr',
     height: '100%',
     color: 'var(--ft-color-loud)',
-    background: 'linear-gradient(90deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.8) 100%)',
+    background: 'white',
+    // background: 'linear-gradient(90deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.8) 100%)',
     border: '1px solid var(--border-color-ui-contrast1)',
     '& .react-json-view': {
-      backgroundColor: 'rgba(0,0,0,0.3) !important'
+      backgroundColor: 'white !important',
+      // backgroundColor: 'rgba(0,0,0,0.3) !important'
     }
   },
   toggle: {
     textAlign: 'right',
     padding: '10px 10px 0 0'
+  },
+  expandButton: {
+    marginRight: '10px'
   },
   result: {
     padding: '10px'
@@ -75,7 +80,13 @@ const ExecutionResult = observer(({ data }: ResultProps) => {
 
   const classes = useStyles();
 
-  const handeDownload = () => download(JSON.stringify(data));
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  const handleDownload = () => download(JSON.stringify(data));
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   if (!data) {
     return null;
@@ -86,17 +97,20 @@ const ExecutionResult = observer(({ data }: ResultProps) => {
     <div className={classes.container}>
       <div className={classes.toggle}>
         <span className={classes.executionTime}>Took {executionTime}.</span>
-        <Button variant="secondary" onClick={handeDownload}>
+        <Button variant="secondary" onClick={handleExpand} className={classes.expandButton}>
+          {isExpanded ? 'Collapse All' : 'Expand All'}
+        </Button>
+        <Button variant="secondary" onClick={handleDownload}>
           Download
         </Button>
       </div>
       <div className={classes.result}>
         <Scrollbars autoHide>
           <ReactJson
-            collapsed={1}
-            name={false}
-            theme={ThemeRJV}
-            src={data}
+              collapsed={isExpanded ? false : 1}
+              name={false}
+              theme={ThemeRJV}
+              src={data}
           />
         </Scrollbars>
       </div>

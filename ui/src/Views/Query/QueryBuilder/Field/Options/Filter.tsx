@@ -44,15 +44,16 @@ const useStyles = createUseStyles({
   },
   panel: {
     position: 'relative',
-    padding: '10px',
-    border: '1px solid rgb(108, 117, 125)',
+    padding: '20px 0',
+    // border: '1px solid rgb(108, 117, 125)',
     '&:after': {
       content: '"Filter"',
       position: 'absolute',
-      top: '-11px',
+      top: '0',
       left: '5px',
-      backgroundColor: '#282828',
-      padding: '0 5px'
+      fontWeight: 'bold',
+      // backgroundColor: '#282828',
+      // padding: '0 10px',
     }
   },
   select: {
@@ -92,7 +93,7 @@ const useStyles = createUseStyles({
     marginTop: '10px'
   },
   label: {
-    width: '75px',
+    // width: '75px',
     lineHeight: '2.2rem',
     textAlign: 'right'
   },

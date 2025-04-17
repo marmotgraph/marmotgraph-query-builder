@@ -61,6 +61,9 @@ const useStyles = createUseStyles({
       background: 'rgba(145, 145, 145, 0.2)',
     },
   },
+  typeId: {
+    wordWrap: 'break-word',
+  },
   selected: {},
   nextIcon: {
     position: 'absolute',
@@ -130,7 +133,7 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
     <div tabIndex={-1} ref={ref as RefObject<HTMLDivElement>} className={`${classes.container} ${type.id === queryBuilderStore.typeId?classes.selected:''}`} onClick={handleClick} onKeyDown={handleKeyDown}>
       <Icon icon={faCircle} color={type.color}/>
       {label}
-      <br/><small>{type.id}</small>
+      <br/><small className={classes.typeId}>{type.id}</small>
       <div className={classes.nextIcon} >
         <FontAwesomeIcon icon={faChevronRight} size="xs" />
       </div>

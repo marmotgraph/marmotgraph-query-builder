@@ -62,9 +62,8 @@ export const Type = ({ type }: TypeProps) => {
   const t = typeStore.types.get(type);
   const label = t ? t.label : extractLabel(type);
   const color = t?.color;
-
   return (
-    <span title={typeof type === 'string' ? type : JSON.stringify(type)}>
+    <span title={type}>
       <Icon icon={faCircle} color={color} />
       {label}
     </span>

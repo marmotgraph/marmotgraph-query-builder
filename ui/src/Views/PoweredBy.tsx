@@ -21,54 +21,21 @@
  *
  */
 
+import {observer} from 'mobx-react-lite';
 import React from 'react';
-import { createUseStyles } from 'react-jss';
+import useStores from '../Hooks/useStores';
 
-import Spinner from './Spinner';
 
-const useStyles = createUseStyles({
-  container: {
-    height: '100%'
-  },
-  panel: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    zIndex: 10000,
-    background: 'white',
-    '& .spinnerPanel': {
-      width: 'auto',
-      padding: '30px',
-      border: '1px solid var(--border-color-ui-contrast1)',
-      borderRadius: '4px',
-      color: 'var(--ft-color-loud)',
-      background: 'white'
-    }
-  }
+const Copyright = observer(() => {
+    const {appStore} = useStores();
+    const logo = '/api/theme/logo?darkMode=true';
+    return (
+        <div>
+            <span>PoweredBy </span>
+            <img src={logo} alt="" height="30"/>
+        </div>
+        // <div className="copyright">Copyright &copy; {new Date().getFullYear()} {appStore.copyright}</div>
+    );
 });
 
-interface SpinnerPanelProps {
-  text: string;
-  show?: boolean;
-}
-
-const SpinnerPanel = ({ text, show }: SpinnerPanelProps) => {
-
-  const classes = useStyles();
-
-  if (show === false) {
-    return null;
-  }
-
-  return (
-    <div className={classes.container}>
-      <div className={classes.panel}>
-        <Spinner>{text}</Spinner>
-      </div>
-    </div>
-  );
-};
-
-export default SpinnerPanel;
+export default Copyright;

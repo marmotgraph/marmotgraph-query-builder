@@ -76,24 +76,12 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     setShowWelcomeTip(false);
   };
 
-  // const breadcrumbItems = [
-  //     { label: 'Home', path: '/' },
-  //   ];
-  //
-  // const handleButton1Click = () => {
-  //     console.log('Button 1 clicked');
-  //   };
-  //
-  // const handleButton2Click = () => {
-  //     console.log('Button 2 clicked');
-  //   };
-
   // Using a more generic type
   const pageTitles: {[key: string]: string} = {
-    '/': 'My queries',
-    '/queries': 'Shared queries',
-    '/queries/:id': 'Query builder',
-    // Add more as needed
+      '/': 'My queries',
+      '/queries': 'Shared queries',
+      '/queries/:id': 'Query builder',
+      // Add more as needed
   };
 
   const PageTitle = () => {
@@ -102,63 +90,58 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     const matchingRoute = Object.keys(pageTitles).find(pattern =>
       matchPath({ path: pattern }, location.pathname)
     );
-    return <h1 className="container">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h1>;
+    return <h3 className="container">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
   };
-
-  // const PageTitle = () => {
-  //     const location = useLocation();
-  //     return <h1 className={'container'}>{pageTitles[location.pathname] || 'Query builder'}</h1>;
-  // };
 
   return (
     <ThemeProvider theme={theme}>
-      <PageTitleProvider>
-        <Styles />
-        <APIProvider api={api}>
-          <AuthProvider adapter={authAdapter} >
-            <StoresProvider stores={stores}>
-              <Layout>
-                {appStore.globalError?
-                  <GlobalError />
-                  :
-                  <Settings authAdapter={authAdapter}>
-                    <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                      <Routes>
-                        <Route path={'/logout'} element={<Logout />}/>
-                        <Route path={'*'} element={
-                          <Authenticate >
-                            <UserProfile>
-                              <Spaces>
-                                <Types>
-                                  <Shortcuts />
-                                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                                    {/*<Breadcrumbs items={breadcrumbItems} /> */}
-                                    {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
-                                    <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
-                                    <Routes>
-                                      <Route path="/" element={<QueryHome />} />
-                                      <Route path="queries" element={<Home />} />
-                                      <Route path="queries/:id" element={<Query mode="build" />} />
-                                      <Route path="queries/:id/edit" element={<Query mode="edit" />} />
-                                      <Route path="queries/:id/execute" element={<Query mode="execute" />} />
-                                      <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
-                                      <Route path="*" element={<Navigate to="/" replace={true} />} />
-                                    </Routes>
-                                  </Suspense>
-                                </Types>
-                              </Spaces>
-                            </UserProfile>
-                          </Authenticate>
-                        }/>
-                      </Routes>
-                    </Suspense>
-                  </Settings>
-                }
-              </Layout>
-            </StoresProvider>
-          </AuthProvider>
-        </APIProvider>
-      </PageTitleProvider>
+        <PageTitleProvider>
+      <Styles />
+      <APIProvider api={api}>
+        <AuthProvider adapter={authAdapter} >
+          <StoresProvider stores={stores}>
+            <Layout>
+              {appStore.globalError?
+                <GlobalError />
+                :
+                <Settings authAdapter={authAdapter}>
+                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                    <Routes>
+                      <Route path={'/logout'} element={<Logout />}/>
+                      <Route path={'*'} element={
+                        <Authenticate >
+                          <UserProfile>
+                            <Spaces>
+                              <Types>
+                                <Shortcuts />
+                                <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                                  {/*<Breadcrumbs items={breadcrumbItems} /> */}
+                                  {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
+                                  <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
+                                  <Routes>
+                                    <Route path="/" element={<QueryHome />} />
+                                    <Route path="queries" element={<Home />} />
+                                    <Route path="queries/:id" element={<Query mode="build" />} />
+                                    <Route path="queries/:id/edit" element={<Query mode="edit" />} />
+                                    <Route path="queries/:id/execute" element={<Query mode="execute" />} />
+                                    <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
+                                    <Route path="*" element={<Navigate to="/" replace={true} />} />
+                                  </Routes>
+                                </Suspense>
+                              </Types>
+                            </Spaces>
+                          </UserProfile>
+                        </Authenticate>
+                      }/>
+                    </Routes>
+                  </Suspense>
+                </Settings>
+              }
+            </Layout>
+          </StoresProvider>
+        </AuthProvider>
+      </APIProvider>
+        </PageTitleProvider>
     </ThemeProvider>
   );
 });
