@@ -24,7 +24,7 @@
 package eu.ebrains.kg.querybuilder.service;
 
 import eu.ebrains.kg.querybuilder.constants.SchemaFieldsConstants;
-import eu.ebrains.kg.querybuilder.controller.IdController;
+import org.marmotgraph.commons.controller.IdController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
