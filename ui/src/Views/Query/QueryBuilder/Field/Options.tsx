@@ -35,8 +35,9 @@ import type { QuerySpecification } from '../../../../Types/QuerySpecification';
 
 const useStyles = createUseStyles({
   container: {
-    background: '#FFFFFF',
-    boxShadow: '0px 4px 4px #E6E7E8',
+    background: 'var(--bg-color-ui-contrast2)',
+    // background: '#FFFFFF',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
     borderRadius: '12px',
     padding: '20px',
     height: '100%',

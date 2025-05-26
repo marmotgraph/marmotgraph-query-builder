@@ -29,7 +29,7 @@ import useAuth from '../Hooks/useAuth';
 import useStores from '../Hooks/useStores';
 
 import MyQueriesHeader from './MyQueriesHeader';
-// import ThemeSwitcher from './Home/ThemeSwitcher';
+import ThemeSwitcher from './Home/ThemeSwitcher';
 import UserProfileTab from './UserProfileTab';
 
 const useStyles = createUseStyles({
@@ -37,7 +37,8 @@ const useStyles = createUseStyles({
     display: 'grid',
     gridTemplateRows: '1fr',
     gridTemplateColumns: '1fr auto',
-    alignItems: 'right'
+    alignItems: 'right',
+    background:'var(--bg-color-ui-background)',
   },
   fixedTabsLeft: {
     display: 'grid',
@@ -71,7 +72,7 @@ const Nav = observer(() => {
   const classes = useStyles();
 
   const { isAuthenticated } = useAuth();
-  const { appStore, userProfileStore, spacesStore, typeStore } = useStores();
+  const { appStore, userProfileStore} = useStores();
 
   if (appStore.globalError) {
     return null;
@@ -94,7 +95,7 @@ const Nav = observer(() => {
 {/*       </div> */}
       <div className={classes.fixedTabsRight}>
         <MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />
-        {/*<ThemeSwitcher />*/}
+        <ThemeSwitcher />
         {isAuthenticated && !!userProfileStore.user && (
           <UserProfileTab className={classes.userProfileTab} />
         )}

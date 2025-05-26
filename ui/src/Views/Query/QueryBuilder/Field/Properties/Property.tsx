@@ -41,7 +41,7 @@ const useStyles = createUseStyles({
     fontWeight: 'normal',
     padding: '10px',
     margin: '1px',
-    borderBottom: '1px solid #E6E7E8',
+    borderBottom: 'var(--border-separator)',
     '&:last-of-type': {
       borderBottom: 'transparent',
     },
@@ -66,19 +66,36 @@ const useStyles = createUseStyles({
     gap: '10px', // Adds spacing between the button and other elements if needed
   },
   addProperty: {
-    background: '#F5F5F5',
-    marginLeft: 'auto',
-    borderRadius: '6px',
+    backgroundColor: 'var(--cta-secondary-bg)',
+    color: 'var(--cta-secondary-text)',
+    border: `1px solid var(--cta-secondary-border)`,
+    borderRadius: 'var(--cta-secondary-border-radius)',
+    fontWeight: 500,
+    transition: 'all 0.2s ease',
     cursor: 'pointer',
-    /* Button style  */
-    boxSizing: 'border-box',
     height: '34px',
-    border: '1px solid #2E2E2E',
     padding: '0 7px',
     '&:hover': {
-      //       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
-      background: '#F0F0F0'
-    }
+      backgroundColor: 'var(--cta-secondary-hover-bg)',
+    },
+
+    '&:active': {
+      backgroundColor: 'var(--cta-secondary-active-bg)',
+    },
+
+    // background: '#F5F5F5',
+    // marginLeft: 'auto',
+    // borderRadius: '6px',
+    // cursor: 'pointer',
+    // /* Button style  */
+    // boxSizing: 'border-box',
+    // height: '34px',
+    // border: '1px solid #2E2E2E',
+    // padding: '0 7px',
+    // '&:hover': {
+    //   //       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
+    //   background: '#F0F0F0'
+    // }
   },
   reverseLink: {
     color: 'greenyellow',

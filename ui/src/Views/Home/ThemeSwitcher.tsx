@@ -35,10 +35,10 @@ const useStyles = createUseStyles({
   container:{
     width: '50px',
     height: '50px',
-    lineHeight: '41px',
+    lineHeight: '50px',
     color: 'var(--ft-color-normal)',
-    background: 'var(--bg-color-ui-contrast2)',
-    border: '1px solid var(--border-color-ui-contrast2)',
+    // background: 'var(--bg-color-ui-contrast2)',
+    // border: '1px solid var(--border-color-ui-contrast2)',
     borderLeft: 'none',
     textAlign: 'center',
     // paddingTop: '35px'
@@ -56,9 +56,12 @@ const ThemeSwitcher = observer(() => {
 
   const { appStore } = useStores();
 
+  console.log('Theme: ' + appStore.currentTheme.name);
+
   const handleClick = () => {
     // Toggle theme between "default" and "bright"
     const newTheme = appStore.currentTheme.name === 'bright' ? 'default' : 'bright';
+    console.log('New theme: ' + newTheme);
     appStore.setTheme(newTheme);
   };
 

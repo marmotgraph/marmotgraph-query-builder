@@ -45,10 +45,12 @@ const useStyles = createUseStyles({
     color: 'var(--ft-color-normal)',
     //     border: '1px solid var(--border-color-ui-contrast2)',
     overflow: 'hidden',
-    paddingBottom: '20px'
+    marginLeft: '20px'
   },
   filter: {
+    paddingRight: '15px',
     border: 0,
+    width: 'auto'
     //     background:
     //       'linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
   },

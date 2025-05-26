@@ -46,8 +46,9 @@ const useStyles = createUseStyles({
   container: {
     /* Shared_queries_box */
     color: 'var(--ft-color-loud)',
-    background: '#FFFFFF',
-    boxShadow: '0px 4px 4px #E6E7E8',
+    background: 'var(--bg-color-ui-contrast1)',
+    // background: '#FFFFFF',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
     borderRadius: '12px',
     //     padding: '10px',
     margin: '20px',

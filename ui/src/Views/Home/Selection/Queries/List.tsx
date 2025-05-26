@@ -26,16 +26,19 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import Query from './Query';
 import type { Query as QueryProps } from '../../../../Types/Query';
-
+import {Scrollbars} from "react-custom-scrollbars-2";
 
 const useStyles = createUseStyles({
   container: {
-    color: 'var(--ft-color-loud)',
     /* Shared_queries_box */
-    background: '#FFFFFF',
-    boxShadow: '0px 4px 4px #E6E7E8',
+    // background: '#FFFFFF',
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast1)',
+    // boxShadow: '0px 4px 4px #E6E7E8',
+    boxShadow: 'var(--box-shadow-ui-medium)',
     borderRadius: '12px',
     padding: '20px',
+    // marginTop: '20px',
     marginBottom: '20px',
     // --col1Width: '1fr',
     // --col2Width: '1fr',
@@ -49,7 +52,7 @@ const useStyles = createUseStyles({
     marginBottom: '10px',
     paddingBottom: '10px',
     paddingTop: '20px',
-    borderBottom: '1px solid var(--border-color-ui-contrast5)',
+    borderBottom: 'var(--border-separator)',
     '& h4': {
       flex: 1,
       display: 'inline-block',
@@ -61,7 +64,7 @@ const useStyles = createUseStyles({
   myQueryHeader: {
     display: 'grid',
     gridTemplateColumns: '3fr 2fr 2fr',
-    borderBottom: '1px solid #eee',
+    borderBottom: 'var(--border-separator)',
     padding: '8px 0',
     h5: {
       margin: '0',
@@ -70,7 +73,8 @@ const useStyles = createUseStyles({
   },
 
   queryList :{
-    width: '100%'
+    width: '100%',
+    height: 'calc(100vh - 300px)'
   },
 
   /* Ensure the Query component also uses the same grid layout */
@@ -80,6 +84,13 @@ const useStyles = createUseStyles({
     gridTemplateColumns: '3fr 2fr 2fr',
     padding: '8px 0',
     borderBottom: '1px solid #eee',
+  },
+  emptyList: {
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast1)',
+    borderRadius: '12px',
+    padding: '100px',
+    marginTop:'50px'
   }
 });
 
@@ -95,23 +106,37 @@ const List = observer(({  list }: ListProps) => {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.gridLayout}>
-        <div className={classes.myQueryHeader}>
-          <h5>Type</h5>
-          <h5>Space</h5>
-          <h5>Query title</h5>
-        </div>
-        <div className={classes.queryList}>
-          {list.map(query => (
-            <Query
-              key={query.id}
-              query={query}
-            />
-          ))}
-        </div>
+      <div>
+        {list && list.length > 0 ? (
+          <div className={classes.container}>
+            <div className={classes.gridLayout}>
+              <div className={classes.myQueryHeader}>
+                <h5>Type</h5>
+                <h5>Space</h5>
+                <h5>Query title</h5>
+              </div>
+
+              <div className={classes.queryList}>
+                <Scrollbars autoHide>
+                  {list.map(query => (
+                    <Query
+                      key={query.id}
+                      query={query}
+                    />
+                  ))}
+                </Scrollbars>
+              </div>
+            </div>
+          </div>
+        ) : (
+           <div className={classes.emptyList}>
+             <h4>You have no saved queries.</h4>
+             <p>
+             Your query list is currently empty. You can browse shared queries or create a new one.
+             </p>
+           </div>
+        )}
       </div>
-    </div>
   );
 });
 List.displayName = 'List';

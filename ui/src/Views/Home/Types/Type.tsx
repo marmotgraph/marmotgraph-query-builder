@@ -38,7 +38,7 @@ import type {KeyboardEvent, RefObject} from 'react';
 const useStyles = createUseStyles({
   container: {
     position: 'relative',
-    margin: '4px 1px',
+    // margin: '4px 1px',
     padding: '15px 10px',
     color: 'var(--ft-color-loud)',
     fontSize: '1.2em',
@@ -51,14 +51,25 @@ const useStyles = createUseStyles({
     //       color: 'var(--ft-color-quiet)',
     //       fontStyle: 'italic'
     //     },
+  },
+  listItem: {
+    padding: '12px 16px',
+    borderBottom: 'var(--border-separator)',
+    transition: 'all 0.2s ease',
+    borderLeft: '3px solid transparent',
+    cursor: 'pointer',
+
     '&:hover': {
-      background: 'rgba(145, 145, 145, 0.4)',
+      backgroundColor: 'var(--list-hover-bg)',
+      borderLeftColor: 'var(--list-hover-border)',
+      color: 'var(--list-hover-text)',
       '& $nextIcon': {
         color: 'var(--ft-color-loud)'
       }
     },
     '&$selected': {
-      background: 'rgba(145, 145, 145, 0.2)',
+      // background: 'rgba(145, 145, 145, 0.2)',
+      background: 'var(--bg-color-ui-contrast4)'
     },
   },
   typeId: {
@@ -115,6 +126,7 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
       queriesStore.toggleShowSavedQueries(false);
       queriesStore.clearQueries();
       queryBuilderStore.setType(type);
+      console.log('Logging: ' + queryBuilderStore.type)
     }
   };
 
@@ -130,7 +142,7 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
   const label = getTypeLabel(type);
 
   return (
-    <div tabIndex={-1} ref={ref as RefObject<HTMLDivElement>} className={`${classes.container} ${type.id === queryBuilderStore.typeId?classes.selected:''}`} onClick={handleClick} onKeyDown={handleKeyDown}>
+    <div tabIndex={-1} ref={ref as RefObject<HTMLDivElement>} className={`${classes.container} ${classes.listItem} ${type.id === queryBuilderStore.typeId?classes.selected:''}`} onClick={handleClick} onKeyDown={handleKeyDown}>
       <Icon icon={faCircle} color={type.color}/>
       {label}
       <br/><small className={classes.typeId}>{type.id}</small>

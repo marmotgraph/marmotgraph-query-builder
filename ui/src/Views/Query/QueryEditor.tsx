@@ -48,7 +48,6 @@ const useStyles = createUseStyles({
   },
   body:{
     color:'var(--ft-color-loud)',
-
     padding:'10px'
   },
   actions: {
