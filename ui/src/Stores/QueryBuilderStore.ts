@@ -75,6 +75,7 @@ class QueryBuilderStore {
   rootField?: Field;
   savedQueryHasInconsistencies = false;
   saveAsMode = false;
+  showSaveModal = false;
   childrenFilterValue = '';
   fromQueryId?: string;
   fromLabel = '';
@@ -138,6 +139,8 @@ class QueryBuilderStore {
       selectQuery: action,
       cancelChanges: action,
       setSaveAsMode: action,
+      showSaveModal: observable,
+      setShowSaveModal: action,
       setLabel: action,
       setSpace: action,
       setQuerySaved: action,
@@ -836,6 +839,10 @@ class QueryBuilderStore {
       this.fromDescription = '';
       this.fromSpace = toJS(this.rootStore.spacesStore.privateSpace);
     }
+  }
+
+  setShowSaveModal(mode: boolean) { // Add this method
+    this.showSaveModal = mode;
   }
 
   setLabel(label: string) {
