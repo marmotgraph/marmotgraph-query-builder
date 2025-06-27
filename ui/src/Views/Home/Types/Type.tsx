@@ -126,7 +126,7 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
       queriesStore.toggleShowSavedQueries(false);
       queriesStore.clearQueries();
       queryBuilderStore.setType(type);
-      console.log('Logging: ' + queryBuilderStore.type)
+      console.log('Logging: ' + queryBuilderStore.type);
     }
   };
 

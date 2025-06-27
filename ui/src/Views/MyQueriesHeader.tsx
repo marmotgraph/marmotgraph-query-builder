@@ -30,129 +30,114 @@ import NewQueryModal from './Query/QueryBuilder/NewQueryModal';
 
 
 const useStyles = createUseStyles({
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between', // Pushes elements apart
-        padding: '16px',
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Pushes elements apart
+    padding: '16px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px', // Adds spacing between the link and button
+    marginLeft: 'auto', // Moves it to the right
+  },
+  link: {
+    color: 'var(--link-color-default)',
+    '& hover': {
+      color: 'var(--link-color-hover)',
+      textDecoration: 'var(--link-decoration-hover)',
     },
-    buttonContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px', // Adds spacing between the link and button
-        marginLeft: 'auto', // Moves it to the right
+    '& visited': {
+      color: 'var(--link-color-visited)',
     },
-    link: {
-        color: 'var(--link-color-default)',
-        '& hover': {
-          color: 'var(--link-color-hover)',
-          textDecoration: 'var(--link-decoration-hover)',
-        },
-        '& visited': {
-          color: 'var(--link-color-visited)',
-        },
-        '& active': {
-          color: 'var(--link-color-active)'
-        },
-        // color: '#007bff', // Blue like a standard link
-        textDecoration: 'underline',
-        // fontSize: '14px',
-        // cursor: 'pointer',
-        // background: 'none',
-        border: 'none',
-        // padding: '0',
-        marginRight: '20px',
+    '& active': {
+      color: 'var(--link-color-active)'
     },
-    linkButton: {
-        display: 'inline-block',
-        textDecoration: 'none',
-        boxSizing: 'border-box',
-        width: '150px',
-        height: '34px',
-        lineHeight: '32px',
-        textAlign: 'center',
-        borderRadius: '6px',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-    },
-    primary: {
-        backgroundColor: 'var(--cta-primary-bg)',
-        color: 'var(--cta-primary-text)',
-        borderRadius: 'var(--cta-primary-border-radius)',
-        boxShadow: 'var(--cta-primary-box-shadow)',
-        border: 'none',
-        fontWeight: 500,
-        transition: 'background-color 0.2s ease',
-        cursor: 'pointer',
+    textDecoration: 'underline',
+    border: 'none',
+    marginRight: '20px',
+  },
+  linkButton: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    boxSizing: 'border-box',
+    width: '150px',
+    height: '34px',
+    lineHeight: '32px',
+    textAlign: 'center',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+  },
+  primary: {
+    backgroundColor: 'var(--cta-primary-bg)',
+    color: 'var(--cta-primary-text)',
+    borderRadius: 'var(--cta-primary-border-radius)',
+    boxShadow: 'var(--cta-primary-box-shadow)',
+    border: 'none',
+    fontWeight: 500,
+    transition: 'background-color 0.2s ease',
+    cursor: 'pointer',
 
-        '&:hover': {
-            backgroundColor: 'var(--cta-primary-hover-bg)',
-        },
-
-        '&:active': {
-            backgroundColor: 'var(--cta-primary-active-bg)',
-        },
-        // color: 'var(--ft-color-loud)',
-        // background: 'var(--bg-color-ui-contrast2)',
-        // // background: '#2E2E2E',
-        // border: '1px solid var(--bg-color-ui-contrast2)',
-        // color: '#F5F5F5',
+    '&:hover': {
+      backgroundColor: 'var(--cta-primary-hover-bg)',
     },
-    secondary: {
-        backgroundColor: 'var(--cta-secondary-bg)',
-        color: 'var(--cta-secondary-text)',
-        border: `1px solid var(--cta-secondary-border)`,
-        borderRadius: 'var(--cta-secondary-border-radius)',
-        fontWeight: 500,
-        transition: 'all 0.2s ease',
-        cursor: 'pointer',
 
-        '&:hover': {
-            backgroundColor: 'var(--cta-secondary-hover-bg)',
-        },
-
-        '&:active': {
-            backgroundColor: 'var(--cta-secondary-active-bg)',
-        }
-        // color: 'var(--ft-color-loud)',
-        // background: 'var(--bg-color-ui-contrast2)',
-        // border: '1px solid var(--bg-color-ui-contrast2)',
-        // // color: '#2E2E2E',
-        // marginRight: '10px',
+    '&:active': {
+      backgroundColor: 'var(--cta-primary-active-bg)',
     },
+  },
+  secondary: {
+    backgroundColor: 'var(--cta-secondary-bg)',
+    color: 'var(--cta-secondary-text)',
+    border: '1px solid var(--cta-secondary-border)',
+    borderRadius: 'var(--cta-secondary-border-radius)',
+    fontWeight: 500,
+    transition: 'all 0.2s ease',
+    cursor: 'pointer',
+
+    '&:hover': {
+      backgroundColor: 'var(--cta-secondary-hover-bg)',
+    },
+
+    '&:active': {
+      backgroundColor: 'var(--cta-secondary-active-bg)',
+    }
+  },
 });
 
-interface MyQueriesHeaderProps {
-    title?: string
-}
+// interface MyQueriesHeaderProps {
+//     // empty for the moment.
+// }
 
-const MyQueriesHeader = ({title}: MyQueriesHeaderProps) => {
-    const classes = useStyles();
-    const [showModal, setShowModal] = useState(false);
+const MyQueriesHeader = () => {  // No props needed
+  const classes = useStyles();
+  const [showModal, setShowModal] = useState(false);
 
 
-    const hideModal = () => {
-        setShowModal(false);
-    };
+  const hideModal = () => {
+    setShowModal(false);
+  };
 
-    return (
-        <>
-            <header className={classes.header}>
-                {/* Buttons */}
-                <div className={classes.buttonContainer}>
-                    <Link to="/queries" className={classes.link}>
+  return (
+    <>
+      <header className={classes.header}>
+        {/* Buttons */}
+        <div className={classes.buttonContainer}>
+          <Link to="/queries" className={classes.link}>
                         Select shared query
-                    </Link>
-                    <button className={`${classes.linkButton} ${classes.primary}`}
-                            onClick={() => setShowModal(true)}>
-                        <span>Create a new query</span>
-                    </button>
-                </div>
-            </header>
-            <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/>
-        </>
-    );
+          </Link>
+          <button className={`${classes.linkButton} ${classes.primary}`}
+            onClick={() => setShowModal(true)}>
+            <span>Create a new query</span>
+          </button>
+        </div>
+      </header>
+      <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/>
+    </>
+  );
 };
 
 export default MyQueriesHeader;

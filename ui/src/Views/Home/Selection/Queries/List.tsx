@@ -23,10 +23,10 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import {Scrollbars} from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 import Query from './Query';
 import type { Query as QueryProps } from '../../../../Types/Query';
-import {Scrollbars} from "react-custom-scrollbars-2";
 
 const useStyles = createUseStyles({
   container: {
@@ -106,37 +106,37 @@ const List = observer(({  list }: ListProps) => {
   }
 
   return (
-      <div>
-        {list && list.length > 0 ? (
-          <div className={classes.container}>
-            <div className={classes.gridLayout}>
-              <div className={classes.myQueryHeader}>
-                <h5>Type</h5>
-                <h5>Space</h5>
-                <h5>Query title</h5>
-              </div>
+    <div>
+      {list && list.length > 0 ? (
+        <div className={classes.container}>
+          <div className={classes.gridLayout}>
+            <div className={classes.myQueryHeader}>
+              <h5>Type</h5>
+              <h5>Space</h5>
+              <h5>Query title</h5>
+            </div>
 
-              <div className={classes.queryList}>
-                <Scrollbars autoHide>
-                  {list.map(query => (
-                    <Query
-                      key={query.id}
-                      query={query}
-                    />
-                  ))}
-                </Scrollbars>
-              </div>
+            <div className={classes.queryList}>
+              <Scrollbars autoHide>
+                {list.map(query => (
+                  <Query
+                    key={query.id}
+                    query={query}
+                  />
+                ))}
+              </Scrollbars>
             </div>
           </div>
-        ) : (
-           <div className={classes.emptyList}>
-             <h4>You have no saved queries.</h4>
-             <p>
+        </div>
+      ) : (
+        <div className={classes.emptyList}>
+          <h4>You have no saved queries.</h4>
+          <p>
              Your query list is currently empty. You can browse shared queries or create a new one.
-             </p>
-           </div>
-        )}
-      </div>
+          </p>
+        </div>
+      )}
+    </div>
   );
 });
 List.displayName = 'List';

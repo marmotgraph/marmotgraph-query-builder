@@ -49,7 +49,7 @@ const getUseStyles = () => createUseStyles((theme: Jss.Theme) => {
         '--border-width-separator': appTheme.separator.borderWidth || '1px',
         '--border-style-separator': appTheme.separator.borderStyle || 'solid',
 
-        '--border-separator': `var(--border-width-separator) var(--border-style-separator) var(--border-color-separator)`,
+        '--border-separator': 'var(--border-width-separator) var(--border-style-separator) var(--border-color-separator)',
 
         '--box-shadow-ui-subtle': appTheme.shadowSubtle.boxShadow,
         '--box-shadow-ui-medium': appTheme.shadowMedium.boxShadow,
@@ -165,47 +165,47 @@ const getUseStyles = () => createUseStyles((theme: Jss.Theme) => {
       color: 'var(--link-color-active)',
     },
     '.list-item': {
-        padding: '12px 16px',
-        borderBottom: 'var(--border-separator)',
-        transition: 'var(--list-item-transition)',
-        borderLeft: '3px solid transparent',
-        cursor: 'pointer',
-      },
+      padding: '12px 16px',
+      borderBottom: 'var(--border-separator)',
+      transition: 'var(--list-item-transition)',
+      borderLeft: '3px solid transparent',
+      cursor: 'pointer',
+    },
 
-      '.list-item:hover': {
-        backgroundColor: 'var(--list-hover-bg)',
-        borderLeftColor: 'var(--list-hover-border)',
-        color: 'var(--list-hover-text)',
-      },
+    '.list-item:hover': {
+      backgroundColor: 'var(--list-hover-bg)',
+      borderLeftColor: 'var(--list-hover-border)',
+      color: 'var(--list-hover-text)',
+    },
 
-      '.list-item.selected': {
-        backgroundColor: 'var(--list-selected-bg)',
-        borderLeftColor: 'var(--list-selected-border)',
-        color: 'var(--list-selected-text)',
-      },
+    '.list-item.selected': {
+      backgroundColor: 'var(--list-selected-bg)',
+      borderLeftColor: 'var(--list-selected-border)',
+      color: 'var(--list-selected-text)',
+    },
 
-      // For list items that are links
-      '.list-item-link': {
-        display: 'block',
-        color: 'var(--ft-color-normal)',
-        textDecoration: 'none',
-        padding: '12px 16px',
-        borderBottom: 'var(--border-separator)',
-        transition: 'var(--list-item-transition)',
-        borderLeft: '3px solid transparent',
-      },
+    // For list items that are links
+    '.list-item-link': {
+      display: 'block',
+      color: 'var(--ft-color-normal)',
+      textDecoration: 'none',
+      padding: '12px 16px',
+      borderBottom: 'var(--border-separator)',
+      transition: 'var(--list-item-transition)',
+      borderLeft: '3px solid transparent',
+    },
 
-      '.list-item-link:hover': {
-        backgroundColor: 'var(--list-hover-bg)',
-        borderLeftColor: 'var(--list-hover-border)',
-        color: 'var(--list-hover-text)',
-      },
+    '.list-item-link:hover': {
+      backgroundColor: 'var(--list-hover-bg)',
+      borderLeftColor: 'var(--list-hover-border)',
+      color: 'var(--list-hover-text)',
+    },
 
-      '.list-item-link.selected': {
-        backgroundColor: 'var(--list-selected-bg)',
-        borderLeftColor: 'var(--list-selected-border)',
-        color: 'var(--list-selected-text)',
-      }
+    '.list-item-link.selected': {
+      backgroundColor: 'var(--list-selected-bg)',
+      borderLeftColor: 'var(--list-selected-border)',
+      color: 'var(--list-selected-text)',
+    }
   };
 
   if (appTheme.name === 'cupcake') {

@@ -68,7 +68,7 @@ const useStyles = createUseStyles({
   addProperty: {
     backgroundColor: 'var(--cta-secondary-bg)',
     color: 'var(--cta-secondary-text)',
-    border: `1px solid var(--cta-secondary-border)`,
+    border: '1px solid var(--cta-secondary-border)',
     borderRadius: 'var(--cta-secondary-border-radius)',
     fontWeight: 500,
     transition: 'all 0.2s ease',

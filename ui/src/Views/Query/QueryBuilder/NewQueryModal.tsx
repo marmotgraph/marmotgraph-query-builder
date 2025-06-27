@@ -55,7 +55,7 @@ const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) =>
 
   const typeArray = Array.from(typeStore.types, ([key, type]) => ({key, ...type}));
 
-  const handleChange = (e: { target: { value: any; }; }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = e.target.value;
     setSelectedTypeId(selectedId);
   };

@@ -1,8 +1,9 @@
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {observer} from 'mobx-react-lite';
 import React, { useState } from 'react';
 import {createUseStyles} from 'react-jss';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import useStores from '../../../Hooks/useStores';
 
@@ -12,7 +13,6 @@ import RequiredFlag from './Field/RequiredFlag';
 
 import Type from './Field/Type';
 import type FieldClass from '../../../Stores/Field';
-import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons/faExclamationTriangle";
 
 // Modified Children implementation that doesn't add additional chevrons
 const ModifiedChildren = ({field, className}: {field: FieldClass, className: string}) => {
@@ -270,22 +270,22 @@ const Field = observer(({field}: FieldProps) => {
           <div className={classes.fieldWrapper}>
             {renderChevron()}
             { hasWarning && (
-                <div
-                    className={classes.warningIconWrapper}
-                    onMouseEnter={() => setShowTooltip(true)}
-                    onMouseLeave={() => setShowTooltip(false)}
-                    onFocus={() => setShowTooltip(true)}
-                    onBlur={() => setShowTooltip(false)}
-                    aria-label={`Warning: ${warningMessage}`}
-                >
-                  <FontAwesomeIcon icon={faExclamationTriangle} />
+              <div
+                className={classes.warningIconWrapper}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+                onFocus={() => setShowTooltip(true)}
+                onBlur={() => setShowTooltip(false)}
+                aria-label={`Warning: ${warningMessage}`}
+              >
+                <FontAwesomeIcon icon={faExclamationTriangle} />
 
-                  {showTooltip && (
-                      <div className={classes.tooltip}>
-                        {warningMessage}
-                      </div>
-                  )}
-                </div>
+                {showTooltip && (
+                  <div className={classes.tooltip}>
+                    {warningMessage}
+                  </div>
+                )}
+              </div>
             )}
             <div className={classes.fieldContent}>
               <ChildrenFlag field={field}/>

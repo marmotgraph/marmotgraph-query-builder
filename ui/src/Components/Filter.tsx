@@ -79,7 +79,7 @@ const useStyles = createUseStyles({
       backgroundColor: 'var(--cta-primary-active-bg)',
     },
   }}
-  );
+);
 
 interface FilterProps {
   value: string;

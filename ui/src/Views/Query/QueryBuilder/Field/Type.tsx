@@ -90,8 +90,8 @@ const Type = observer(({ field }: TypeProps) => {
           </div>
           {/*<FontAwesomeIcon icon={icon} className={iconClassName} title={title} />*/}
           <span className={classes.attribute}
-                title={field.schema?.attribute} // Full URL shown on hover
-                aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+            title={field.schema?.attribute} // Full URL shown on hover
+            aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
           >
             (` ${attributeNameSpace} `)
           </span>
@@ -105,7 +105,7 @@ const Type = observer(({ field }: TypeProps) => {
   if (field.parent) {
     return (
       <div title={field.schema?.attribute} // Full URL shown on hover
-           aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+        aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
       >
         <FontAwesomeIcon icon={icon} className={iconClassName} title={title} />
         &nbsp; {field.schema?.label} <TargetName field={field} /> &nbsp;
