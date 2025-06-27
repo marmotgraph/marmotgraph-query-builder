@@ -31,7 +31,6 @@ import useStores from '../../../Hooks/useStores';
 
 const useStyles = createUseStyles({
   container: {
-    // background: 'red',
     '& h5': {
       margin: '0',
       paddingBottom: '20px'
