@@ -35,8 +35,9 @@ import type { KeyboardEvent} from 'react';
 const useStyles = createUseStyles({
   container: {
     marginTop: '10px',
-    background: '#FFFFFF',
-    boxShadow: '0px 4px 4px #E6E7E8',
+    margin: '20px',
+    background: 'var(--bg-color-ui-contrast1)',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
     borderRadius: '12px',
     padding: '10px',
     position: 'relative',
@@ -54,7 +55,7 @@ const useStyles = createUseStyles({
     //       'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
   },
   body: {
-    borderTop: '1px solid #E6E7E8',
+    borderTop: 'var(--border-separator)',
   },
   content: {
     padding: '0 10px'

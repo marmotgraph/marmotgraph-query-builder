@@ -30,6 +30,7 @@ import type { UserProfile } from '../types';
 
 const useStyles = createUseStyles({
   avatar: {
+    color: 'var(--ft-color-normal)',
     verticalAlign: 'middle',
     '&.picture': {
       border: 0,

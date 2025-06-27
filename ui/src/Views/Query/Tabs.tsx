@@ -42,7 +42,7 @@ const useStyles = createUseStyles({
     gridTemplateRows: 'auto auto auto 1fr auto auto auto auto', // Last row pushes itself to the bottom
     height: '100%',
     borderRadius: '12px 0px 0px 12px',
-    borderRight: '1px solid #E6E7E8',
+    borderRight: 'var(--border-separator)',
 
     '& button': {
       '& span': {display: 'none'},
@@ -63,12 +63,15 @@ const useStyles = createUseStyles({
 
       '&:hover': {
         background: 'var(--list-bg-hover)',
-        color: '#F5F5F5',
+        color: 'var(--ft-color-loud)',
+        // color: '#F5F5F5',
         opacity: '1'
       },
       '&.active': {
-        background: '#2E2E2E',
-        color: '#F5F5F5',
+        color: 'var(--ft-color-loud)',
+        background: 'var(--bg-color-ui-contrast2)',
+        // background: '#2E2E2E',
+        // color: '#F5F5F5',
         opacity: '1'
       },
       '&.disabled, &.disabled:hover':{
@@ -96,12 +99,15 @@ const useStyles = createUseStyles({
     textAlign: 'center',
     '&:hover': {
       background: 'var(--list-bg-hover)',
-      color: '#F5F5F5',
+      color: 'var(--ft-color-loud)',
+      // color: '#F5F5F5',
       opacity: '1'
     },
     '&.active': {
-      background: '#2E2E2E',
-      color: '#F5F5F5',
+      color: 'var(--ft-color-loud)',
+      background: 'var(--bg-color-ui-contrast2)',
+      // background: '#2E2E2E',
+      // color: '#F5F5F5',
       opacity: '1'
     },
     '&.disabled, &.disabled:hover':{

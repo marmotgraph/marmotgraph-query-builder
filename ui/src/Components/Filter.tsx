@@ -39,10 +39,11 @@ const useStyles = createUseStyles({
   },
   input: {
     flex: '1',
+    background: 'var(--bg-color-ui-contrast4)',
     color: 'var(--ft-color-loud)',
     width: 'calc(100% - 100px)',
     margin: '10px',
-    border: '1px solid #BCBEC0',
+    border: 'var(--border-color-ui-contrast5)',
     borderRadius: '6px',
     paddingLeft: '30px',
     //     backgroundColor: 'var(--bg-color-blend-contrast1)',
@@ -64,18 +65,21 @@ const useStyles = createUseStyles({
     justifyContent: 'center',
     padding: '8px 12px',
     border: 'none',
-    borderRadius: '6px',
-    backgroundColor: '#E6E7E8',
-    color: '#ffffff',
+    borderRadius: 'var(--cta-primary-border-radius)',
+    backgroundColor: 'var(--cta-primary-bg)',
+    color: 'var(--cta-primary-text)',
+    boxShadow: 'var(--cta-primary-box-shadow)',
+    fontWeight: 500,
+    transition: 'background-color 0.2s ease',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
     '&:hover': {
-      backgroundColor: '#218838',
+      backgroundColor: 'var(--cta-primary-hover-bg)',
     },
     '&:active': {
-      backgroundColor: '#1e7e34',
-    }
-  }});
+      backgroundColor: 'var(--cta-primary-active-bg)',
+    },
+  }}
+  );
 
 interface FilterProps {
   value: string;

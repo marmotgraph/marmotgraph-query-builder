@@ -36,21 +36,47 @@ import Representation from './QueryBuilder/Representation';
 
 const useStyles = createUseStyles({
   settingsButton: {
-    border: '1px solid #BCBEC0',
-    borderRadius: '6px',
-    width: '30px',
-    height: '32px',
+    backgroundColor: 'transparent',
+    color: 'var(--ft-color-normal)',
+    border: 'none',
+    borderRadius: '6px', // or '50%' for a perfectly round button
+    width: '40px',
+    height: '40px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    background: 'transparent', // Optional: Remove background if needed
+    justifyContent: 'center',
     cursor: 'pointer',
-    marginLeft: 'auto',
-    marginTop: '5px',
-    marginRight: '5px',
+    transition: 'all 0.2s ease',
+
+    '&:hover': {
+      backgroundColor: 'var(--bg-color-ui-contrast2)',
+      color: 'var(--ft-color-loud)',
+    },
+
+    '&:active': {
+      backgroundColor: 'var(--bg-color-ui-contrast3)',
+    },
+
+    '& i': {
+      fontSize: '16px', // Adjust icon size as needed
+    },
+
+    // border: '1px solid #BCBEC0',
+    // borderRadius: '6px',
+    // width: '30px',
+    // height: '32px',
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'flex-end',
+    // background: 'transparent', // Optional: Remove background if needed
+    // cursor: 'pointer',
+    // marginLeft: 'auto',
+    // marginTop: '5px',
+    // marginRight: '5px',
   },
   container: {
-    background: '#F6F6F6',
+    // background: '#F6F6F6',
+    background:'var(--bg-color-ui-contrast1)',
     position: 'relative',
     flex: 1,
     display: 'grid',
@@ -65,8 +91,9 @@ const useStyles = createUseStyles({
     padding: '20px 15px 15px 20px'
   },
   body:{
-    background: '#FFFFFF',
-    borderRight: '1px solid #E6E7E8',
+    background:'var(--bg-color-ui-contrast1)',
+    // background: '#FFFFFF',
+    borderRight: 'var(--border-separator)',
     position: 'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr auto',

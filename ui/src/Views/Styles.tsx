@@ -34,6 +34,8 @@ const getUseStyles = () => createUseStyles((theme: Jss.Theme) => {
         '--bg-gradient-end':appTheme.background.gradient.colorEnd,
         '--bg-gradient-angle':appTheme.background.gradient.angle,
 
+        '--bg-color-ui-background':appTheme.background.color,
+
         '--bg-color-ui-contrast1':appTheme.contrast1.backgroundColor,
         '--bg-color-ui-contrast2':appTheme.contrast2.backgroundColor,
         '--bg-color-ui-contrast3':appTheme.contrast3.backgroundColor,
@@ -43,12 +45,57 @@ const getUseStyles = () => createUseStyles((theme: Jss.Theme) => {
         '--border-color-ui-contrast2':appTheme.contrast2.borderColor,
         '--border-color-ui-contrast5':appTheme.contrast5.borderColor,
 
+        '--border-color-separator': appTheme.separator.borderColor,
+        '--border-width-separator': appTheme.separator.borderWidth || '1px',
+        '--border-style-separator': appTheme.separator.borderStyle || 'solid',
+
+        '--border-separator': `var(--border-width-separator) var(--border-style-separator) var(--border-color-separator)`,
+
+        '--box-shadow-ui-subtle': appTheme.shadowSubtle.boxShadow,
+        '--box-shadow-ui-medium': appTheme.shadowMedium.boxShadow,
+        '--box-shadow-ui-Strong': appTheme.shadowStrong.boxShadow,
+
         '--bg-color-blend-contrast1':appTheme.blendContrast1.backgroundColor,
 
-        '--list-bg-hover':appTheme.list.hover.backgroundColor,
-        '--list-border-hover':appTheme.list.hover.borderColor,
-        '--list-bg-selected':appTheme.list.selected.backgroundColor,
-        '--list-border-selected':appTheme.list.selected.borderColor,
+        '--link-color-default': appTheme.links.default.color,
+        '--link-color-hover': appTheme.links.hover.color,
+        '--link-color-visited': appTheme.links.visited.color,
+        '--link-color-active': appTheme.links.active.color,
+        '--link-decoration-hover': appTheme.links.hover.textDecoration || 'underline',
+
+        // CTA variables - Primary
+        '--cta-primary-bg': appTheme.cta.primary.background,
+        '--cta-primary-text': appTheme.cta.primary.text,
+        '--cta-primary-hover-bg': appTheme.cta.primary.hover,
+        '--cta-primary-active-bg': appTheme.cta.primary.active,
+        '--cta-primary-border-radius': appTheme.cta.primary.borderRadius || '6px',
+        '--cta-primary-box-shadow': appTheme.cta.primary.boxShadow || 'none',
+
+        // CTA variables - Secondary
+        '--cta-secondary-bg': appTheme.cta.secondary.background,
+        '--cta-secondary-text': appTheme.cta.secondary.text,
+        '--cta-secondary-border': appTheme.cta.secondary.border,
+        '--cta-secondary-hover-bg': appTheme.cta.secondary.hover,
+        '--cta-secondary-active-bg': appTheme.cta.secondary.active,
+        '--cta-secondary-border-radius': appTheme.cta.secondary.borderRadius || '6px',
+
+        // List item hover state
+        '--list-hover-bg': appTheme.list.hover.backgroundColor,
+        '--list-hover-border': appTheme.list.hover.borderColor,
+        '--list-hover-text': appTheme.list.hover.textColor || 'inherit',
+
+        // List item selected state
+        '--list-selected-bg': appTheme.list.selected.backgroundColor,
+        '--list-selected-border': appTheme.list.selected.borderColor,
+        '--list-selected-text': appTheme.list.selected.textColor || 'inherit',
+
+        // Common list item properties
+        '--list-item-transition': 'all 0.2s ease',
+
+        // '--list-bg-hover':appTheme.list.hover.backgroundColor,
+        // '--list-border-hover':appTheme.list.hover.borderColor,
+        // '--list-bg-selected':appTheme.list.selected.backgroundColor,
+        // '--list-border-selected':appTheme.list.selected.borderColor,
 
         '--ft-color-quiet':appTheme.quiet.color,
         '--ft-color-normal':appTheme.normal.color,
@@ -101,7 +148,64 @@ const getUseStyles = () => createUseStyles((theme: Jss.Theme) => {
     '@global button, @global input[type=button], @global a': {
       '-webkit-touch-callout': 'none',
       userSelect: 'none'
-    }
+    },
+    'a': {
+      color: 'var(--link-color-default)',
+      textDecoration: 'none',
+      transition: 'color 0.2s ease',
+    },
+    'a:hover': {
+      color: 'var(--link-color-hover)',
+      textDecoration: 'var(--link-decoration-hover)',
+    },
+    'a:visited': {
+      color: 'var(--link-color-visited)',
+    },
+    'a:active': {
+      color: 'var(--link-color-active)',
+    },
+    '.list-item': {
+        padding: '12px 16px',
+        borderBottom: 'var(--border-separator)',
+        transition: 'var(--list-item-transition)',
+        borderLeft: '3px solid transparent',
+        cursor: 'pointer',
+      },
+
+      '.list-item:hover': {
+        backgroundColor: 'var(--list-hover-bg)',
+        borderLeftColor: 'var(--list-hover-border)',
+        color: 'var(--list-hover-text)',
+      },
+
+      '.list-item.selected': {
+        backgroundColor: 'var(--list-selected-bg)',
+        borderLeftColor: 'var(--list-selected-border)',
+        color: 'var(--list-selected-text)',
+      },
+
+      // For list items that are links
+      '.list-item-link': {
+        display: 'block',
+        color: 'var(--ft-color-normal)',
+        textDecoration: 'none',
+        padding: '12px 16px',
+        borderBottom: 'var(--border-separator)',
+        transition: 'var(--list-item-transition)',
+        borderLeft: '3px solid transparent',
+      },
+
+      '.list-item-link:hover': {
+        backgroundColor: 'var(--list-hover-bg)',
+        borderLeftColor: 'var(--list-hover-border)',
+        color: 'var(--list-hover-text)',
+      },
+
+      '.list-item-link.selected': {
+        backgroundColor: 'var(--list-selected-bg)',
+        borderLeftColor: 'var(--list-selected-border)',
+        color: 'var(--list-selected-text)',
+      }
   };
 
   if (appTheme.name === 'cupcake') {

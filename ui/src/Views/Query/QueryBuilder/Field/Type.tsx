@@ -50,6 +50,18 @@ const useStyles = createUseStyles({
   reverseLink: {
     color: '#6ab04c',
     transform: 'translateY(1px)'
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  attribute: {
+    maxWidth: '80%',  // Will take up to 80% of the parent element's width
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'inline-block',
+    verticalAlign: 'bottom',
   }
 });
 
@@ -72,14 +84,19 @@ const Type = observer(({ field }: TypeProps) => {
         ? field.schema.attributeNamespace
         : field.schema.attribute;
       return (
-        <>
-          {field.schema.simpleAttributeName}&nbsp;
+        <div className={classes.content}>
+          <div>
+            {field.schema.simpleAttributeName} <TargetName field={field} />&nbsp;
+          </div>
           {/*<FontAwesomeIcon icon={icon} className={iconClassName} title={title} />*/}
-          <span title={field.schema?.attribute}>
+          <span className={classes.attribute}
+                title={field.schema?.attribute} // Full URL shown on hover
+                aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+          >
             (` ${attributeNameSpace} `)
           </span>
-          <TargetName field={field} />
-        </>
+
+        </div>
       );
     }
     return <>{field.schema?.attribute}</>;
@@ -87,12 +104,14 @@ const Type = observer(({ field }: TypeProps) => {
 
   if (field.parent) {
     return (
-      <>
+      <div title={field.schema?.attribute} // Full URL shown on hover
+           aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+      >
         <FontAwesomeIcon icon={icon} className={iconClassName} title={title} />
         &nbsp; {field.schema?.label} <TargetName field={field} /> &nbsp;
         {/*<small className={classes.attribute}>{field.schema?.attribute}</small>*/}
         <Types field={field} />
-      </>
+      </div>
     );
   }
 

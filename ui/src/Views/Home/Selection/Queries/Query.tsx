@@ -38,9 +38,9 @@ const useStyles = createUseStyles({
     cursor:'pointer',
     //     margin:'4px 0',
     padding:'10px',
-    borderBottom: '1px solid #E6E6E6',
+    borderBottom: 'var(--border-separator)',
     '&:firstChild': {
-      borderTop: '1px solid #E6E6E6',
+      borderTop: 'var(--border-separator)',
     },
     color: 'var(--ft-color-normal)',
     '&:hover': {
@@ -49,6 +49,19 @@ const useStyles = createUseStyles({
     display: 'grid',
     gridTemplateColumns: '2fr 2fr 2fr',
     gridGap: '10px',
+  },
+  listItem: {
+    padding: '12px 16px',
+    borderBottom: 'var(--border-separator)',
+    transition: 'all 0.2s ease',
+    borderLeft: '3px solid transparent',
+    cursor: 'pointer',
+
+    '&:hover': {
+      backgroundColor: 'var(--list-hover-bg)',
+      borderLeftColor: 'var(--list-hover-border)',
+      color: 'var(--list-hover-text)',
+    },
   },
   name: {
     //     position: 'relative',
@@ -101,7 +114,7 @@ const Query = observer(({query}: QueryProps) => {
   const type = query.meta.type ? extractType(query.meta.type) : undefined;
 
   return (
-    <div className={classes.container} key={query.id} onClick={handleSelect} >
+    <div className={classes.container + ' ' + classes.listItem} key={query.id} onClick={handleSelect} >
       <div className={classes.name}>
         <FontAwesomeIcon icon={faTag} />&nbsp;&nbsp;
         {type}

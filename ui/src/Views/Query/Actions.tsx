@@ -34,6 +34,7 @@ import ResetButton from './Actions/ResetButton';
 import SaveAsButton from './Actions/SaveAsButton';
 import SaveButton from './Actions/SaveButton';
 import UndoChangesButton from './Actions/UndoChangesButton';
+import SaveQueryModal from './Actions/SaveQueryModal';
 
 const QuerySaveAsModeActions = observer(() => {
   const { queryBuilderStore } = useStores();
@@ -57,11 +58,14 @@ const UpdatableQueryActions = observer(() => {
   return (
     <>
       <CompareButton disabled={compareDisabled} />
-      <CopyAsNewQueryButton />
+      {/* Removing the copy button due to possible redundancy with 'Save as' */}
+      {/*<CopyAsNewQueryButton />*/}
       <UndoChangesButton />
       <DeleteButton />
       <SaveAsButton disabled={saveAsDisabled} />
       <SaveButton disabled={saveDisabled} />
+
+      <SaveQueryModal />
     </>
   );
 });

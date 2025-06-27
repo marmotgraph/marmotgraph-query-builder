@@ -36,7 +36,9 @@ import type { DefaultTheme, Styles } from 'react-jss';
 
 const useStyles = createUseStyles(() => ({
   container: {
-    background: '#F9F9F9',
+    // background: '#F9F9F9',
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-background)',
     height: '100vh',
     display: 'grid',
     overflow: 'hidden',
@@ -48,7 +50,8 @@ const useStyles = createUseStyles(() => ({
     display: 'grid',
     gridTemplateRows: '1fr',
     gridTemplateColumns: 'auto 1fr',
-    background: 'white',
+    // background: 'white',
+    background: '--bg-color-ui-background',
     color: 'var(--ft-color-loud)',
   },
   main: {
@@ -63,7 +66,8 @@ const useStyles = createUseStyles(() => ({
     gridTemplateRows: '2fr',
     gridTemplateColumns: '1fr 1fr auto',
     background: 'var(--bg-color-ui-contrast1)',
-    color: '#F9F9F9',
+    // color: '#F9F9F9',
+    color: 'var(--ft-color-loud)',
     padding: '10px'
   }
 } as Styles));

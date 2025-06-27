@@ -51,9 +51,11 @@ const useStyles = createUseStyles({
       '& h5': {
         margin: '0',
         paddingBottom: '20px',
-        color: 'red'
+        color: 'var(--bg-color-error-loud)'
       },
-      '& button + button, & a + button, & a + a': {
+      '& button + button, & a + button, & a + a, & button': {
+        height: '35px',
+        width: '80px',
         marginLeft: '20px'
       }
     }
@@ -78,7 +80,7 @@ const ActionError = ({ error, onCancel, onRetry }: ActionErrorProps) => {
       <div>
         <h5>{error}</h5>
         <div>
-          <Button variant="secondary" onClick={onCancel}>
+          <Button variant={'secondary'} onClick={onCancel}>
             Cancel
           </Button>
           <Button variant={'primary'} onClick={onRetry}>

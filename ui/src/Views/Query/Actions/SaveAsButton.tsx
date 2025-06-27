@@ -21,7 +21,7 @@
  *
  */
 
-import {faSave} from '@fortawesome/free-solid-svg-icons/faSave';
+import {faCopy} from '@fortawesome/free-solid-svg-icons/faCopy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -40,12 +40,12 @@ const SaveAsButton = observer(({ disabled }:SaveAsButtonProps) => {
 
   const onClick = () => {
     Matomo.trackEvent('Query', 'SaveAs', queryBuilderStore.queryId);
-    queryBuilderStore.setSaveAsMode(true);
+    queryBuilderStore.setShowSaveModal(true);
   };
 
   return (
     <Button variant="secondary" disabled={disabled} onClick={onClick} title={'Save as'}>
-      <FontAwesomeIcon icon={faSave} />
+      <FontAwesomeIcon icon={faCopy} />
     </Button>
   );
 });
