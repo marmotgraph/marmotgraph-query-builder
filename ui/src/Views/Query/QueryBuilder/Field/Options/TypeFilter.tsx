@@ -43,7 +43,7 @@ const useStyles = createUseStyles({
   panel: {
     display: 'flex',
     padding: '10px 10px 0 10px',
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     border: '1px solid var(--bg-color-ui-contrast4)',
     marginTop: '6px'
   },
