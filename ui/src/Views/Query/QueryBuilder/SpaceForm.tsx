@@ -46,7 +46,7 @@ const useStyles = createUseStyles({
     display: 'inline-block',
     minWidth: '100px',
     width: '100%',
-    padding: '0.375rem 20px 0.75rem 6px',
+    padding: '0.375rem 20px 0.375rem 6px',
     color: 'var(--ft-color-loud)',
     border: '1px solid transparent',
     borderRadius: '2px',
@@ -115,8 +115,24 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
 
   const handleChangeSpace = (e: ChangeEvent<HTMLSelectElement>) => {
     if (!isReadMode) {
-      const space = spacesStore.getSpace(e.target.value) || spacesStore.privateSpace;
+      const selectedValue = e.target.value;
+      console.log('Selected space value:', selectedValue);
+
+      // Try to find the space by ID first, then by name
+      let space = spacesStore.getSpace(selectedValue);
+
+      // If not found by ID, try finding by name
+      if (!space) {
+        space = sharedSpaces.find(s => s.name === selectedValue);
+      }
+
+      // Fallback to private space
+      if (!space) {
+        space = spacesStore.privateSpace;
+      }
+
       if (space) {
+        console.log('Setting space to:', space);
         queryBuilderStore.setSpace(space);
       }
     }
@@ -136,33 +152,8 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
     }
   };
 
-  // const handleChangePrivate = (_?: string, spaceShared?: ToggleItemValue) => {
-  //   console.log(isReadMode);
-  //   console.log(spaceShared);
-  //   if (!isReadMode) {
-  //     const isSpaceShared = spaceShared !== undefined ? spaceShared as boolean : true;
-  //
-  //     // const isSpaceShared = spaceShared as boolean|undefined || true;
-  //     // isSpaceShared is never True for an existing query.
-  //     if (isSpaceShared && spacesStore.sharedSpaces.length) {
-  //       queryBuilderStore.setSpace(spacesStore.sharedSpaces[0]);
-  //     } else {
-  //       // Also this for private queries
-  //       if (spacesStore.privateSpace) {
-  //         queryBuilderStore.setSpace(spacesStore.privateSpace);
-  //       }
-  //     }
-  //   }
-  // };
-
   return (
     <div className={`${classes.container} ${className ? className : ''}`}>
-      {/*<Checkbox*/}
-      {/*  className={classes.toggle}*/}
-      {/*  checked={!!isShared}*/}
-      {/*  onChange={(checked) => handleChangePrivate(checked ? true : undefined)}*/}
-      {/*  label="Shared"*/}
-      {/*/>*/}
       <Checkbox
         checked={Boolean(isShared)}
         onChange={(checked) => handleChangePrivate(undefined, checked)}

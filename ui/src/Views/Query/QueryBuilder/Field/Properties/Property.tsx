@@ -66,6 +66,7 @@ const useStyles = createUseStyles({
     gap: '10px', // Adds spacing between the button and other elements if needed
   },
   addProperty: {
+    whiteSpace: 'nowrap',
     backgroundColor: 'var(--cta-secondary-bg)',
     color: 'var(--cta-secondary-text)',
     border: '1px solid var(--cta-secondary-border)',

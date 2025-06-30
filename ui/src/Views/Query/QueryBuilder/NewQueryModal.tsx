@@ -74,8 +74,8 @@ const NewQueryModal = ({show, onCreateSuccess, onCancel}: NewQueryModalProps) =>
 
   return (
     <Modal show={show} className={classes.container}>
-      <Modal.Header closeButton>
-                Select a type
+      <Modal.Header>
+          Select a type
       </Modal.Header>
       <Modal.Body>
         <div>

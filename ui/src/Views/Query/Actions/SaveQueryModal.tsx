@@ -163,7 +163,7 @@ const SaveQueryModal = observer(() => {
             </div>
             <div className={classes.buttonGroup}>
               <button type="submit" onClick={handleSave} className={classes.saveButton}>
-                                Create copy
+                                Save
               </button>
               <button type="button" onClick={handleClose} className={classes.cancelButton}>
                                 Cancel

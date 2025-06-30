@@ -23,7 +23,7 @@
 
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -316,7 +316,7 @@ const Filter = observer(({ filter, show, onChange }: FilterProps) => {
                   onClick={handleDeleteParameter}
                   title="delete parameter"
                 >
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
               </div>
               {['scope', 'size', 'start', 'instanceId'].includes(
@@ -348,7 +348,7 @@ const Filter = observer(({ filter, show, onChange }: FilterProps) => {
                 onClick={handleDeleteValue}
                 title="delete value"
               >
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTrashAlt} />
               </button>
             </div>
           )}

@@ -38,9 +38,14 @@ import type { ChangeEvent } from 'react';
 
 const useStyles = createUseStyles({
   input: {
+    border: '1px solid var(--cta-primary-text)',
+    borderRadius: '6px',
     color: 'var(--ft-color-loud)',
-    border: '1px solid black',
-    borderRadius: '5px',
+    background: 'var(--bg-color-ui-contrast2)',
+
+    // color: 'var(--ft-color-loud)',
+    // border: '1px solid black',
+    // borderRadius: '5px',
     '&:focus': {
       color: 'var(--ft-color-loud)',
     }

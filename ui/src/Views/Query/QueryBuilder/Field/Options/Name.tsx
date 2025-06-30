@@ -92,7 +92,6 @@ const Name = observer(({ field, rootField }: NameProps) => {
           Target name{' '}
           <small>(only applicable if parent field is not flattened)</small>
         </div>
-        <div className={classes.close}>x</div>
       </div>
       <div>
         <Form.Control

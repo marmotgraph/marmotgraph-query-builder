@@ -67,9 +67,10 @@ const useStyles = createUseStyles({
     marginTop: '20px'
   },
   input: {
-    border: '1px solid #BCBEC0',
+    border: '1px solid var(--cta-primary-text)',
     borderRadius: '6px',
     color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast2)',
     width: '100%',
     '&:focus': {
       color: 'var(--ft-color-loud)',

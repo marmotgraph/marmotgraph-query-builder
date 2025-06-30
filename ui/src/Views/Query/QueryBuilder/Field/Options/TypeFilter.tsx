@@ -43,12 +43,13 @@ const useStyles = createUseStyles({
   panel: {
     display: 'flex',
     padding: '10px 10px 0 10px',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
     border: '1px solid var(--bg-color-ui-contrast4)',
     marginTop: '6px'
   },
   typeFilter: {
-    display: 'inline-block',
+    flexWrap: 'wrap',
+    display: 'flex',
     // border: '1px solid var(--bg-color-ui-contrast4)',
     // borderRadius: '20px',
     // padding: '7px 4px 7px 10px',
@@ -70,6 +71,10 @@ const useStyles = createUseStyles({
     },
     '&.isUnknown.selected, &.isUnknown:hover': {
       borderColor: 'var(--bg-color-warn-loud)'
+    },
+    '& > span' : {
+      paddingLeft: '10px',
+      // float: 'left',
     }
   },
   toggle: {
@@ -92,19 +97,12 @@ const TypeFilterItem = ({ type, onChange }: TypeFilterItemProps) => {
 
   return(
     <div className={`${classes.typeFilter} ${type.isUnknown?'isUnknown':''} ${type.selected?'selected':''}`} onClick={handleOnClick} >
-      <PropertyType type={type.id} />
       <div>
         <Checkbox
           checked={type.selected}
           onChange={handleOnClick} />
-        {/* }<Toggle
-          option={{
-            name: type.id,
-            value: type.selected?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleClick} />  */}
       </div>
+      <PropertyType type={type.id} />
     </div>
   );
 };
@@ -128,17 +126,9 @@ const TypeFilter = observer(() => {
       <div>
         <Checkbox
           label="Type Filter"
-          checked={!!queryBuilderStore.currentField.typeFilterEnabled}
+          checked={queryBuilderStore.currentField.typeFilterEnabled}
           onChange={handleToggleTypeFilter}
         />
-        {/* }<Toggle
-          label="Type Filter"
-          option={{
-            name: 'Type Filter',
-            value: queryBuilderStore.currentField.typeFilterEnabled?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleTypeFilter} /> */}
       </div>
       {queryBuilderStore.currentField.typeFilterEnabled && (
         <div className={classes.panel}>

@@ -23,10 +23,30 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import GroupProperties from './GroupProperties';
 import type { Property, PropertyGroup } from '../../../../../types';
 import type { MouseEvent } from 'react';
+
+const useStyles = createUseStyles({
+  container: {
+    background: 'var(--bg-color-ui-contrast2)',
+    // background: '#FFFFFF',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
+    borderRadius: '12px',
+    color: 'var(--ft-color-loud)',
+    padding: '10px',
+    marginBottom: '20px',
+    '& h5': {
+      margin: '18px 0 6px 5px',
+      '& small': {
+        color: 'var(--ft-color-quiet)',
+        fontStyle: 'italic'
+      }
+    }
+  }
+});
 
 interface GroupsProps {
   groups: PropertyGroup[];
@@ -35,12 +55,14 @@ interface GroupsProps {
 }
 
 const Groups = observer(({ groups, prefix, onClick }: GroupsProps) => {
+  const classes = useStyles();
+
   if (!Array.isArray(groups) || !groups.length) {
     return null;
   }
 
   return (
-    <>
+    <div className={classes.container}>
       {groups.map(group => (
         <GroupProperties
           key={group.id}
@@ -49,7 +71,7 @@ const Groups = observer(({ groups, prefix, onClick }: GroupsProps) => {
           onClick={onClick}
         />
       ))}
-    </>
+    </div>
   );
 });
 Groups.displayName = 'Groups';
