@@ -126,7 +126,7 @@ const TypeFilter = observer(() => {
       <div>
         <Checkbox
           label="Type Filter"
-          checked={queryBuilderStore.currentField.typeFilterEnabled}
+          checked={!!queryBuilderStore.currentField.typeFilterEnabled}
           onChange={handleToggleTypeFilter}
         />
       </div>
