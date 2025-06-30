@@ -157,13 +157,13 @@ const theme: Theme = {
   },
   warn: {
     quiet: {
-      color: '#A67A4C' // Darker amber
+      color: '#C99A6B' // Improved contrast darker amber (increased brightness for better accessibility)
     },
     normal: {
-      color: '#E8A86C' // Soft amber
+      color: '#E8A86C' // Soft amber (already meets AA standards)
     },
     loud: {
-      color: '#F59E0B' // Brighter amber for emphasis
+      color: '#F59E0B' // Brighter amber for emphasis (excellent contrast)
     }
   },
   info: {

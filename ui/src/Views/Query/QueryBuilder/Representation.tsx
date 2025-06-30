@@ -35,7 +35,6 @@ const useStyles = createUseStyles({
     position:'relative',
     background: 'var(--bg-color-ui-contrast1)',
     // background: 'linear-gradient(135deg, rgba(15,35,45,0.2) 0%, rgba(5,20,35,0.6) 100%)',
-    borderTop: 'var(--border-separator)',
     padding: '15px',
     color:'var(--ft-color-normal)'
   }

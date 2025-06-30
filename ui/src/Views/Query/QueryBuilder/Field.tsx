@@ -65,37 +65,39 @@ const useStyles = createUseStyles({
     zIndex: 2,
     cursor: 'pointer',
     '&:hover': {
-      background: 'var(--bg-color-ui-contrast2)',
+      background: 'var(--bg-color-ui-contrast4)',
       // background: '#F0F0F0',
       '& $actions': {
         opacity: 1
       }
     },
     '&.selected': {
-      background: 'var(--bg-color-ui-contrast2)',
+      background: 'var(--bg-color-ui-contrast4)',
       // background: '#F0F0F0',
       '& $actions': {
         opacity: 1
       }
     },
     '&.is-unknown': {
-      color: 'var(--bg-color-warn-quiet)',
+      color: 'var(--bg-color-ui-contrast1)', // Dark text for contrast
+      background: 'var(--bg-color-warn-normal)', // Using normal warn for better contrast
       '&&.selected': {
-        background: 'var(--bg-color-warn-quiet)',
-        color: 'var(--bg-color-ui-contrast2)',
+        background: 'var(--bg-color-warn-loud)',
+        color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
       },
       '&:hover, &.selected:hover': {
-        background: 'var(--bg-color-warn-normal)',
-        color: 'var(--bg-color-ui-contrast2)',
+        background: 'var(--bg-color-warn-loud)',
+        color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
       }
     },
     '&.is-invalid, &.is-unknown.is-invalid': {
-      background: '#FFE0E1',
+      background: 'var(--bg-color-error-normal)', // Darker red for better contrast
+      color: 'var(--ft-color-louder)', // White text for maximum contrast
       '&&.selected': {
-        background: '#FFE0E1'
+        background: 'var(--bg-color-error-selected)' // Even darker red for selected state
       },
       '&:hover, &.selected:hover': {
-        background: '#ff9497'
+        background: 'var(--bg-color-error-hover)' // Darkest red for hover state
       }
     },
     '& small': {
@@ -135,7 +137,7 @@ const useStyles = createUseStyles({
 
   warningIconWrapper: {
     position: 'relative',
-    color: 'var(--warn-normal-color)',
+    color: 'var(--bg-color-warn-normal)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -143,9 +145,20 @@ const useStyles = createUseStyles({
     padding: '4px',
     cursor: 'pointer',
     borderRadius: '50%',
+    outline: 'none',
 
     '&:hover': {
-      backgroundColor: 'rgba(255, 193, 7, 0.1)', // Subtle background on hover
+      backgroundColor: 'var(--bg-color-warn-quiet)', // Subtle background on hover
+    },
+    '&:focus': {
+      outline: 'var(--focus-outline)',
+      backgroundColor: 'var(--bg-color-warn-quiet)',
+    },
+    '&:focus:not(:focus-visible)': {
+      outline: 'none'
+    },
+    '&:focus-visible': {
+      outline: 'var(--focus-outline)',
     },
 
     '& i': {
@@ -255,9 +268,8 @@ const Field = observer(({field}: FieldProps) => {
 
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Determine if this item has a warning (replace with your actual logic)
   const hasWarning = field.isUnknown || isInvalid;
-  const warningMessage = 'This Message here....';
+  const warningMessage = title || (field.isUnknown ? 'Unknown field type' : '');
 
   return (
     <div className={containerClassName}>
@@ -276,12 +288,19 @@ const Field = observer(({field}: FieldProps) => {
                 onMouseLeave={() => setShowTooltip(false)}
                 onFocus={() => setShowTooltip(true)}
                 onBlur={() => setShowTooltip(false)}
-                aria-label={`Warning: ${warningMessage}`}
+                role="button"
+                tabIndex={0}
+                // aria-describedby={`tooltip-${field.propertyName || 'unknown'}`}
               >
-                <FontAwesomeIcon icon={faExclamationTriangle} />
+                <FontAwesomeIcon icon={faExclamationTriangle} aria-hidden="true" />
+                <span className="sr-only">Warning</span>
 
-                {showTooltip && (
-                  <div className={classes.tooltip}>
+                {showTooltip && warningMessage && (
+                  <div 
+                    // id={`tooltip-${field.propertyName || 'unknown'}`}
+                    role="tooltip"
+                    className={classes.tooltip}
+                  >
                     {warningMessage}
                   </div>
                 )}
