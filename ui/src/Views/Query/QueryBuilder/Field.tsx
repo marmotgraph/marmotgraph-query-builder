@@ -296,7 +296,7 @@ const Field = observer(({field}: FieldProps) => {
                 <span className="sr-only">Warning</span>
 
                 {showTooltip && warningMessage && (
-                  <div 
+                  <div
                     // id={`tooltip-${field.propertyName || 'unknown'}`}
                     role="tooltip"
                     className={classes.tooltip}

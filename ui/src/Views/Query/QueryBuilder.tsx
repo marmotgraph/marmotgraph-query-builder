@@ -25,9 +25,9 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 import useStores from '../../Hooks/useStores';
-import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import Options from './QueryBuilder/Field/Options';
 import Properties from './QueryBuilder/Field/Properties';
@@ -134,41 +134,41 @@ const QueryBuilder = observer(() => {
   };
 
   return (
-      <div className={`${classes.container} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
-        {/* Title section - full width */}
-        <div className={classes.containerTitle}>
-          <div>
-            <h6>Query</h6>
-            <h5>{queryBuilderStore.label}</h5>
-          </div>
-          <button className={classes.settingsButton} onClick={handleSettingsClick}>
-            <FontAwesomeIcon icon={faGear} />
-          </button>
+    <div className={`${classes.container} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
+      {/* Title section - full width */}
+      <div className={classes.containerTitle}>
+        <div>
+          <h6>Query</h6>
+          <h5>{queryBuilderStore.label}</h5>
+        </div>
+        <button className={classes.settingsButton} onClick={handleSettingsClick}>
+          <FontAwesomeIcon icon={faGear} />
+        </button>
+      </div>
+
+      {/* Content area - two columns */}
+
+      <div className={classes.contentArea}>
+        {/* Left column - Representation */}
+        <div className={classes.body}>
+          <Representation className={classes.representation} />
         </div>
 
-        {/* Content area - two columns */}
-
-        <div className={classes.contentArea}>
-          {/* Left column - Representation */}
-          <div className={classes.body}>
-            <Representation className={classes.representation} />
-          </div>
-
-          <Scrollbars autoHide>
+        <Scrollbars autoHide>
           {/* Right column - QueryForm or Options */}
           {showQueryForm ? (
-              <QueryForm className={classes.form} />
+            <QueryForm className={classes.form} />
           ) : (
 
-              <div className={classes.options}>
-                <Options />
-                <Properties />
-              </div>
+            <div className={classes.options}>
+              <Options />
+              <Properties />
+            </div>
 
           )}</Scrollbars>
-        </div>
-
       </div>
+
+    </div>
   );
 });
 

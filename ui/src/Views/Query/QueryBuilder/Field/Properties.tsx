@@ -23,7 +23,7 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+
 import { createUseStyles } from 'react-jss';
 
 import Checkbox from '../../../../Components/Checkbox';
@@ -148,26 +148,26 @@ const Properties = observer(() => {
           </div>
         </div>
         <div className={classes.body}>
-            <List
-              properties={lookupsCommonsAttributes}
-              label="Attributes"
-              onClick={handleAddField}
-            />
-            <Groups
-              groups={lookupsAttributes}
-              prefix="Attributes specific to"
-              onClick={handleAddField}
-            />
-            <List
-              properties={lookupsCommonsLinks}
-              label="Links"
-              onClick={handleAddField}
-            />
-            <Groups
-              groups={lookupsLinks}
-              prefix="Links specific to"
-              onClick={handleAddField}
-            />
+          <List
+            properties={lookupsCommonsAttributes}
+            label="Attributes"
+            onClick={handleAddField}
+          />
+          <Groups
+            groups={lookupsAttributes}
+            prefix="Attributes specific to"
+            onClick={handleAddField}
+          />
+          <List
+            properties={lookupsCommonsLinks}
+            label="Links"
+            onClick={handleAddField}
+          />
+          <Groups
+            groups={lookupsLinks}
+            prefix="Links specific to"
+            onClick={handleAddField}
+          />
         </div>
       </div>
     </div>
