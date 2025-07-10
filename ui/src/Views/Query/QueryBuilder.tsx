@@ -27,7 +27,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import useStores from '../../Hooks/useStores';
-
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import Options from './QueryBuilder/Field/Options';
 import Properties from './QueryBuilder/Field/Properties';
@@ -59,71 +59,52 @@ const useStyles = createUseStyles({
 
     '& i': {
       fontSize: '16px', // Adjust icon size as needed
-    },
-
-    // border: '1px solid #BCBEC0',
-    // borderRadius: '6px',
-    // width: '30px',
-    // height: '32px',
-    // display: 'flex',
-    // alignItems: 'center',
-    // justifyContent: 'flex-end',
-    // background: 'transparent', // Optional: Remove background if needed
-    // cursor: 'pointer',
-    // marginLeft: 'auto',
-    // marginTop: '5px',
-    // marginRight: '5px',
+    }
   },
   container: {
-    // background: '#F6F6F6',
     background:'var(--bg-color-ui-contrast1)',
     position: 'relative',
     flex: 1,
     display: 'grid',
-    gridTemplateColumns: '4fr 7fr',
+    gridTemplateRows: 'auto 1fr', // Changed: header row + content row
     height: '100%'
   },
   containerTitle: {
     position: 'relative',
-    flex: 1,
     display: 'grid',
-    gridTemplateColumns: '9fr 1fr',
-    padding: '20px 15px 15px 20px'
+    gridTemplateColumns: '1fr auto', // Changed: flexible left column + auto-sized right column
+    padding: '20px 10px 10px 20px',
+    background:'var(--bg-color-ui-contrast1)', // Added: ensure consistent background
+    borderBottom: 'var(--border-separator)' // Added: optional separator
+  },
+  contentArea: {
+    display: 'grid',
+    gridTemplateColumns: '4fr 7fr', // Changed: two equal columns
+    height: '100%'
   },
   body:{
     background:'var(--bg-color-ui-contrast1)',
-    // background: '#FFFFFF',
     borderRight: 'var(--border-separator)',
     position: 'relative',
-    display: 'grid',
-    gridTemplateRows: 'auto 1fr auto',
+    display: 'flex', // Changed: simplified to flex
+    alignItems: 'center',
+    justifyContent: 'center',
     height: '100%',
-    '&:not(.hasChanged)': {
-      '& $form': {
-        display: 'none'
-      },
-      '& $representation': {
-        gridRowStart: 'span 3'
-      },
-      '& $actions': {
-        display: 'none'
-      }
-    }
   },
   options: {
     position:'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr',
-    //     background: 'linear-gradient(135deg, rgba(5,20,40,0.6) 0%, rgba(5,25,40,0.9) 100%)',
-    //     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
     padding: '10px'
   },
   form: {},
-  representation:{},
+  representation:{
+    width: '100%',
+    height: '100%'
+  },
   actions: {
     position: 'relative',
-    //     border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
     padding: '10px 10px 0 0',
     '& > div': {
@@ -153,8 +134,8 @@ const QueryBuilder = observer(() => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={`${classes.body} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
+      <div className={`${classes.container} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
+        {/* Title section - full width */}
         <div className={classes.containerTitle}>
           <div>
             <h6>Query</h6>
@@ -163,26 +144,34 @@ const QueryBuilder = observer(() => {
           <button className={classes.settingsButton} onClick={handleSettingsClick}>
             <FontAwesomeIcon icon={faGear} />
           </button>
-          {/*<QueryForm className={classes.form} />*/}
-          {/* Settings button */}
         </div>
-        <Representation className={classes.representation} />
+
+        {/* Content area - two columns */}
+
+        <div className={classes.contentArea}>
+          {/* Left column - Representation */}
+          <div className={classes.body}>
+            <Representation className={classes.representation} />
+          </div>
+
+          <Scrollbars autoHide>
+          {/* Right column - QueryForm or Options */}
+          {showQueryForm ? (
+              <QueryForm className={classes.form} />
+          ) : (
+
+              <div className={classes.options}>
+                <Options />
+                <Properties />
+              </div>
+
+          )}</Scrollbars>
+        </div>
+
       </div>
-
-      {showQueryForm ? (
-        <QueryForm className={classes.form} />
-      ) : (
-
-        <div className={classes.options}>
-
-          <Options />
-          <Properties />
-        </div>
-      )}
-    </div>
-
   );
 });
+
 QueryBuilder.displayName = 'QueryBuilder';
 
 export default QueryBuilder;

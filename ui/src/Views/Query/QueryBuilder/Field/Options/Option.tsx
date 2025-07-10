@@ -54,15 +54,9 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
           checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Required"
+          comment="only applicable if parent field is not flattened"
         />
       )
-    //       <Toggle
-    //         option={option}
-    //         label="Required"
-    //         comment="only applicable if parent field is not flattened"
-    //         show={showRequired}
-    //         onChange={onChange}
-    //       />
     );
   }
 
@@ -75,12 +69,6 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Sort result by this property"
         /> )
-    //       <Toggle
-    //         option={option}
-    //         label="Sort result by this property"
-    //         show={showSort}
-    //         onChange={onChange}
-    //       />
     );
   }
 
@@ -94,13 +82,6 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
           label="Ensure original order"
           comment="only applicable if parent field is not flattened"
         /> )
-    //       <Toggle
-    //         option={option}
-    //         label="Ensure original order"
-    //         comment="only applicable if parent field is not flattened"
-    //         show={showEnsureOrder}
-    //         onChange={onChange}
-    //       />
     );
   }
 

@@ -148,7 +148,6 @@ const Properties = observer(() => {
           </div>
         </div>
         <div className={classes.body}>
-          <Scrollbars autoHide>
             <List
               properties={lookupsCommonsAttributes}
               label="Attributes"
@@ -169,7 +168,6 @@ const Properties = observer(() => {
               prefix="Links specific to"
               onClick={handleAddField}
             />
-          </Scrollbars>
         </div>
       </div>
     </div>

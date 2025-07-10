@@ -39,6 +39,7 @@ const useStyles = createUseStyles({
     '& > div:first-child > div': {
       marginBottom: 0
     }
+
   },
   panel: {
     display: 'flex',
@@ -67,10 +68,15 @@ const useStyles = createUseStyles({
       borderColor: 'var(--ft-color-loud)'
     },
     '&.isUnknown' : {
-      borderColor: 'var(--bg-color-warn-quiet)'
+      borderColor: 'var(--bg-color-warn-normal)', // Using normal warn color for better contrast
+      outline: '1px solid var(--bg-color-warn-normal)', // Adding outline for better visibility
+      outlineOffset: '-1px'
     },
     '&.isUnknown.selected, &.isUnknown:hover': {
-      borderColor: 'var(--bg-color-warn-loud)'
+      borderColor: 'var(--bg-color-warn-loud)', // Using loud warn color for emphasis
+      outline: '1px solid var(--bg-color-warn-loud)', // Adding outline for better visibility
+      outlineOffset: '-1px',
+      color: '#0F1219' // Dark text for better contrast
     },
     '& > span' : {
       paddingLeft: '10px',
