@@ -32,11 +32,11 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>eu.ebrains.kg</groupId>
-	<artifactId>kg-query-builder</artifactId>
+	<groupId>org.marmotgraph</groupId>
+	<artifactId>query-builder</artifactId>
 	<version>3.0.0</version>
-	<name>kg-query-builder</name>
-	<description>Kg Query Builder</description>
+	<name>query-builder</name>
+	<description>MarmotGraph Query Builder</description>
 
 	<properties>
 		<java.version>21</java.version>
