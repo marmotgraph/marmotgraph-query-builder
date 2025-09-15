@@ -90,7 +90,7 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     const matchingRoute = Object.keys(pageTitles).find(pattern =>
       matchPath({ path: pattern }, location.pathname)
     );
-    return <h3 className="container">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
+    return <h3 className="container-fluid">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
   };
 
   return (
