@@ -28,8 +28,8 @@ import { createUseStyles } from 'react-jss';
 import useAuth from '../Hooks/useAuth';
 import useStores from '../Hooks/useStores';
 
-import MyQueriesHeader from './MyQueriesHeader';
 import ThemeSwitcher from './Home/ThemeSwitcher';
+import MyQueriesHeader from './MyQueriesHeader';
 import UserProfileTab from './UserProfileTab';
 
 const useStyles = createUseStyles({
@@ -88,11 +88,11 @@ const Nav = observer(() => {
 
   return (
     <nav className={classes.container}>
-{/*       <div className={classes.fixedTabsLeft}> */}
-{/*         {isAuthenticated && spacesStore.hasSpaces && typeStore.hasTypes && ( */}
-{/*           <HomeTab /> */}
-{/*         )} */}
-{/*       </div> */}
+      {/*       <div className={classes.fixedTabsLeft}> */}
+      {/*         {isAuthenticated && spacesStore.hasSpaces && typeStore.hasTypes && ( */}
+      {/*           <HomeTab /> */}
+      {/*         )} */}
+      {/*       </div> */}
       <div className={classes.fixedTabsRight}>
         <MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />
         <ThemeSwitcher />

@@ -118,7 +118,7 @@ interface Parameter {
   value: string;
 }
 
-interface Row {
+interface ParameterRow {
   col1: Parameter;
   col2?: Parameter;
   col3?: Parameter;
@@ -147,10 +147,10 @@ const QueryParameters = observer(() => {
         acc[acc.length - 1].col3 = p;
       }
     } else {
-      acc.push({ col1: p } as Row);
+      acc.push({ col1: p } as ParameterRow);
     }
     return acc;
-  }, [] as Row[]);
+  }, [] as ParameterRow[]);
 
   return (
     <>
