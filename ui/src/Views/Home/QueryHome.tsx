@@ -22,11 +22,14 @@
  */
 
 import {observer} from 'mobx-react-lite';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import useListQueriesQuery from '../../Hooks/useListQueriesQuery';
 import useStores from '../../Hooks/useStores';
 import List from './Selection/Queries/List';
+import {Link} from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import NewQueryModal from "../Query/QueryBuilder/NewQueryModal";
 
 // const useStyles = createUseStyles({
 //   container: {
@@ -37,7 +40,13 @@ import List from './Selection/Queries/List';
 
 const QueryHome = observer(() => {
   const {queriesStore} = useStores();
-  //   const classes = useStyles();
+
+    const [showModal, setShowModal] = useState(false);
+
+
+    const hideModal = () => {
+        setShowModal(false);
+    };
 
   const {
     data: queries
@@ -55,17 +64,35 @@ const QueryHome = observer(() => {
 
   return <>
     <div className="container">
-      <h5>Your queries here</h5>
-      <br/>
-      <div>
-        <div>
-          <List
-            key="Your Queries"
-            title=""
-            list={queries ? queries : []}
-          />
-        </div>
-      </div>
+        {queriesStore.hasQueries ? (
+            <>
+                <h5>Your queries here</h5>
+                <br/>
+                <div>
+                    <div>
+                        <List
+                            key="Your Queries"
+                            title=""
+                            list={queries ? queries : []}
+                        />
+                    </div>
+                </div>
+            </>
+        ) : (
+            <div>
+                <p>You don't have saved queries yet.</p>
+             <p>You can  create a new query or browse the shared ones.</p>
+                <Link to="/queries" className='button'>
+                    Select shared query
+                </Link>
+
+                <Button onClick={() => setShowModal(true)}>
+                    <span>Create a new query</span>
+                </Button>
+                    <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/>
+            </div>
+        )}
+
     </div>
   </>;
 });

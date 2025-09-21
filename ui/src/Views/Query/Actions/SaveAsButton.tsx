@@ -21,7 +21,7 @@
  *
  */
 
-import {faCopy} from '@fortawesome/free-solid-svg-icons/faCopy';
+import {faSave} from '@fortawesome/free-solid-svg-icons/faSave';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -45,7 +45,7 @@ const SaveAsButton = observer(({ disabled }:SaveAsButtonProps) => {
 
   return (
     <Button variant="secondary" disabled={disabled} onClick={onClick} title={'Save as'}>
-      <FontAwesomeIcon icon={faCopy} />
+      <FontAwesomeIcon icon={faSave} />
     </Button>
   );
 });

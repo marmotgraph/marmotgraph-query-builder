@@ -89,6 +89,8 @@ const NewQueryActions = observer(() => {
       <ResetButton />
       <CopyAsNewQueryButton />
       <SaveAsButton disabled={!queryBuilderStore.hasChanged} />
+
+      <SaveQueryModal />
     </>
   );
 });

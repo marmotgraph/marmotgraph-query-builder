@@ -23,7 +23,7 @@
 
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, useState } from 'react';
-import { JssProvider, ThemeProvider } from 'react-jss'; //NOSONAR
+import {createUseStyles, JssProvider, ThemeProvider} from 'react-jss'; //NOSONAR
 import { BrowserRouter, Navigate, Routes, Route, useLocation, matchPath } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,6 +44,13 @@ import type API from './Services/API';
 import type AuthAdapter from './Services/AuthAdapter';
 import type RootStore from './Stores/RootStore';
 
+const useStyles = createUseStyles({
+    headerTitle: {
+        margin: '20px',
+        color: 'red',
+    }
+});
+
 const Authenticate = React.lazy(() => import('./Views/Authenticate'));
 const UserProfile = React.lazy(() => import('./Views/UserProfile'));
 const Spaces = React.lazy(() => import('./Views/Spaces'));
@@ -61,7 +68,6 @@ interface AppProps {
 }
 
 const App = observer(({ stores, api, authAdapter } : AppProps) => {
-
   const [ showWelcomeTip, setShowWelcomeTip ] = useState(!localStorage.getItem('hideWelcomeTip'));
 
   const { appStore } = stores;
@@ -85,12 +91,14 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
   };
 
   const PageTitle = () => {
-    const location = useLocation();
+      const classes = useStyles();
+
+      const location = useLocation();
     // Find the matching route pattern
     const matchingRoute = Object.keys(pageTitles).find(pattern =>
       matchPath({ path: pattern }, location.pathname)
     );
-    return <h3 className="container-fluid">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
+    return <h2 className={'container-fluid ${classes.headerTitle}'}>{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h2>;
   };
 
   return (

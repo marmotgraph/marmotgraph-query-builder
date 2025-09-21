@@ -102,7 +102,7 @@ const endpoints = {
     return `${RELATIVE_ROOT_PATH}/queries?${getSize(size)}${getFrom(from)}${getInstanceId(instanceId)}${getStage(stage)}${paramsString}${restrictToSpacesString}`;
   },
   getQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
-  saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}/${getSpace(space)}`,
+  saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}?space=${space}`,
   deleteQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
   getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`,
   getAllQueries: () => `${RELATIVE_ROOT_PATH}/queries`,
