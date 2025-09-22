@@ -73,12 +73,12 @@ const getStage = (stage?: Stage) => {
   return '';
 };
 
-const getSpace = (space?: string) => {
-  if(space) {
-    return `?space=${space}`;
-  }
-  return '';
-};
+// const getSpace = (space?: string) => {
+//   if(space) {
+//     return `?space=${space}`;
+//   }
+//   return '';
+// };
 
 const endpoints = {
   config: () => `${RELATIVE_ROOT_PATH}/config`,
