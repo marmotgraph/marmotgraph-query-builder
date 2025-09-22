@@ -33,8 +33,9 @@ import Field from './Field';
 const useStyles = createUseStyles({
   container: {
     position:'relative',
-    background: 'linear-gradient(135deg, rgba(15,35,45,0.2) 0%, rgba(5,20,35,0.6) 100%)',
-    border: '1px solid var(--border-color-ui-contrast1)',
+    background: 'var(--bg-color-ui-contrast1)',
+    // background: 'linear-gradient(135deg, rgba(15,35,45,0.2) 0%, rgba(5,20,35,0.6) 100%)',
+    padding: '15px',
     color:'var(--ft-color-normal)'
   }
 });

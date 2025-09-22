@@ -28,59 +28,49 @@ import Commit from './Commit';
 import Copyright from './Copyright';
 import Logo from './Logo';
 import Nav from './Nav';
-import type { Theme } from '../Themes/Theme';
+import PoweredBy from './PoweredBy';
+
 import type { ReactNode } from 'react';
 import type { DefaultTheme, Styles } from 'react-jss';
 
-const getBackgroundSize = (theme: Jss.Theme) => {
-  const appTheme = theme as Theme;
-  if(appTheme.background.size) {
-    return appTheme.background.size;
-  }
-  if(appTheme.background.image) {
-    return 'unset';
-  }
-  return '200%';
-};
 
-const useStyles = createUseStyles((theme: Jss.Theme) => {
-  const appTheme = theme as Theme;
-  return {
-    container: {
-      height: '100vh',
-      display: 'grid',
-      overflow: 'hidden',
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: 'auto 1fr 20px',
-      background: 'linear-gradient(var(--bg-gradient-angle), var(--bg-gradient-start), var(--bg-gradient-end))',
-      backgroundSize: getBackgroundSize(theme),
-      backgroundImage: appTheme.background.image?`url('${appTheme.background.image}')`:'unset',
-      backgroundPosition: appTheme.background.position?appTheme.background.position:'unset'
-    },
-    header: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '1fr',
-      gridTemplateColumns: 'auto 1fr',
-      background: 'rgba(0,0,0,0.4)'
-    },
-    main: {
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    footer: {
-      position: 'relative',
-      display: 'grid',
-      gridTemplateRows: '1fr',
-      gridTemplateColumns: '1fr auto',
-      background: 'var(--bg-color-ui-contrast1)',
-      color: 'var(--ft-color-loud)',
-      padding: '0 10px'
-    }
-  } as Styles;
-});
+const useStyles = createUseStyles(() => ({
+  container: {
+    // background: '#F9F9F9',
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-background)',
+    height: '100vh',
+    display: 'grid',
+    overflow: 'hidden',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: 'auto 1fr 50px',
+  },
+  header: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '1fr',
+    gridTemplateColumns: 'auto 1fr',
+    // background: 'white',
+    background: '--bg-color-ui-background',
+    color: 'var(--ft-color-loud)',
+  },
+  main: {
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  footer: {
+    position: 'relative',
+    display: 'grid',
+    gridTemplateRows: '2fr',
+    gridTemplateColumns: '1fr 1fr auto',
+    background: 'var(--bg-color-ui-contrast1)',
+    // color: '#F9F9F9',
+    color: 'var(--ft-color-loud)',
+    padding: '10px'
+  }
+} as Styles));
 
 interface LayoutProps {
   children?: ReactNode;
@@ -90,6 +80,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   const theme = useTheme<DefaultTheme>();
   const classes = useStyles({ theme });
+  //const {title} = usePageTitle();
 
   return (
     <div className={classes.container}>
@@ -101,6 +92,7 @@ const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
       <footer className={classes.footer}>
+        <PoweredBy />
         <Copyright />
         <Commit />
       </footer>

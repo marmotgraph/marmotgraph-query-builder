@@ -23,21 +23,36 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import {Scrollbars} from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 import Query from './Query';
 import type { Query as QueryProps } from '../../../../Types/Query';
 
-
 const useStyles = createUseStyles({
   container: {
-    color: 'var(--ft-color-loud)'
+    /* Shared_queries_box */
+    // background: '#FFFFFF',
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast1)',
+    // boxShadow: '0px 4px 4px #E6E7E8',
+    boxShadow: 'var(--box-shadow-ui-medium)',
+    borderRadius: '12px',
+    padding: '20px',
+    // marginTop: '20px',
+    marginBottom: '20px',
+    // --col1Width: '1fr',
+    // --col2Width: '1fr',
+    // --col3Width: '2fr',
+  },
+  gridLayout: {
+    width: '100%'
   },
   title: {
     display: 'flex',
     marginBottom: '10px',
     paddingBottom: '10px',
     paddingTop: '20px',
-    borderBottom: '1px solid var(--border-color-ui-contrast5)',
+    borderBottom: 'var(--border-separator)',
     '& h4': {
       flex: 1,
       display: 'inline-block',
@@ -45,6 +60,37 @@ const useStyles = createUseStyles({
       padding: 0,
       fontSize: '1.2rem'
     }
+  },
+  myQueryHeader: {
+    display: 'grid',
+    gridTemplateColumns: '3fr 2fr 2fr',
+    borderBottom: 'var(--border-separator)',
+    padding: '8px 0',
+    h5: {
+      margin: '0',
+      fontWeight: '600',
+    }
+  },
+
+  queryList :{
+    width: '100%',
+    height: 'calc(100vh - 300px)'
+  },
+
+  /* Ensure the Query component also uses the same grid layout */
+  /* You would need to apply this class to your Query component */
+  queryItem :{
+    display: 'grid',
+    gridTemplateColumns: '3fr 2fr 2fr',
+    padding: '8px 0',
+    borderBottom: '1px solid #eee',
+  },
+  emptyList: {
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast1)',
+    borderRadius: '12px',
+    padding: '100px',
+    marginTop:'50px'
   }
 });
 
@@ -53,23 +99,43 @@ interface ListProps {
   list: QueryProps.Query[];
 }
 
-const List = observer(({ title, list }: ListProps) => {
+const List = observer(({  list }: ListProps) => {
   const classes = useStyles();
   if (!list || !list.length) {
     return null;
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.title}>
-        <h4>{title}</h4>
-      </div>
-      {list.map(query => (
-        <Query
-          key={query.id}
-          query={query}
-        />
-      ))}
+    <div>
+      {list && list.length > 0 ? (
+        <div className={classes.container}>
+          <div className={classes.gridLayout}>
+            <div className={classes.myQueryHeader}>
+              <h5>Type</h5>
+              <h5>Space</h5>
+              <h5>Query title</h5>
+            </div>
+
+            <div className={classes.queryList}>
+              <Scrollbars autoHide>
+                {list.map(query => (
+                  <Query
+                    key={query.id}
+                    query={query}
+                  />
+                ))}
+              </Scrollbars>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={classes.emptyList}>
+          <h4>You have no saved queries.</h4>
+          <p>
+             Your query list is currently empty. You can browse shared queries or create a new one.
+          </p>
+        </div>
+      )}
     </div>
   );
 });

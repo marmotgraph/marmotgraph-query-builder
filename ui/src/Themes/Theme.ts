@@ -28,14 +28,64 @@ class Style {
 interface Background {
   gradient: Style;
   image: string;
+  color?: string;
   position?: string;
   size?: string;
 }
 
-interface List {
-  hover: Style;
-  selected: Style;
+export interface Separator {
+  borderColor: string;
+  borderWidth?: string;
+  borderStyle?: string;
 }
+
+export interface Shadow {
+  boxShadow: string;
+}
+
+export interface LinkStyle {
+  color: string;
+  textDecoration?: string;
+}
+
+export interface Links {
+  default: LinkStyle;
+  hover: LinkStyle;
+  visited: LinkStyle;
+  active: LinkStyle;
+}
+
+export interface CTAStyle {
+  background: string;
+  text: string;
+  hover: string;
+  active: string;
+  border?: string;  // Optional border color
+  borderRadius?: string;  // Optional border radius
+  boxShadow?: string;  // Optional box shadow
+}
+
+export interface CTA {
+  primary: CTAStyle;
+  secondary: CTAStyle;
+}
+
+export interface ListItemStyle {
+  backgroundColor: string;
+  borderColor: string;
+  textColor?: string;
+}
+
+export interface List {
+  hover: ListItemStyle;
+  selected: ListItemStyle;
+}
+
+// interface List {
+//   hover: Style;
+//   selected: Style;
+// }
+
 
 interface Error {
   color: string,
@@ -88,6 +138,12 @@ export interface Theme {
   contrast4: Style;
   contrast5: Style;
   blendContrast1: Style;
+  shadowSubtle: Shadow;
+  shadowMedium: Shadow;
+  shadowStrong: Shadow;
+  separator: Separator;
+  links: Links;
+  cta: CTA;
   list: List;
   quiet: Style;
   normal: Style;

@@ -54,8 +54,8 @@ const CompareButton = observer(({ disabled }: CompareButtonProps) => {
 
   return (
     <>
-      <Button disabled={disabled} onClick={handleCompare}>
-        <FontAwesomeIcon icon={faGlasses} />&nbsp;Compare
+      <Button disabled={disabled} onClick={handleCompare} title={'Compare'}>
+        <FontAwesomeIcon icon={faGlasses} />
       </Button>
       <CompareChangesModal show={showChanges} onClose={handleCancelCompare} />
     </>

@@ -21,9 +21,11 @@
  *
  */
 
+import {isBoolean} from 'lodash';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import Toggle from '../../../../../Components/Toggle';
+
+import Checkbox from '../../../../../Components/Checkbox';
 import Filter from './Filter';
 import SingleItemStrategy from './SingleItemStrategy';
 import UnsupportedOption from './UnsupportedOption';
@@ -47,38 +49,39 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
   const showRequired = isNotRootField && !isParentFieldFlattened;
   if (name === 'required') {
     return (
-      <Toggle
-        option={option}
-        label="Required"
-        comment="only applicable if parent field is not flattened"
-        show={showRequired}
-        onChange={onChange}
-      />
+      showRequired && (
+        <Checkbox
+          checked={isBoolean(option.value) ? option.value : false}
+          onChange={(checked) => onChange(name, checked ? true : undefined)}
+          label="Required"
+          comment="only applicable if parent field is not flattened"
+        />
+      )
     );
   }
 
   const showSort = isNotRootField && !hasLeaf && field.isFlattenedToRoot;
   if (name === 'sort') {
     return (
-      <Toggle
-        option={option}
-        label="Sort result by this property"
-        show={showSort}
-        onChange={onChange}
-      />
+      showSort && (
+        <Checkbox
+          checked={isBoolean(option.value) ? option.value : false}
+          onChange={(checked) => onChange(name, checked ? true : undefined)}
+          label="Sort result by this property"
+        /> )
     );
   }
 
   const showEnsureOrder = isNotRootField && hasLeaf && !isParentFieldFlattened;
   if (name === 'ensureOrder') {
     return (
-      <Toggle
-        option={option}
-        label="Ensure original order"
-        comment="only applicable if parent field is not flattened"
-        show={showEnsureOrder}
-        onChange={onChange}
-      />
+      showEnsureOrder  && (
+        <Checkbox
+          checked={isBoolean(option.value) ? option.value : false}
+          onChange={(checked) => onChange(name, checked ? true : undefined)}
+          label="Ensure original order"
+          comment="only applicable if parent field is not flattened"
+        /> )
     );
   }
 

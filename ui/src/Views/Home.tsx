@@ -35,13 +35,15 @@ const useStyles = createUseStyles({
   container: {
     position: 'relative',
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: '3fr 7fr',
     columnGap: '10px',
     height: '100%',
     padding: '10px',
-    background: 'transparent',
+    background: 'var(--bg-color-ui-contrast2)',
+    // background: 'transparent',
     color: 'var(--ft-color-normal)',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    paddingBottom: '30px'
   }
 });
 

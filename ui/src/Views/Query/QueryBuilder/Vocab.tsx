@@ -23,8 +23,7 @@
 
 import React from 'react';
 
-import Toggle from '../../../Components/Toggle';
-import type { ToggleItemValue } from '../../../Components/Toggle/types';
+import Checkbox from '../../../Components/Checkbox';
 
 interface VocabProps{
   defaultValue?: string;
@@ -32,20 +31,17 @@ interface VocabProps{
   onChange: (value?: string) => void
 }
 
-const Vocab = ({ defaultValue, value, onChange}: VocabProps) => {
 
-  const handleOnChange = (_:string, newValue?:ToggleItemValue) => onChange((newValue as boolean|undefined)?defaultValue:undefined);
+const Vocab: React.FC<VocabProps> = ({ defaultValue, value, onChange }) => {
+  const handleOnChange = (checked: boolean) => {
+    onChange(checked ? defaultValue : undefined);
+  };
 
   return (
-    <Toggle
-      option={{
-        name: '',
-        value: value?true:undefined
-      }}
-      label="Strip vocab"
-      comment={defaultValue}
-      show={true}
+    <Checkbox
+      checked={!!value}
       onChange={handleOnChange}
+      label="Strip vocab"
     />
   );
 };

@@ -51,7 +51,7 @@ const Spaces = observer(({ children }: SpacesProps) => {
     refetch,
   } = useListSpacesQuery();
 
-  const { userProfileStore, spacesStore } = useStores();
+  const { userProfileStore, spacesStore, appStore } = useStores();
 
   useEffect(() => {
     if (spaces) {
@@ -82,8 +82,8 @@ const Spaces = observer(({ children }: SpacesProps) => {
     return (
       <ErrorPanel>
         <h1>Welcome <span title={userProfileStore.user?.givenName}>{userProfileStore.user?.givenName}</span></h1>
-        <p>You are currently not granted permission to acccess any spaces.</p>
-        <p>Please contact our team by email at : <a href="mailto:kg@ebrains.eu">kg@ebrains.eu</a></p>
+        <p>You are currently not granted permission to access any spaces.</p>
+        <p>Please contact our team by email at : <a href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></p>
         <Button onClick={logout}>Logout</Button>
       </ErrorPanel>
     );

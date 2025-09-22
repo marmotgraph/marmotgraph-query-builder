@@ -50,8 +50,8 @@ const CopyAsNewQueryButton = observer(() => {
   }
 
   return (
-    <Button variant="secondary" onClick={onClick}>
-      <FontAwesomeIcon icon={faCopy} />&nbsp;Copy as a new query
+    <Button variant="secondary" onClick={onClick} title={'Copy as a new query'}>
+      <FontAwesomeIcon icon={faCopy} />
     </Button>
   );
 });

@@ -44,6 +44,14 @@ import type { Type } from '../types';
 
 const useStyles = createUseStyles({
   container: {
+    /* Shared_queries_box */
+    color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast1)',
+    // background: '#FFFFFF',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
+    borderRadius: '12px',
+    //     padding: '10px',
+    margin: '20px',
     display: 'grid',
     height: '100%',
     gridTemplateRows: '100%',
@@ -91,9 +99,10 @@ const getQueryFromLocalStorage = (queryId: string): {queryId: string, type: stri
   }
   try {
     const newQuery = JSON.parse(newQueryItem) as {queryId: string, type: string, instanceId: string};
-    if (newQuery.queryId === queryId && typeof newQuery.type === 'string' && !!newQuery.type && typeof newQuery.instanceId === 'string') {
+    if (newQuery.queryId === queryId && !!newQuery.type) {
       return newQuery;
     }
+    // eslint-disable-next-line autofix/no-unused-vars
   } catch (e)  {
     return null;
   }
@@ -158,12 +167,18 @@ const Query = observer(({ mode }:ModeProps) => {
       setNotFound(undefined);
     } else if (isAvailable) {
       if (queryBuilderStore.typeId) {
+        // Here it still works since the old type Id is still set. So we can end up showing the new query Id
+        // but with an old view of the fields.
+        // What is needed is to ask the user for the new type so that we can set it.
         setNotFound(false);
         queryBuilderStore.setAsNewQuery(queryId);
       } else {
         setNotFound(false);
         const newQuery = getQueryFromLocalStorage(queryId);
         const type = newQuery?typeStore.types.get(newQuery.type):undefined;
+
+        console.log(newQuery);
+        console.log(type);
         if (newQuery && type) {
           localStorage.setItem('type',newQuery.type);
           queriesStore.toggleShowSavedQueries(false);

@@ -36,32 +36,51 @@ const useStyles = createUseStyles({
   container:{
     position:'relative',
     cursor:'pointer',
-    margin:'4px 0',
+    //     margin:'4px 0',
     padding:'10px',
-    background: 'rgba(0,0,0,0.4)',
-    color:'var(--ft-color-normal)',
+    borderBottom: 'var(--border-separator)',
+    '&:firstChild': {
+      borderTop: 'var(--border-separator)',
+    },
+    color: 'var(--ft-color-normal)',
     '&:hover': {
-      background: 'linear-gradient(90deg, rgba(30,60,70,0.9) 0%, rgba(20,50,60,0.9) 100%)'
-    }
+      background: '#F0F0F0'
+    },
+    display: 'grid',
+    gridTemplateColumns: '2fr 2fr 2fr',
+    gridGap: '10px',
+  },
+  listItem: {
+    padding: '12px 16px',
+    borderBottom: 'var(--border-separator)',
+    transition: 'all 0.2s ease',
+    borderLeft: '3px solid transparent',
+    cursor: 'pointer',
+
+    '&:hover': {
+      backgroundColor: 'var(--list-hover-bg)',
+      borderLeftColor: 'var(--list-hover-border)',
+      color: 'var(--list-hover-text)',
+    },
   },
   name: {
-    position: 'relative',
+    //     position: 'relative',
     width: '100%',
-    display: 'inline-block',
+    //     display: 'inline-block',
     color:'var(--ft-color-louder)',
     textTransform: 'capitalize',
     '& small': {
-      color:'var(--ft-color-quiet)',
-      fontStyle:'italic',
+      color: 'var(--ft-color-quiet)',
+      fontStyle: 'italic',
       textTransform: 'none'
     }
   },
   description: {
-    overflow:'hidden',
-    marginTop:'5px',
-    whiteSpace:'nowrap',
-    textOverflow:'ellipsis',
-    fontSize:'0.9em'
+    overflow: 'hidden',
+    marginTop: '5px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    fontSize: '0.9em'
   }
 });
 
@@ -81,18 +100,39 @@ const Query = observer(({query}: QueryProps) => {
     navigate(`/queries/${query.id}`);
   };
 
+  const extractType = (type: string): string => {
+    if (typeof query.meta.type !== 'string') {
+      return '<unknown filter>';
+    }
+    const idx = type.lastIndexOf('/');
+    if (idx !== -1) {
+      return type.substring(idx + 1);
+    }
+    return type;
+  };
+
+  const type = query.meta.type ? extractType(query.meta.type) : undefined;
+
   return (
-    <div className={classes.container} key={query.id} onClick={handleSelect} >
+    <div className={classes.container + ' ' + classes.listItem} key={query.id} onClick={handleSelect} >
       <div className={classes.name}>
         <FontAwesomeIcon icon={faTag} />&nbsp;&nbsp;
-        <span>{query.label?query.label:query.id} - <small title="queryId">{query.id}</small></span>
+        {type}
+        <br/><small>{query.meta.type}</small>
       </div>
-      {query.description && (
-        <div className={classes.description} title={query.description}>{query.description}</div>
-      )}
+      <div>
+        {query.space}
+      </div>
+      <div>
+        <h6>{query.label ? query.label : query.id}</h6>
+        {query.description && (
+          <div className={classes.description} title={query.description}>{query.description}</div>
+        )}
+      </div>
     </div>
   );
 });
+
 Query.displayName = 'Query';
 
 export default Query;

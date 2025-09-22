@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import useStores from '../Hooks/useStores';
 
 const useStyles = createUseStyles({
   container: {
@@ -65,6 +66,7 @@ interface WelcomeTipProps {
 const WelcomeTip = observer(({ show, onClose}: WelcomeTipProps) => {
 
   const classes = useStyles();
+  const { appStore } = useStores();
 
   if (!show) {
     return null;
@@ -73,7 +75,7 @@ const WelcomeTip = observer(({ show, onClose}: WelcomeTipProps) => {
   return (
     <div className={classes.container}>
       <FontAwesomeIcon icon={faLightbulb} />
-      <div className={classes.tip}> This is the place to query the EBRAINS Knowledge Graph conveniently by UI. If you need any help, please check out <a href="https://docs.kg.ebrains.eu/9b511d36d7608eafc94ea43c918f16b6/tutorials.html" rel="nofollow noreferrer noopener" target="_blank">our tutorials</a> or contact us at <a href="mailto:kg@ebrains.eu">kg@ebrains.eu</a></div>
+      <div className={classes.tip}> This is the place to query the {appStore.appName} conveniently by UI. If you need any help, please check out <a href="https://docs.kg.ebrains.eu/9b511d36d7608eafc94ea43c918f16b6/tutorials.html" rel="nofollow noreferrer noopener" target="_blank">our tutorials</a> or contact us at <a href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></div>
       <button className={classes.closeBtn} onClick={onClose} title="close"><FontAwesomeIcon icon={faTimes} /></button>
     </div>
   );

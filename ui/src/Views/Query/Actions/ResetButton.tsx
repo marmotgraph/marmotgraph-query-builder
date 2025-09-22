@@ -38,8 +38,8 @@ const ResetButton = observer(() => {
   };
 
   return (
-    <Button variant="secondary" onClick={onClick}>
-      <FontAwesomeIcon icon={faUndoAlt} />&nbsp;Reset
+    <Button variant="secondary" onClick={onClick} title={'Reset'}>
+      <FontAwesomeIcon icon={faUndoAlt} />
     </Button>
   );
 });

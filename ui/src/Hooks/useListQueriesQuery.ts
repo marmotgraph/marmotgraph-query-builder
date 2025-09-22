@@ -31,14 +31,22 @@ import type { QuerySpecification } from '../Types/QuerySpecification';
 
 export type ListQueriesQuery = GenericQuery<Query.Query[]>;
 
-const useListQueriesQuery = (type: string, skip: boolean): ListQueriesQuery => {
+const useListQueriesQuery = (type: string | null, skip: boolean): ListQueriesQuery => {
+  // Log the querying state, considering `null` as "all queries"
+  console.log(`Querying for ${type ?? 'all queries'}`);
 
   const API = useAPI();
-
   const fetch = useMemo(() => async () => {
-    const { data } = await API.getQueries(type);
+    console.log(`Querying for ${type ?? 'all queries'}`);
+
+    const { data } = await API.getQueries(type ?? '');
+
     try {
-      const queries = await Promise.all(data.map(async (jsonSpec: QuerySpecification.QuerySpecification) => normalizeQuery(jsonSpec)));
+      const queries = await Promise.all(
+        data.map(async (jsonSpec: QuerySpecification.QuerySpecification) =>
+          normalizeQuery(jsonSpec)
+        )
+      );
       return queries;
     } catch (e) {
       throw new Error(`Error while trying to expand/compact JSON-LD (${e})`);

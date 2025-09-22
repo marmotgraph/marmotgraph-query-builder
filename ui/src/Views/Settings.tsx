@@ -58,6 +58,11 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
 
   useEffect(() => {
     if (settings) {
+      //const titleEl = document.getElementById('title');
+      const applicationName =  settings.tenant?.title+' Query Builder';
+      appStore.setAppName(applicationName);
+      appStore.setContactEmail(settings.tenant ? settings.tenant.contactEmail : 'support@marmotgraph.org');
+      appStore.setCopyright( settings.tenant? settings.tenant.copyright : '');
       Matomo.initialize(settings?.matomo);
       Sentry.initialize(settings?.sentry);
       appStore.setCommit(settings?.commit);
@@ -85,12 +90,11 @@ const Settings = observer(({ authAdapter, children }: SettingsProps) => {
   }
 
   if (isSuccess) {
-
     if (authAdapter instanceof KeycloakAuthAdapter && !settings?.keycloak) {
       return (
         <ErrorPanel>
           <p>Failed to initialize authentication!</p>
-          <p>Please contact our team by email at : <a href={'mailto:kg@ebrains.eu'}>kg@ebrains.eu</a></p>
+          <p>Please contact our team by email at : <a href={`mailto:${appStore.contactEmail}`}>{appStore.contactEmail}</a></p>
         </ErrorPanel>
       );
     }

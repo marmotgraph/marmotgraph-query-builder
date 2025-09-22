@@ -23,45 +23,35 @@
 
 import {faBan} from '@fortawesome/free-solid-svg-icons/faBan';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactJson from '@microlink/react-json-view';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import ReactJson from 'react-json-view';
 import { createUseStyles } from 'react-jss';
 import { normalizeQuery } from '../../Helpers/QueryHelpers';
 import useStores from '../../Hooks/useStores';
 import { FIELD_FLAGS } from '../../Stores/Field';
-import ThemeRJV from '../../Themes/ThemeRJV';
-import Actions from './Actions';
 import type { QuerySpecification } from '../../Types/QuerySpecification';
+import type { InteractionProps } from '@microlink/react-json-view';
 import type jsonld from 'jsonld';
-
-
-import type { InteractionProps } from 'react-json-view';
 
 const useStyles = createUseStyles({
   container: {
     position: 'relative',
     display: 'grid',
-    gridTemplateRows: 'auto 1fr auto',
+    gridTemplateRows: 'auto auto 1fr auto',
     gridGap: '10px',
     height: '100%',
-    padding:'0 10px 10px 10px'
+    // padding:'0 10px 10px 10px'
+    padding:'20px'
   },
   body:{
     color:'var(--ft-color-loud)',
-    background: 'rgba(0,0,0,0.4)',
-    border: '1px solid var(--border-color-ui-contrast1)',
-    padding:'10px',
-    '& .react-json-view': {
-      backgroundColor: 'rgba(0,0,0,0.3) !important'
-    }
+    padding:'10px'
   },
   actions: {
     position: 'relative',
-    background: 'linear-gradient(90deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.8) 100%)',
-    border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
     padding: '10px 10px 0 0',
     '& > div': {
@@ -155,6 +145,10 @@ const QueryEditor = observer(() => {
 
   return (
     <div className={classes.container}>
+      <div>
+        <h6>Query</h6>
+        <h5>{queryBuilderStore.label}</h5>
+      </div>
       <div className={classes.error} onClick={handleOnErrorClose} >
         {error && (
           <Alert variant="danger" onClose={handleOnErrorClose} dismissible>
@@ -164,14 +158,18 @@ const QueryEditor = observer(() => {
       </div>
       <div className={classes.body}>
         <Scrollbars autoHide>
-          <ReactJson collapsed={false} name={false} theme={ThemeRJV} src={queryBuilderStore.querySpecification} onEdit={handleOnEdit} onAdd={handleOnAdd} onDelete={handleOnDelete}  />
+          <ReactJson collapsed={false} name={false} theme={'grayscale:inverted'}
+            src={queryBuilderStore.querySpecification}
+            onEdit={handleOnEdit}
+            onAdd={handleOnAdd}
+            onDelete={handleOnDelete}  />
         </Scrollbars>
       </div>
-      <div className={classes.actions}>
+      {/* <div className={classes.actions}>
         <div>
           <Actions />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 });

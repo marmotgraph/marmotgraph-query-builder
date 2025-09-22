@@ -23,7 +23,7 @@
 
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons/faArrowDown';
 import {faArrowUp} from '@fortawesome/free-solid-svg-icons/faArrowUp';
-import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+import {faTrashAlt} from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -121,7 +121,7 @@ const Actions = observer(({ field, className }: ActionsProps) => {
         onClick={handleRemoveField}
         title="remove"
       >
-        <FontAwesomeIcon icon={faTimes} />
+        <FontAwesomeIcon icon={faTrashAlt} />
       </Button>
     </div>
   );

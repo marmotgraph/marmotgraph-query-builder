@@ -33,6 +33,7 @@ import DeleteButton from './Actions/DeleteButton';
 import ResetButton from './Actions/ResetButton';
 import SaveAsButton from './Actions/SaveAsButton';
 import SaveButton from './Actions/SaveButton';
+import SaveQueryModal from './Actions/SaveQueryModal';
 import UndoChangesButton from './Actions/UndoChangesButton';
 
 const QuerySaveAsModeActions = observer(() => {
@@ -57,11 +58,14 @@ const UpdatableQueryActions = observer(() => {
   return (
     <>
       <CompareButton disabled={compareDisabled} />
-      <CopyAsNewQueryButton />
+      {/* Removing the copy button due to possible redundancy with 'Save as' */}
+      {/*<CopyAsNewQueryButton />*/}
       <UndoChangesButton />
       <DeleteButton />
-      <SaveAsButton disabled={saveAsDisabled} />
+      <SaveAsButton disabled={saveAsDisabled} showSaveAsIcon={true} />
       <SaveButton disabled={saveDisabled} />
+
+      <SaveQueryModal />
     </>
   );
 });
@@ -73,7 +77,7 @@ const ReadOnlyQueryActions = observer(() => {
       <CompareButton disabled={!queryBuilderStore.hasQueryChanged} />
       <UndoChangesButton />
       <CopyAsNewQueryButton  />
-      <SaveAsButton disabled={queryBuilderStore.isQueryEmpty} />
+      <SaveAsButton disabled={queryBuilderStore.isQueryEmpty} showSaveAsIcon={true} />
     </>
   );
 });
@@ -85,6 +89,8 @@ const NewQueryActions = observer(() => {
       <ResetButton />
       <CopyAsNewQueryButton />
       <SaveAsButton disabled={!queryBuilderStore.hasChanged} />
+
+      <SaveQueryModal />
     </>
   );
 });

@@ -23,12 +23,13 @@
 
 import { observer } from 'mobx-react-lite';
 import React, { Suspense, useState } from 'react';
-import { JssProvider, ThemeProvider } from 'react-jss';//NOSONAR
+import { JssProvider, ThemeProvider } from 'react-jss'; //NOSONAR
 import { BrowserRouter, Navigate, Routes, Route, useLocation, matchPath } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SpinnerPanel from './Components/SpinnerPanel';
+import { PageTitleProvider } from './Contexts/PageTitleContext';
 import APIProvider from './Views/APIProvider';
 import AuthProvider from './Views/AuthProvider';
 import ErrorBoundary from './Views/ErrorBoundary';
@@ -49,8 +50,9 @@ const Spaces = React.lazy(() => import('./Views/Spaces'));
 const Types = React.lazy(() => import('./Views/Types'));
 const Logout = React.lazy(() => import('./Views/Logout'));
 const Home = React.lazy(() => import('./Views/Home'));
-const QueryByType = React.lazy(() => import('./Views/QueryByType'));
+// const QueryByType = React.lazy(() => import('./Views/QueryByType'));
 const Query = React.lazy(() => import('./Views/Query'));
+const QueryHome = React.lazy(() => import('./Views/Home/QueryHome'));
 
 interface AppProps {
   stores: RootStore;
@@ -74,58 +76,79 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     setShowWelcomeTip(false);
   };
 
+  // Using a more generic type
+  const pageTitles: {[key: string]: string} = {
+    '/': 'My queries',
+    '/queries': 'Shared queries',
+    '/queries/:id': 'Query builder',
+    // Add more as needed
+  };
+
+  const PageTitle = () => {
+    const location = useLocation();
+    // Find the matching route pattern
+    const matchingRoute = Object.keys(pageTitles).find(pattern =>
+      matchPath({ path: pattern }, location.pathname)
+    );
+    return <h3 className="container-fluid">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Styles />
-      <APIProvider api={api}>
-        <AuthProvider adapter={authAdapter} >
-          <StoresProvider stores={stores}>
-            <Layout>
-              {appStore.globalError?
-                <GlobalError />
-                :
-                <Settings authAdapter={authAdapter}>
-                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                    <Routes>
-                      <Route path={'/logout'} element={<Logout />}/>
-                      <Route path={'*'} element={
-                        <Authenticate >
-                          <UserProfile>
-                            <Spaces>
-                              <Types>
-                                <Shortcuts />
-                                <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
-                                  <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} />
-                                  <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="queries" element={<QueryByType />} />
-                                    <Route path="queries/:id" element={<Query mode="build" />} />
-                                    <Route path="queries/:id/edit" element={<Query mode="edit" />} />
-                                    <Route path="queries/:id/execute" element={<Query mode="execute" />} />
-                                    <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
-                                    <Route path="*" element={<Navigate to="/" replace={true} />} />
-                                  </Routes>
-                                </Suspense>
-                              </Types>
-                            </Spaces>
-                          </UserProfile>
-                        </Authenticate>
-                      }/>
-                    </Routes>
-                  </Suspense>
-                </Settings>
-              }
-            </Layout>
-          </StoresProvider>
-        </AuthProvider>
-      </APIProvider>
+      <PageTitleProvider>
+        <Styles />
+        <APIProvider api={api}>
+          <AuthProvider adapter={authAdapter} >
+            <StoresProvider stores={stores}>
+              <Layout>
+                {appStore.globalError?
+                  <GlobalError />
+                  :
+                  <Settings authAdapter={authAdapter}>
+                    <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                      <Routes>
+                        <Route path={'/logout'} element={<Logout />}/>
+                        <Route path={'*'} element={
+                          <Authenticate >
+                            <UserProfile>
+                              <Spaces>
+                                <Types>
+                                  <Shortcuts />
+                                  <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
+                                    {/*<Breadcrumbs items={breadcrumbItems} /> */}
+                                    {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
+                                    <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
+                                    <Routes>
+                                      <Route path="/" element={<QueryHome />} />
+                                      <Route path="queries" element={<Home />} />
+                                      <Route path="queries/:id" element={<Query mode="build" />} />
+                                      <Route path="queries/:id/edit" element={<Query mode="edit" />} />
+                                      <Route path="queries/:id/execute" element={<Query mode="execute" />} />
+                                      <Route path="queries/:id/*" element={<Navigate to={`/queries/${matchQueryId?.params.id}`} replace={true} />} />
+                                      <Route path="*" element={<Navigate to="/" replace={true} />} />
+                                    </Routes>
+                                  </Suspense>
+                                </Types>
+                              </Spaces>
+                            </UserProfile>
+                          </Authenticate>
+                        }/>
+                      </Routes>
+                    </Suspense>
+                  </Settings>
+                }
+              </Layout>
+            </StoresProvider>
+          </AuthProvider>
+        </APIProvider>
+      </PageTitleProvider>
     </ThemeProvider>
   );
 });
 App.displayName = 'App';
 
 const Component = ({ stores, api, authAdapter }: AppProps) => (
-  <JssProvider id={{minify: process.env.NODE_ENV === 'production'}}>
+  <JssProvider id={{minify: import.meta.env.NODE_ENV === 'production'}}>
     <ErrorBoundary stores={stores} >
       <BrowserRouter>
         <App stores={stores} api={api} authAdapter={authAdapter}/>

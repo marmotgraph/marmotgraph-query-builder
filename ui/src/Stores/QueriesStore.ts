@@ -81,6 +81,8 @@ class QueriesStore {
       queries: observable,
       hasQueries: computed,
       groupedQueries: computed,
+      sharedQueries: computed,
+      privateQueries: computed,
       groupedFilteredQueries: computed,
       filter: observable,
       setFilter: action,
@@ -92,6 +94,8 @@ class QueriesStore {
       showSavedQueries: observable,
       toggleShowSavedQueries: action
     });
+
+    console.log('1 - type is: ' + this.type);
 
     this.rootStore = rootStore;
   }
@@ -120,6 +124,8 @@ class QueriesStore {
   }
 
   get groupedQueries(): Query.SpaceQueries[] {
+    console.log('Type: '+ this.type);
+    console.log('Now type became: '+ this.type);
     const groups: Query.GroupedBySpaceQueries = {};
     const spacesStore = this.rootStore.spacesStore;
     this.queries.forEach(query => {
@@ -149,10 +155,70 @@ class QueriesStore {
       .sort(spaceQueriesCompare);
   }
 
+  get sharedQueries(): Query.SpaceQueries[] {
+    console.log('Type: '+ this.type);
+    console.log('Now type became: '+ this.type);
+    const groups: Query.GroupedBySpaceQueries = {};
+    const spacesStore = this.rootStore.spacesStore;
+    this.queries.forEach(query => {
+      if (query.space) {
+        const space: Space | undefined = spacesStore.getSpace(query.space);
+        console.log(query.space);
+        if (space) {
+          if (!groups[query.space]) {
+            groups[query.space] = {
+              name: space.name,
+              label: `Shared queries in space ${space.name}`,
+              isPrivate: false,
+              permissions: { ...space.permissions },
+              queries: []
+            };
+          }
+          groups[query.space].queries = [
+            ...groups[query.space].queries,
+            query
+          ].sort(queriesCompare);
+        }
+      }
+    });
+    return Object.values(groups)
+      .filter(group => group.queries.length)
+      .sort(spaceQueriesCompare);
+  }
+
+  get privateQueries(): Query.SpaceQueries[] {
+    const groups: Query.GroupedBySpaceQueries = {};
+    const spacesStore = this.rootStore.spacesStore;
+    this.queries.forEach(query => {
+      if (query.space) {
+        const space: Space | undefined = spacesStore.getSpace(query.space);
+        if (space && space.isPrivate) {
+          if (!groups[query.space]) {
+            groups[query.space] = {
+              name: space.name,
+              label: 'My private queries',
+              isPrivate: true,
+              permissions: { ...space.permissions },
+              queries: []
+            };
+          }
+          groups[query.space].queries = [
+            ...groups[query.space].queries,
+            query
+          ].sort(queriesCompare);
+        }
+      }
+    });
+    return Object.values(groups)
+      .filter(group => group.queries.length)
+      .sort(spaceQueriesCompare);
+  }
+
   get groupedFilteredQueries(): Query.SpaceQueries[] {
     const filter = this.filter.toLowerCase();
     if (!filter) {
-      return this.groupedQueries;
+      return this.sharedQueries;
+      /*return this.groupedQueries;*/
     }
     return this.groupedQueries.reduce((acc: Query.SpaceQueries[], group) => {
       const queries = group.queries.filter(query => queriesFilter(query, filter));

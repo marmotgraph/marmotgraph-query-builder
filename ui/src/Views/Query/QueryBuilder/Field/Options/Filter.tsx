@@ -23,7 +23,7 @@
 
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -44,15 +44,16 @@ const useStyles = createUseStyles({
   },
   panel: {
     position: 'relative',
-    padding: '10px',
-    border: '1px solid rgb(108, 117, 125)',
+    padding: '20px 0',
+    // border: '1px solid rgb(108, 117, 125)',
     '&:after': {
       content: '"Filter"',
       position: 'absolute',
-      top: '-11px',
+      top: '0',
       left: '5px',
-      backgroundColor: '#282828',
-      padding: '0 5px'
+      fontWeight: 'bold',
+      // backgroundColor: '#282828',
+      // padding: '0 10px',
     }
   },
   select: {
@@ -92,7 +93,7 @@ const useStyles = createUseStyles({
     marginTop: '10px'
   },
   label: {
-    width: '75px',
+    // width: '75px',
     lineHeight: '2.2rem',
     textAlign: 'right'
   },
@@ -315,7 +316,7 @@ const Filter = observer(({ filter, show, onChange }: FilterProps) => {
                   onClick={handleDeleteParameter}
                   title="delete parameter"
                 >
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FontAwesomeIcon icon={faTrashAlt} />
                 </button>
               </div>
               {['scope', 'size', 'start', 'instanceId'].includes(
@@ -347,7 +348,7 @@ const Filter = observer(({ filter, show, onChange }: FilterProps) => {
                 onClick={handleDeleteValue}
                 title="delete value"
               >
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTrashAlt} />
               </button>
             </div>
           )}

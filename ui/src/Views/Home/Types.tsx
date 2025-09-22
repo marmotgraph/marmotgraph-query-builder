@@ -34,26 +34,28 @@ import type { KeyboardEvent} from 'react';
 
 const useStyles = createUseStyles({
   container: {
+    marginTop: '10px',
+    margin: '20px',
+    background: 'var(--bg-color-ui-contrast1)',
+    boxShadow: 'var(--box-shadow-ui-subtle)',
+    borderRadius: '12px',
+    padding: '10px',
     position: 'relative',
     display: 'grid',
     gridTemplateRows: 'auto 1fr',
     height: '100%',
     width: '100%',
-    background: 'transparent',
     color: 'var(--ft-color-normal)',
-    border: '1px solid var(--border-color-ui-contrast2)',
-    overflow: 'hidden'
+    //     border: '1px solid var(--border-color-ui-contrast2)',
+    //     overflow: 'hidden'
   },
   filter: {
-    border: 0,
-    background:
-      'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
+    paddingBottom: '20px',
+    //     background:
+    //       'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
   },
   body: {
-    borderTop: '1px solid var(--border-color-ui-contrast2)',
-    padding: '10px 0',
-    background:
-      'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%)'
+    borderTop: 'var(--border-separator)',
   },
   content: {
     padding: '0 10px'

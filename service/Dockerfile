@@ -1,6 +1,6 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 VOLUME /tmp
 ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} kg-query-builder.jar
+COPY ${JAR_FILE} query-builder.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT exec java $JAVA_OPTS -jar /kg-query-builder.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar /query-builder.jar

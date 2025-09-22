@@ -21,10 +21,12 @@
  *
  */
 
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uniqueId from 'lodash/uniqueId';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-
+import React, { useState } from 'react';
+import {createUseStyles} from 'react-jss';
 import Field from '../Field';
 import type { FieldProps } from '../Field';
 
@@ -32,13 +34,73 @@ interface ChildrenProps extends FieldProps {
   className: string;
 }
 
-const Children = observer(({ field, className }: ChildrenProps) => (
-  <div className={className}>
-    {field.structure &&
-      field.structure.length > 0 &&
-      field.structure.map(structureField => <Field field={structureField} key={uniqueId('field_')} />)}
-  </div>
-));
+const useStyles = createUseStyles({
+  treeToggleContainer: {
+    position: 'absolute',
+    left: '1px',
+    // top: '-18px',
+    zIndex: '2',
+    background: 'var(--background-color, white)',
+  },
+
+  treeToggleButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '18px',
+    height: '18px',
+    marginTop: '10px',
+    // borderRadius: '50%',
+    border: 'transparent',
+    backgroundColor:' white',
+    color: '#555',
+    cursor: 'pointer',
+    padding: '0',
+    transition: 'all 0.2s ease',
+    '&:hover': {
+      backgroundColor: '#f0f0f0',
+      borderColor: '#aaa',
+    }
+  },
+});
+
+const Children = observer(({ field, className }: ChildrenProps) => {
+  const classes = useStyles();
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  const toggleExpand = (e: { stopPropagation: () => void; }) => {
+    e.stopPropagation(); // Prevent triggering parent's onClick
+    setIsExpanded(!isExpanded);
+  };
+
+  const hasChildren = field.structure && field.structure.length > 0;
+
+  if (!hasChildren) {
+    return null;
+  }
+
+  return (
+    <div className={className}>
+      <div className={classes.treeToggleContainer}>
+        <button
+          className={classes.treeToggleButton}
+          onClick={toggleExpand}
+          title={isExpanded ? 'Collapse' : 'Expand'}
+        >
+          <FontAwesomeIcon
+            icon={isExpanded ? faChevronDown : faChevronRight}
+            size="sm"
+          />
+        </button>
+      </div>
+
+      {isExpanded && field.structure.map(structureField => (
+        <Field field={structureField} key={uniqueId('field_')} />
+      ))}
+    </div>
+  );
+});
+
 Children.displayName = 'Children';
 
 export default Children;

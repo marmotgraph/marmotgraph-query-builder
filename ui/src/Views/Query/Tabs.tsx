@@ -30,34 +30,84 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
 import useStores from '../../Hooks/useStores';
-
 import Matomo from '../../Services/Matomo';
+import Actions from './Actions';
+
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 const useStyles = createUseStyles({
   tabs: {
-    borderRight: '1px solid var(--border-color-ui-contrast1)',
-    background: 'linear-gradient(180deg, rgba(5,10,20,0.4) 0%, rgba(10,40,50,0.4) 100%)'
+    overflow: 'visible',
+    display: 'grid',
+    gridTemplateRows: 'auto auto auto 1fr auto auto auto auto', // Last row pushes itself to the bottom
+    height: '100%',
+    borderRadius: '12px 0px 0px 12px',
+    borderRight: 'var(--border-separator)',
+
+    '& button': {
+      '& span': {display: 'none'},
+
+      alignSelf: 'end',
+      padding: 0,
+      // color: 'var(--ft-color-normal)',
+      borderLeft: '2px solid transparent',
+      // opacity: '0.5',
+      cursor: 'pointer',
+      height: '35px',
+      width: '35px',
+      lineHeight: '35px',
+      margin: '7px',
+      borderRadius: '6px',
+      fontSize: '1.15em',
+      textAlign: 'center',
+
+      '&:hover': {
+        background: 'var(--list-bg-hover)',
+        color: 'var(--ft-color-loud)',
+        // color: '#F5F5F5',
+        opacity: '1'
+      },
+      '&.active': {
+        color: 'var(--ft-color-loud)',
+        background: 'var(--bg-color-ui-contrast2)',
+        // background: '#2E2E2E',
+        // color: '#F5F5F5',
+        opacity: '1'
+      },
+      '&.disabled, &.disabled:hover':{
+        background: 'transparent',
+        color: 'var(--ft-color-normal)',
+        opacity: '0.2',
+        cursor: 'not-allowed'
+      }
+    },
   },
+
   tab: {
+    position: 'relative',
+    zIndex: '1000',
     color: 'var(--ft-color-normal)',
     borderLeft: '2px solid transparent',
     opacity: '0.5',
     cursor: 'pointer',
-    height: '50px',
-    lineHeight: '50px',
-    fontSize: '1.75em',
+    height: '35px',
+    width: '35px',
+    lineHeight: '35px',
+    margin: '7px',
+    borderRadius: '6px',
+    fontSize: '1.15em',
     textAlign: 'center',
     '&:hover': {
       background: 'var(--list-bg-hover)',
-      borderColor: 'var(--list-border-hover)',
       color: 'var(--ft-color-loud)',
+      // color: '#F5F5F5',
       opacity: '1'
     },
     '&.active': {
-      background: 'var(--list-bg-selected)',
-      borderColor: 'var(--list-border-selected)',
       color: 'var(--ft-color-loud)',
+      background: 'var(--bg-color-ui-contrast2)',
+      // background: '#2E2E2E',
+      // color: '#F5F5F5',
       opacity: '1'
     },
     '&.disabled, &.disabled:hover':{
@@ -66,6 +116,10 @@ const useStyles = createUseStyles({
       opacity: '0.2',
       cursor: 'not-allowed'
     }
+  },
+  button: {
+    position: 'relative',
+    zIndex: '1000',
   }
 });
 
@@ -118,9 +172,10 @@ const Tabs = observer(({ mode }: TabsProps) => {
 
   return (
     <div className={classes.tabs}>
-      <Tab className={classes.tab} icon={faTools} mode="build"   active={mode === 'build'}   onClick={setMode} title="build query"   disabled={false} />
-      <Tab className={classes.tab} icon={faCode}  mode="edit"    active={mode === 'edit'}    onClick={setMode} title="edit query"    disabled={false} />
-      <Tab className={classes.tab} icon={faPlay}  mode="execute" active={mode === 'execute'} onClick={setMode} title="execute query" disabled={queryBuilderStore.isQueryEmpty} />
+      <Tab className={classes.tab} icon={faTools} mode="build"   active={mode === 'build'}   onClick={setMode} title="Build query"   disabled={false} />
+      <Tab className={classes.tab} icon={faCode}  mode="edit"    active={mode === 'edit'}    onClick={setMode} title="Edit query"    disabled={false} />
+      <Tab className={classes.tab} icon={faPlay}  mode="execute" active={mode === 'execute'} onClick={setMode} title="Execute query" disabled={queryBuilderStore.isQueryEmpty} />
+      <Actions />
     </div>
   );
 });

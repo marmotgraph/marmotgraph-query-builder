@@ -35,17 +35,15 @@ import type { ChangeEvent } from 'react';
 const useStyles = createUseStyles({
   container: {
     position: 'relative',
-    background:
-      'linear-gradient(135deg, rgba(5,25,35,0.4) 0%, rgba(5,20,35,0.6) 100%)',
-    border: '1px solid var(--border-color-ui-contrast1)',
     color: 'var(--ft-color-loud)',
-    padding: '10px'
+    padding: '20px'
   },
   label: {
-    display: 'flex',
-    alignItems: 'center',
+    marginTop: '0px',
     '& h5': {
-      margin: 0
+      display: 'inline-block',
+      marginTop: 0,
+      marginBottom: '8px'
     },
     '& $input': {
       flex: 1,
@@ -69,11 +67,11 @@ const useStyles = createUseStyles({
     marginTop: '20px'
   },
   input: {
-    borderRadius: '2px',
-    backgroundColor: 'var(--bg-color-blend-contrast1)',
+    border: '1px solid var(--cta-primary-text)',
+    borderRadius: '6px',
     color: 'var(--ft-color-loud)',
+    background: 'var(--bg-color-ui-contrast2)',
     width: '100%',
-    border: '1px solid transparent',
     '&:focus': {
       color: 'var(--ft-color-loud)',
       borderColor: 'rgba(64, 169, 243, 0.5)',
@@ -120,29 +118,24 @@ const QueryForm = observer(({ className }: QueryFormProps) => {
   const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) =>
     queryBuilderStore.setDescription(e.target.value);
 
-  const handleChangeVocab = (value?:string) => value && queryBuilderStore.setResponseVocab(value);
+  const handleChangeVocab = (value?:string) => queryBuilderStore.setResponseVocab(value);
 
   return (
     <div className={`${classes.container} ${className ? className : ''}`}>
       {(queryBuilderStore.isQuerySaved || queryBuilderStore.saveAsMode) && (
         <React.Fragment>
           <div className={classes.label}>
-            <h5>Label :</h5>
+            <h6>Query name</h6>
             <input
               className={`form-control ${classes.input}`}
-              disabled={
-                !(
-                  queryBuilderStore.saveAsMode || queryBuilderStore.canSaveQuery
-                )
-              }
-              placeholder={''}
+              disabled={!queryBuilderStore.saveAsMode && !queryBuilderStore.canSaveQuery}
               type="text"
               value={queryBuilderStore.label}
               onChange={handleChangeLabel}
             />
           </div>
           <div className={classes.description}>
-            <h5>Description :</h5>
+            <h6>Description</h6>
             <textarea
               className={`form-control ${classes.input}`}
               disabled={
@@ -158,13 +151,14 @@ const QueryForm = observer(({ className }: QueryFormProps) => {
           <SpaceForm className={classes.space} />
         </React.Fragment>
       )}
+
       <div className={classes.vocab}>
         <Vocab
           defaultValue={queryBuilderStore.defaultResponseVocab}
           value={!!queryBuilderStore.responseVocab}
-          onChange={handleChangeVocab}
-        />
+          onChange={handleChangeVocab}/>
       </div>
+
       <Links />
     </div>
   );

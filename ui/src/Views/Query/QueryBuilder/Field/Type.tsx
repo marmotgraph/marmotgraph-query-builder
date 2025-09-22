@@ -21,14 +21,49 @@
  *
  */
 
+import {faLongArrowAltLeft} from '@fortawesome/free-solid-svg-icons/faLongArrowAltLeft';
+import {faLongArrowAltRight} from '@fortawesome/free-solid-svg-icons/faLongArrowAltRight';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
+import {createUseStyles} from 'react-jss';
 import useStores from '../../../../Hooks/useStores';
 import PropertyTypes from '../../../PropertyTypes';
+import TargetName from './TargetName';
 import Types from './Types';
 import type Field from '../../../../Stores/Field';
 
+
+const useStyles = createUseStyles({
+  alias: {
+    color: 'var(--ft-color-louder)',
+    fontWeight: 'bold'
+  },
+  default: {
+    color: 'var(--ft-color-normal)',
+    fontStyle: 'italic'
+  },
+  link: {
+    transform: 'translateY(1px)'
+  },
+  reverseLink: {
+    color: '#6ab04c',
+    transform: 'translateY(1px)'
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  attribute: {
+    maxWidth: '80%',  // Will take up to 80% of the parent element's width
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'inline-block',
+    verticalAlign: 'bottom',
+  }
+});
 
 interface TypeProps {
   field: Field;
@@ -36,8 +71,12 @@ interface TypeProps {
 
 const Type = observer(({ field }: TypeProps) => {
 
-
   const { queryBuilderStore } = useStores();
+  const classes = useStyles();
+
+  const iconClassName = field.isReverse ? classes.reverseLink : classes.link;
+  const icon = field.isReverse ? faLongArrowAltLeft : faLongArrowAltRight;
+  const title = field.isReverse ? 'is an incoming link' : undefined;
 
   if (field.isUnknown && field.parent) {
     if (field.schema?.simpleAttributeName) {
@@ -45,12 +84,19 @@ const Type = observer(({ field }: TypeProps) => {
         ? field.schema.attributeNamespace
         : field.schema.attribute;
       return (
-        <>
-          {field.schema.simpleAttributeName}&nbsp;
-          <span title={field.schema?.attribute}>
+        <div className={classes.content}>
+          <div>
+            {field.schema.simpleAttributeName} <TargetName field={field} />&nbsp;
+          </div>
+          {/*<FontAwesomeIcon icon={icon} className={iconClassName} title={title} />*/}
+          <span className={classes.attribute}
+            title={field.schema?.attribute} // Full URL shown on hover
+            aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+          >
             (` ${attributeNameSpace} `)
           </span>
-        </>
+
+        </div>
       );
     }
     return <>{field.schema?.attribute}</>;
@@ -58,10 +104,14 @@ const Type = observer(({ field }: TypeProps) => {
 
   if (field.parent) {
     return (
-      <>
-        {field.schema?.label}
+      <div title={field.schema?.attribute} // Full URL shown on hover
+        aria-label={`Attribute: ${field.schema?.attribute}`} // For screen readers
+      >
+        <FontAwesomeIcon icon={icon} className={iconClassName} title={title} />
+        &nbsp; {field.schema?.label} <TargetName field={field} /> &nbsp;
+        {/*<small className={classes.attribute}>{field.schema?.attribute}</small>*/}
         <Types field={field} />
-      </>
+      </div>
     );
   }
 

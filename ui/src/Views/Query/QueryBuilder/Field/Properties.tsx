@@ -22,12 +22,12 @@
  */
 
 import { observer } from 'mobx-react-lite';
-import React  from 'react';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import React from 'react';
+
 import { createUseStyles } from 'react-jss';
 
+import Checkbox from '../../../../Components/Checkbox';
 import Filter from '../../../../Components/Filter';
-import Toggle from '../../../../Components/Toggle';
 import useStores from '../../../../Hooks/useStores';
 
 import Groups from './Properties/Groups';
@@ -56,24 +56,40 @@ const useStyles = createUseStyles({
       }
     }
   },
+  panelHeader: {
+    marginBottom: '20px',
+  },
   panel: {
     position: 'relative',
     display: 'grid',
-    gridTemplateRows: 'auto 1fr auto',
-    border: '1px solid var(--bg-color-ui-contrast1)',
+    gridTemplateRows: 'auto 1fr auto auto auto auto ',
+    //     border: '1px solid var(--bg-color-ui-contrast1)',
     height: '100%'
+  },
+  filterRow: {
+    //     position: 'relative',
+    display: 'grid',
+    alignItems: 'left',
+    gridTemplateColumn: '2fr 1fr',
+    gap: '1rem',
   },
   filter: {
     border: 0,
-    background: 'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
+    gridColumn: '1', /* First column */
+    '& input': {
+      marginLeft: 0,
+    },
+    //     background: 'linear-gradient(90deg, rgba(20,50,60,0.2) 0%, rgba(20,50,60,0.4) 100%)'
   },
   body: {
-    padding: '0 10px 10px 10px',
-    borderTop: '1px solid var(--bg-color-ui-contrast1)'
+    padding: '0 10px 20px 0'
+    //     borderTop: '1px solid var(--bg-color-ui-contrast1)'
   },
-  advancedPropertiesToggle: {
+  advancedPropertiesCheckbox: {
     padding: '10px',
-    borderTop: '1px solid var(--bg-color-ui-contrast1)'
+    gridColumn: '2',
+    paddingLeft: '1.5em',
+    //     borderTop: '1px solid var(--bg-color-ui-contrast1)'
   }
 });
 
@@ -95,7 +111,7 @@ const Properties = observer(() => {
   const lookupsLinks = queryBuilderStore.currentFieldLookupsLinks;
 
   const handleAddField = (e: MouseEvent<HTMLElement>, property: Property) => {
-    //Don't got to newly chosen field options if ctrl is pressed (or cmd)
+    //Don't go to newly chosen field options if ctrl is pressed (or cmd)
     const schema = {
       ...property,
       isUnknown: false
@@ -106,44 +122,52 @@ const Properties = observer(() => {
   const handleChildrenFilterChange = (value: string) => queryBuilderStore.setChildrenFilterValue(value);
 
   const handleToggleAdvancedProperties = () => queryBuilderStore.toggleIncludeAdvancedAttributes();
+  //   const handleToggleAdvancedProperties = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //       setValue(event.target.checked);
+  //       queryBuilderStore.toggleIncludeAdvancedAttributes();
+  //     };
 
   return (
     <div className={`${classes.container} ${queryBuilderStore.currentField === queryBuilderStore.rootField?'':'has-options'}`}>
+      <div className={classes.panelHeader}>
+        <h5>Add to query</h5>
+        <small>Select an item from the options below to be added to your query</small>
+      </div>
       <div className={classes.panel}>
-        <Filter className={classes.filter} value={queryBuilderStore.childrenFilterValue} placeholder="Filter properties" onChange={handleChildrenFilterChange} />
-        <div className={classes.body}>
-          <Scrollbars autoHide>
-            <List
-              properties={lookupsCommonsAttributes}
-              label="Attributes"
-              onClick={handleAddField}
+        <div className={classes.filterRow}>
+          <div className={classes.filter}>
+            <Filter value={queryBuilderStore.childrenFilterValue} placeholder="Filter properties"
+              onChange={handleChildrenFilterChange} className={''}/>
+          </div>
+          <div className={classes.advancedPropertiesCheckbox} >
+            <Checkbox
+              label="Show advanced properties"
+              checked={queryBuilderStore.includeAdvancedAttributes}
+              onChange={() => handleToggleAdvancedProperties()}
             />
-            <Groups
-              groups={lookupsAttributes}
-              prefix="Attributes specific to"
-              onClick={handleAddField}
-            />
-            <List
-              properties={lookupsCommonsLinks}
-              label="Links"
-              onClick={handleAddField}
-            />
-            <Groups
-              groups={lookupsLinks}
-              prefix="Links specific to"
-              onClick={handleAddField}
-            />
-          </Scrollbars>
+          </div>
         </div>
-        <div className={classes.advancedPropertiesToggle} >
-          <Toggle
-            label="Show advanced properties"
-            option={{
-              name: 'Show advanced properties',
-              value: queryBuilderStore.includeAdvancedAttributes?true:undefined
-            }}
-            show={true}
-            onChange={handleToggleAdvancedProperties} />
+        <div className={classes.body}>
+          <List
+            properties={lookupsCommonsAttributes}
+            label="Attributes"
+            onClick={handleAddField}
+          />
+          <Groups
+            groups={lookupsAttributes}
+            prefix="Attributes specific to"
+            onClick={handleAddField}
+          />
+          <List
+            properties={lookupsCommonsLinks}
+            label="Links"
+            onClick={handleAddField}
+          />
+          <Groups
+            groups={lookupsLinks}
+            prefix="Links specific to"
+            onClick={handleAddField}
+          />
         </div>
       </div>
     </div>

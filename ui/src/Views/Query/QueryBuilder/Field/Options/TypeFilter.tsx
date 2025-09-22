@@ -25,10 +25,10 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 
-import Toggle from '../../../../../Components/Toggle';
+import Checkbox from '../../../../../Components/Checkbox';
+
 import useStores from '../../../../../Hooks/useStores';
 import { Type as PropertyType } from '../../../../PropertyTypes';
-import type { ToggleItemValue } from '../../../../../Components/Toggle/types';
 import type { Query } from '../../../../../Types/Query';
 
 const useStyles = createUseStyles({
@@ -39,6 +39,7 @@ const useStyles = createUseStyles({
     '& > div:first-child > div': {
       marginBottom: 0
     }
+
   },
   panel: {
     display: 'flex',
@@ -48,10 +49,11 @@ const useStyles = createUseStyles({
     marginTop: '6px'
   },
   typeFilter: {
-    display: 'inline-block',
-    border: '1px solid var(--bg-color-ui-contrast4)',
-    borderRadius: '20px',
-    padding: '7px 4px 7px 10px',
+    flexWrap: 'wrap',
+    display: 'flex',
+    // border: '1px solid var(--bg-color-ui-contrast4)',
+    // borderRadius: '20px',
+    // padding: '7px 4px 7px 10px',
     float: 'left',
     marginRight: '10px',
     marginBottom: '10px',
@@ -66,43 +68,47 @@ const useStyles = createUseStyles({
       borderColor: 'var(--ft-color-loud)'
     },
     '&.isUnknown' : {
-      borderColor: 'var(--bg-color-warn-quiet)'
+      borderColor: 'var(--bg-color-warn-normal)', // Using normal warn color for better contrast
+      outline: '1px solid var(--bg-color-warn-normal)', // Adding outline for better visibility
+      outlineOffset: '-1px'
     },
     '&.isUnknown.selected, &.isUnknown:hover': {
-      borderColor: 'var(--bg-color-warn-loud)'
+      borderColor: 'var(--bg-color-warn-loud)', // Using loud warn color for emphasis
+      outline: '1px solid var(--bg-color-warn-loud)', // Adding outline for better visibility
+      outlineOffset: '-1px',
+      color: '#0F1219' // Dark text for better contrast
+    },
+    '& > span' : {
+      paddingLeft: '10px',
+      // float: 'left',
     }
   },
   toggle: {
     display: 'inline-block',
-    paddingLeft: '6px'
+    //     paddingLeft: '6px'
   }
 });
 
 interface TypeFilterItemProps {
   type: Query.TypeFilter;
-  onClick: (id?: string, selected?: boolean) => void;
+  onChange: (id?: string, selected?: boolean) => void;
 }
 
-const TypeFilterItem = ({ type, onClick }: TypeFilterItemProps) => {
+const TypeFilterItem = ({ type, onChange }: TypeFilterItemProps) => {
 
   const classes = useStyles();
 
-  const handleOnClick = () => onClick(type.id, !type.selected);
+  const handleOnClick = () => onChange(type.id, !type.selected);
 
-  const handleToggleClick = (name?: string, value?:ToggleItemValue) => onClick(name, !!(value as boolean|undefined));
 
   return(
     <div className={`${classes.typeFilter} ${type.isUnknown?'isUnknown':''} ${type.selected?'selected':''}`} onClick={handleOnClick} >
-      <PropertyType type={type.id} />
-      <div className={classes.toggle}>
-        <Toggle
-          option={{
-            name: type.id,
-            value: type.selected?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleClick} />
+      <div>
+        <Checkbox
+          checked={type.selected}
+          onChange={handleOnClick} />
       </div>
+      <PropertyType type={type.id} />
     </div>
   );
 };
@@ -124,19 +130,16 @@ const TypeFilter = observer(() => {
   return (
     <div className={classes.container}>
       <div>
-        <Toggle
+        <Checkbox
           label="Type Filter"
-          option={{
-            name: 'Type Filter',
-            value: queryBuilderStore.currentField.typeFilterEnabled?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleTypeFilter} />
+          checked={queryBuilderStore.currentField.typeFilterEnabled}
+          onChange={handleToggleTypeFilter}
+        />
       </div>
       {queryBuilderStore.currentField.typeFilterEnabled && (
         <div className={classes.panel}>
           {queryBuilderStore.currentField.types.map((type, index) =>
-            <TypeFilterItem key={type.id?type.id:index} type={type} onClick={toggleTypeFilter} />)}
+            <TypeFilterItem key={type.id?type.id:index} type={type} onChange={toggleTypeFilter} />)}
         </div>
       )}
     </div>

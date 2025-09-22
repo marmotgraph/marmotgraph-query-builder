@@ -90,8 +90,8 @@ const DeleteButton = observer(() => {
 
   return (
     <>
-      <Button variant="danger" onClick={handleConfirmDelete}>
-        <FontAwesomeIcon icon={faTrashAlt} />&nbsp;Delete
+      <Button variant="danger" onClick={handleConfirmDelete} title="Delete">
+        <FontAwesomeIcon icon={faTrashAlt} />
       </Button>
       {showDeleteDialog && (
         <Dialog message="Are you sure you want to delete this query?" onCancel={handleCancelDelete} onConfirm={handleDelete} />

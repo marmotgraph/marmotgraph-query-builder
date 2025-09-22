@@ -38,14 +38,16 @@ import type { ChangeEvent } from 'react';
 
 const useStyles = createUseStyles({
   input: {
+    border: '1px solid var(--cta-primary-text)',
+    borderRadius: '6px',
     color: 'var(--ft-color-loud)',
-    border: '1px solid transparent',
-    borderRadius: '2px',
-    backgroundColor: 'var(--bg-color-blend-contrast1)',
+    background: 'var(--bg-color-ui-contrast2)',
+
+    // color: 'var(--ft-color-loud)',
+    // border: '1px solid black',
+    // borderRadius: '5px',
     '&:focus': {
       color: 'var(--ft-color-loud)',
-      borderColor: 'rgba(64, 169, 243, 0.5)',
-      backgroundColor: 'transparent'
     }
   },
   selectBox: {
@@ -53,7 +55,6 @@ const useStyles = createUseStyles({
     '& select': {
       display: 'inline-block',
       paddingRight: '20px',
-      color: 'white',
       '-webkit-appearance': 'none'
     },
     '&:after': {
@@ -64,7 +65,7 @@ const useStyles = createUseStyles({
       width: 0,
       height: 0,
       marginTop: '-3px',
-      borderTop: '6px solid white',
+      borderTop: '6px solid black',
       borderRight: '6px solid transparent',
       borderLeft: '6px solid transparent',
       pointerEvents: 'none'
@@ -117,7 +118,7 @@ interface Parameter {
   value: string;
 }
 
-interface Row {
+interface ParameterRow {
   col1: Parameter;
   col2?: Parameter;
   col3?: Parameter;
@@ -146,10 +147,10 @@ const QueryParameters = observer(() => {
         acc[acc.length - 1].col3 = p;
       }
     } else {
-      acc.push({ col1: p } as Row);
+      acc.push({ col1: p } as ParameterRow);
     }
     return acc;
-  }, [] as Row[]);
+  }, [] as ParameterRow[]);
 
   return (
     <>

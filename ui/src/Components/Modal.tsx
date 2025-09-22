@@ -31,7 +31,8 @@ const useStyles = createUseStyles({
     left: '0',
     width: '100%',
     height: '100%',
-    background: 'var(--bg-color-blend-contrast1)',
+    background: 'var(--border-color-ui-contrast2)',
+
     zIndex: '1200',
     '& > div': {
       position: 'absolute',
@@ -46,7 +47,7 @@ const useStyles = createUseStyles({
       fontWeight: 'lighter',
       textAlign: 'center',
       color: 'var(--ft-color-loud)',
-      background: '#0a2332'
+      background: 'var(--border-color-ui-contrast1)'
     }
   }
 });

@@ -31,6 +31,14 @@ import type Field from '../../../../../Stores/Field';
 import type { ChangeEvent } from 'react';
 
 const useStyles = createUseStyles({
+  optionHeader: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    paddingRight: '20px',
+  },
+  close: {
+    justifySelf: 'end'
+  },
   option: {
     marginBottom: '20px'
   },
@@ -79,9 +87,11 @@ const Name = observer(({ field, rootField }: NameProps) => {
 
   return (
     <div className={classes.option}>
-      <div className={classes.optionLabel}>
-        Target name{' '}
-        <small>(only applicable if parent field is not flattened)</small>
+      <div className={classes.optionHeader}>
+        <div className={classes.optionLabel}>
+          Target name{' '}
+          <small>(only applicable if parent field is not flattened)</small>
+        </div>
       </div>
       <div>
         <Form.Control

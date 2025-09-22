@@ -23,6 +23,7 @@
 
 import { observable, action, computed, makeObservable } from 'mobx';
 
+
 import BrightTheme from '../Themes/Bright';
 import DefaultTheme from '../Themes/Default';
 import type RootStore from './RootStore';
@@ -45,6 +46,9 @@ themes[BrightTheme.name] = BrightTheme;
 
 class AppStore{
   commit?: string;
+  appName?: string;
+  contactEmail?:string;
+  copyright?: string;
   globalError?: GlobalError;
   _currentThemeName: string = DefaultTheme.name;
 
@@ -53,6 +57,9 @@ class AppStore{
   constructor(rootStore: RootStore) {
     makeObservable(this, {
       commit: observable,
+      appName: observable,
+      copyright: observable,
+      contactEmail: observable,
       globalError: observable,
       _currentThemeName: observable,
       currentTheme: computed,
@@ -93,6 +100,18 @@ class AppStore{
     } else {
       this.setTheme(BrightTheme.name);
     }
+  }
+
+  setAppName(appName: string) {
+    this.appName = appName;
+  }
+
+  setContactEmail(contactEmail: string){
+    this.contactEmail = contactEmail;
+  }
+
+  setCopyright(copyright: string){
+    this.copyright = copyright;
   }
 
   setCommit(commit: string) {

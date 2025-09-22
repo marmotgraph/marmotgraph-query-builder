@@ -1,39 +1,34 @@
-/*
- * Copyright 2018 - 2021 Swiss Federal Institute of Technology Lausanne (EPFL)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0.
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * This open source software code was developed in part or in whole in the
- * Human Brain Project, funded from the European Union's Horizon 2020
- * Framework Programme for Research and Innovation under
- * Specific Grant Agreements No. 720270, No. 785907, and No. 945539
- * (Human Brain Project SGA1, SGA2 and SGA3).
- *
- */
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {observer} from 'mobx-react-lite';
+import React, { useState } from 'react';
+import {createUseStyles} from 'react-jss';
 
-import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { createUseStyles } from 'react-jss';
 
 import useStores from '../../../Hooks/useStores';
 
 import Actions from './Field/Actions';
-import Children from './Field/Children';
 import ChildrenFlag from './Field/ChildrenFlag';
 import RequiredFlag from './Field/RequiredFlag';
-import TargetName from './Field/TargetName';
+
 import Type from './Field/Type';
 import type FieldClass from '../../../Stores/Field';
+
+// Modified Children implementation that doesn't add additional chevrons
+const ModifiedChildren = ({field, className}: {field: FieldClass, className: string}) => {
+  if (!field.structure || !field.structure.length) {
+    return null;
+  }
+
+  return (
+    <div className={className}>
+      {field.structure.map((childField, idx) => (
+
+        <Field key={`child-${idx}`} field={childField} />
+      ))}
+    </div>
+  );
+};
 
 const useStyles = createUseStyles({
   container: {
@@ -42,73 +37,67 @@ const useStyles = createUseStyles({
       display: 'block',
       content: '\'\'',
       position: 'absolute',
-      left: '10px',
+      left: '20px', // Align with the chevron
+      top: '20px', // Start from the middle of the content rather than the very top
       width: '0',
-      height: 'calc(100% - 20px)',
-      borderLeft: '1px dashed #ccc'
+      height: 'calc(100% - 20px)', // Subtract from the height so it doesn't extend too far
+      borderLeft: 'var(--border-separator)'
     },
-    '&::after': {
-      display: 'block',
-      content: '\'\'',
-      position: 'absolute',
-      left: '-9px',
-      top: '20px',
-      width: '10px',
-      height: '0',
-      borderTop: '1px dashed #ccc'
-    },
-    '&.has-flattened-parent::after': {
-      borderTop: '3px solid #40a9f3'
+    '&.is-child-node::before': {
+      borderLeft: 'none'
     }
   },
-  verticalLineExtraPath: {
-    display: 'block',
-    content: '\'\'',
-    position: 'absolute',
-    top: '-1px',
-    left: '-11px',
-    width: '0',
-    height: '24px',
-    borderLeft: '3px solid #40a9f3'
+
+  fieldContainer: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
   },
+
   content: {
+    display: 'flex',
+    alignItems: 'center',
     padding: '10px 35px 10px 10px',
     margin: '1px',
-    background:
-      'linear-gradient(180deg, rgba(5,20,40,1) 0%, rgba(5,25,40,0.9) 100%)',
     position: 'relative',
+    background: 'var(--bg-color-ui-contrast2)',
+    // background: 'white',
     zIndex: 2,
     cursor: 'pointer',
     '&:hover': {
-      background:
-        'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
+      background: 'var(--bg-color-ui-contrast4)',
+      // background: '#F0F0F0',
       '& $actions': {
         opacity: 1
       }
     },
     '&.selected': {
-      background:
-        'linear-gradient(90deg, rgba(35,55,70,1) 0%, rgba(30,50,70,0.9) 100%)',
+      background: 'var(--bg-color-ui-contrast4)',
+      // background: '#F0F0F0',
       '& $actions': {
         opacity: 1
       }
     },
     '&.is-unknown': {
-      background: 'var(--bg-color-warn-quiet)',
+      color: 'var(--bg-color-ui-contrast1)', // Dark text for contrast
+      background: 'var(--bg-color-warn-normal)', // Using normal warn for better contrast
       '&&.selected': {
-        background: 'var(--bg-color-warn-normal)'
+        background: 'var(--bg-color-warn-loud)',
+        color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
       },
       '&:hover, &.selected:hover': {
-        background: 'var(--bg-color-warn-loud)'
+        background: 'var(--bg-color-warn-loud)',
+        color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
       }
     },
     '&.is-invalid, &.is-unknown.is-invalid': {
-      background: 'var(--bg-color-error-quiet)',
+      background: 'var(--bg-color-error-normal)', // Darker red for better contrast
+      color: 'var(--ft-color-louder)', // White text for maximum contrast
       '&&.selected': {
-        background: 'var(--bg-color-error-normal)'
+        background: 'var(--bg-color-error-selected)' // Even darker red for selected state
       },
       '&:hover, &.selected:hover': {
-        background: 'var(--bg-color-error-loud)'
+        background: 'var(--bg-color-error-hover)' // Darkest red for hover state
       }
     },
     '& small': {
@@ -116,11 +105,91 @@ const useStyles = createUseStyles({
       fontStyle: 'italic'
     }
   },
+
   children: {
-    paddingLeft: '20px'
+    paddingLeft: '20px' // Increased padding to align with the chevron
   },
+
   actions: {
     opacity: 0.25
+  },
+
+  fieldWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%'
+  },
+
+  chevronContainer: {
+    marginRight: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // width: '20px',
+    cursor: 'pointer',
+  },
+
+  fieldContent: {
+    display: 'flex',
+    alignItems: 'center',
+    flexGrow: 1,
+  },
+
+  warningIconWrapper: {
+    position: 'relative',
+    color: 'var(--bg-color-warn-normal)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 'auto',
+    padding: '4px',
+    cursor: 'pointer',
+    borderRadius: '50%',
+    outline: 'none',
+
+    '&:hover': {
+      backgroundColor: 'var(--bg-color-warn-quiet)', // Subtle background on hover
+    },
+    '&:focus': {
+      outline: 'var(--focus-outline)',
+      backgroundColor: 'var(--bg-color-warn-quiet)',
+    },
+    '&:focus:not(:focus-visible)': {
+      outline: 'none'
+    },
+    '&:focus-visible': {
+      outline: 'var(--focus-outline)',
+    },
+
+    '& i': {
+      fontSize: '16px',
+    }
+  },
+
+  tooltip: {
+    position: 'absolute',
+    left: 'calc(100% + 8px)',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: 'var(--bg-color-ui-contrast4)',
+    color: 'var(--ft-color-loud)',
+    padding: '8px 12px',
+    borderRadius: '4px',
+    fontSize: '12px',
+    whiteSpace: 'nowrap',
+    boxShadow: 'var(--box-shadow-ui-medium)',
+    zIndex: 10,
+    maxWidth: '250px', // Prevents extremely long tooltips
+
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      right: '100%',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      border: '6px solid transparent',
+      borderRightColor: 'var(--bg-color-ui-contrast3)',
+    }
   }
 });
 
@@ -141,49 +210,117 @@ const getTitle = (field: FieldClass) => {
 };
 
 export interface FieldProps {
-  field: FieldClass;
+    field: FieldClass;
 }
 
-const Field = observer(({ field }: FieldProps) => {
+const Field = observer(({field}: FieldProps) => {
   const classes = useStyles();
-
-  const { queryBuilderStore } = useStores();
+  const {queryBuilderStore} = useStores();
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const handleSelectField = () => {
     queryBuilderStore.selectField(field);
+  };
+
+  const toggleExpand = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
   };
 
   const isFlattened = field.isFlattened;
   const hasFlattenedParent = field.parent && field.parent.isFlattened;
   const isInvalid = field.isInvalid || field.aliasError || field.isInvalidLeaf;
   const isSelected = field === queryBuilderStore.currentField;
+  const hasChildren = field.structure && field.structure.length > 0;
 
   const title = getTitle(field);
 
-  const containerClassName = `${classes.container} ${
-    isFlattened ? 'flattened' : ''
-  } ${hasFlattenedParent ? 'has-flattened-parent' : ''}`;
-  const contentClassName = `${classes.content} ${
-    field.isUnknown ? 'is-unknown' : ''
-  } ${isInvalid ? 'is-invalid' : ''} ${isSelected ? 'selected' : ''}`;
+  const containerClassName = [
+    classes.container,
+    isFlattened ? 'flattened' : '',
+    !field.structure.length ? 'is-child-node' : '',
+    hasFlattenedParent ? 'has-flattened-parent' : ''
+  ].filter(Boolean).join(' ');
+
+  const contentClassName = [
+    classes.content,
+    field.isUnknown ? 'is-unknown' : '',
+    isInvalid ? 'is-invalid' : '',
+    isSelected ? 'selected' : ''
+  ].filter(Boolean).join(' ');
+
+  // Render the chevron only if the field has children
+  const renderChevron = () => {
+    if (hasChildren) {
+      return (
+        <div className={classes.chevronContainer} onClick={toggleExpand}>
+          <svg width="16" height="16" viewBox="0 0 16 16">
+            <path
+              fill="currentColor"
+              d={isExpanded ? 'M4 6l4 4 4-4' : 'M6 4l4 4-4 4'}
+            />
+          </svg>
+        </div>
+      );
+    }
+    return <div className={classes.chevronContainer}/>;
+  };
+
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const hasWarning = field.isUnknown || isInvalid;
+  const warningMessage = title || (field.isUnknown ? 'Unknown field type' : '');
 
   return (
     <div className={containerClassName}>
-      {hasFlattenedParent && (
-        <div className={classes.verticalLineExtraPath} />
-      )}
-      <div
-        className={contentClassName}
-        title={title}
-        onClick={handleSelectField}
-      >
-        <ChildrenFlag field={field} />
-        <RequiredFlag field={field} />
-        <Type field={field} />
-        <TargetName field={field} />
-        <Actions field={field} className={classes.actions} />
+      <div className={classes.fieldContainer}>
+        <div
+          className={contentClassName}
+          title={title}
+          onClick={handleSelectField}
+        >
+          <div className={classes.fieldWrapper}>
+            {renderChevron()}
+            { hasWarning && (
+              <div
+                className={classes.warningIconWrapper}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+                onFocus={() => setShowTooltip(true)}
+                onBlur={() => setShowTooltip(false)}
+                role="button"
+                tabIndex={0}
+                // aria-describedby={`tooltip-${field.propertyName || 'unknown'}`}
+              >
+                <FontAwesomeIcon icon={faExclamationTriangle} aria-hidden="true" />
+                <span className="sr-only">Warning</span>
+
+                {showTooltip && warningMessage && (
+                  <div
+                    // id={`tooltip-${field.propertyName || 'unknown'}`}
+                    role="tooltip"
+                    className={classes.tooltip}
+                  >
+                    {warningMessage}
+                  </div>
+                )}
+              </div>
+            )}
+            <div className={classes.fieldContent}>
+              <ChildrenFlag field={field}/>
+              <RequiredFlag field={field}/>
+              <Type field={field}/>
+            </div>
+            <Actions field={field} className={classes.actions}/>
+          </div>
+        </div>
+
+        {isExpanded && hasChildren && (
+          <div className={classes.children}>
+            <ModifiedChildren field={field} className="" />
+          </div>
+        )}
       </div>
-      <Children field={field} className={classes.children} />
     </div>
   );
 });

@@ -43,16 +43,19 @@ const useStyles = createUseStyles({
     display: 'grid',
     gridTemplateRows: 'auto 1fr',
     color: 'var(--ft-color-normal)',
-    border: '1px solid var(--border-color-ui-contrast2)',
-    overflow: 'hidden'
+    //     border: '1px solid var(--border-color-ui-contrast2)',
+    overflow: 'hidden',
+    marginLeft: '20px'
   },
   filter: {
+    paddingRight: '15px',
     border: 0,
-    background:
-      'linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
+    width: 'auto'
+    //     background:
+    //       'linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
   },
   body: {
-    borderTop: '1px solid var(--border-color-ui-contrast2)',
+    //     borderTop: '1px solid var(--border-color-ui-contrast2)',
     padding: '0 0 10px 15px'
   },
   content: {

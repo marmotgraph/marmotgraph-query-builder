@@ -34,7 +34,7 @@
  */
 import type API from './API';
 import type { QuerySpecification } from '../Types/QuerySpecification';
-import type { UUID, Stage, Settings, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
+import type { UUID, Stage, Config, UserProfile, Space, Type, TypesByName, QueryExecutionResult, KGCoreResult } from '../types';
 import type { AxiosInstance } from 'axios';
 
 const RELATIVE_ROOT_PATH = '/api';
@@ -73,15 +73,15 @@ const getStage = (stage?: Stage) => {
   return '';
 };
 
-const getSpace = (space?: string) => {
-  if(space) {
-    return `?space=${space}`;
-  }
-  return '';
-};
+// const getSpace = (space?: string) => {
+//   if(space) {
+//     return `?space=${space}`;
+//   }
+//   return '';
+// };
 
 const endpoints = {
-  settings: () => `${RELATIVE_ROOT_PATH}/settings`,
+  config: () => `${RELATIVE_ROOT_PATH}/config`,
   user: () => `${RELATIVE_ROOT_PATH}/user`,
   spaces: () => `${RELATIVE_ROOT_PATH}/spaces`,
   types: () => `${RELATIVE_ROOT_PATH}/types`,
@@ -102,9 +102,10 @@ const endpoints = {
     return `${RELATIVE_ROOT_PATH}/queries?${getSize(size)}${getFrom(from)}${getInstanceId(instanceId)}${getStage(stage)}${paramsString}${restrictToSpacesString}`;
   },
   getQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
-  saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}/${getSpace(space)}`,
+  saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}?space=${space}`,
   deleteQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
-  getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`
+  getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`,
+  getAllQueries: () => `${RELATIVE_ROOT_PATH}/queries`,
 };
 
 class APIBackendAdapter implements API {
@@ -114,9 +115,9 @@ class APIBackendAdapter implements API {
     this._axios = axios;
   }
 
-  async getSettings(): Promise<Settings> {
-    const { data } = await this._axios.get(endpoints.settings());
-    return data?.data as Settings;
+  async getConfig(): Promise<Config> {
+    const { data } = await this._axios.get(endpoints.config());
+    return data;
   }
 
   async getUserProfile(): Promise<UserProfile> {
@@ -164,6 +165,11 @@ class APIBackendAdapter implements API {
 
   async getQueries(type: string): Promise<KGCoreResult<QuerySpecification.QuerySpecification[]>> {
     const { data } = await this._axios.get(endpoints.getQueries(type));
+    return data;
+  }
+
+  async getAllQueries(): Promise<KGCoreResult<QuerySpecification.QuerySpecification[]>> {
+    const { data } = await this._axios.get(endpoints.getAllQueries());
     return data;
   }
 

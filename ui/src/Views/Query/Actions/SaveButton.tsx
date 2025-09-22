@@ -114,8 +114,8 @@ const SaveButton = observer(({ disabled }: SaveButtonProps) => {
 
   return (
     <>
-      <Button variant={'primary'} disabled={disabled} onClick={handleSave}>
-        <FontAwesomeIcon icon={faSave} />&nbsp;Save
+      <Button variant={'success'} disabled={disabled} onClick={handleSave} title={'Save'}>
+        <FontAwesomeIcon icon={faSave} />
       </Button>
       <SpinnerPanel show={isSaving} text={`Saving query ${queryBuilderStore.queryId}`} />
       <ActionError error={error} onCancel={handleCancelSave} onRetry={saveQuery} />

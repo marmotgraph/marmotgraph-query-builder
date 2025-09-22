@@ -20,7 +20,7 @@
  * (Human Brain Project SGA1, SGA2 and SGA3).
  *
  */
-
+import {faCopy} from '@fortawesome/free-solid-svg-icons/faCopy';
 import {faSave} from '@fortawesome/free-solid-svg-icons/faSave';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
@@ -32,20 +32,24 @@ import Matomo from '../../../Services/Matomo';
 
 interface SaveAsButtonProps {
   disabled: boolean;
+  showSaveAsIcon?: boolean; // When true, shows copy icon; when false/undefined, shows save icon
 }
 
-const SaveAsButton = observer(({ disabled }:SaveAsButtonProps) => {
+const SaveAsButton = observer(({ disabled, showSaveAsIcon = false }:SaveAsButtonProps) => {
 
   const { queryBuilderStore } = useStores();
 
   const onClick = () => {
     Matomo.trackEvent('Query', 'SaveAs', queryBuilderStore.queryId);
-    queryBuilderStore.setSaveAsMode(true);
+    queryBuilderStore.setShowSaveModal(true);
   };
 
+  // const iconName = showSaveAsIcon ? 'content_copy' : 'save';
+  // const title = showSaveAsIcon ? 'Save as' : 'Save';
+
   return (
-    <Button variant="secondary" disabled={disabled} onClick={onClick}>
-      <FontAwesomeIcon icon={faSave} />&nbsp;Save As
+    <Button variant="secondary" disabled={disabled} onClick={onClick} title={'Save as'}>
+      <FontAwesomeIcon icon={showSaveAsIcon ? faCopy : faSave} />
     </Button>
   );
 });
