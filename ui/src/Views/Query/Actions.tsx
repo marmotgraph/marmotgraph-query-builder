@@ -62,7 +62,7 @@ const UpdatableQueryActions = observer(() => {
       {/*<CopyAsNewQueryButton />*/}
       <UndoChangesButton />
       <DeleteButton />
-      <SaveAsButton disabled={saveAsDisabled} />
+      <SaveAsButton disabled={saveAsDisabled} showSaveAsIcon={true} />
       <SaveButton disabled={saveDisabled} />
 
       <SaveQueryModal />
@@ -77,7 +77,7 @@ const ReadOnlyQueryActions = observer(() => {
       <CompareButton disabled={!queryBuilderStore.hasQueryChanged} />
       <UndoChangesButton />
       <CopyAsNewQueryButton  />
-      <SaveAsButton disabled={queryBuilderStore.isQueryEmpty} />
+      <SaveAsButton disabled={queryBuilderStore.isQueryEmpty} showSaveAsIcon={true} />
     </>
   );
 });

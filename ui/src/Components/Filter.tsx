@@ -45,18 +45,8 @@ const useStyles = createUseStyles({
     margin: '10px',
     border: 'var(--border-color-ui-contrast5)',
     borderRadius: '6px',
-    paddingLeft: '30px',
-    //     backgroundColor: 'var(--bg-color-blend-contrast1)',
-    //     '&:focus': {
-    //       color: 'var(--ft-color-loud)',
-    //       borderColor: 'rgba(64, 169, 243, 0.5)',
-    //       backgroundColor: 'transparent'
-    //     }
   },
   icon: {
-    //     position: 'absolute',
-    //     top: '50%',
-    //     left: '20px',
     color: '#A3A5A6'
   },
   filterButton: {
