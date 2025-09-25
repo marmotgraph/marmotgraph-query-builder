@@ -24,12 +24,12 @@
 import {observer} from 'mobx-react-lite';
 import React, {useEffect, useState} from 'react';
 
+import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 import useListQueriesQuery from '../../Hooks/useListQueriesQuery';
 import useStores from '../../Hooks/useStores';
+import NewQueryModal from '../Query/QueryBuilder/NewQueryModal';
 import List from './Selection/Queries/List';
-import {Link} from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import NewQueryModal from "../Query/QueryBuilder/NewQueryModal";
 
 // const useStyles = createUseStyles({
 //   container: {
