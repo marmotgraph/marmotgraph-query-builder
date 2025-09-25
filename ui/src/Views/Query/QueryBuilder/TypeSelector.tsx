@@ -21,12 +21,12 @@
  *
  */
 
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
 import Icon from '../../../Components/Icon';
-import type { KeyboardEvent } from 'react';
 import type { Type } from '../../../types';
+import type { KeyboardEvent } from 'react';
 
 const useStyles = createUseStyles({
     listContainer: {
@@ -99,7 +99,7 @@ const TypeSelector = ({ types, selectedTypeId, cursor, onTypeSelect, onKeyDown }
     return (
         <div className={classes.listContainer}>
             {types.map((type, index) => (
-                <div 
+                <div
                     key={type.id}
                     className={`${classes.listItem} ${
                         selectedTypeId === type.id ? classes.selected : ''

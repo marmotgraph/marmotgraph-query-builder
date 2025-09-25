@@ -27,8 +27,8 @@ import Modal from 'react-bootstrap/Modal';
 import { createUseStyles } from 'react-jss';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import useStores from '../../../Hooks/useStores';
 import Filter from '../../../Components/Filter';
+import useStores from '../../../Hooks/useStores';
 import TypeSelector from './TypeSelector';
 import type { KeyboardEvent } from 'react';
 
