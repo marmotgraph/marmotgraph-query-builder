@@ -32,10 +32,10 @@ import { createUseStyles } from 'react-jss';
 
 import ErrorPanel from '../../../Components/ErrorPanel';
 import Filter from '../../../Components/Filter';
-import NewQueryModal from '../../Query/QueryBuilder/NewQueryModal';
 import Spinner from '../../../Components/Spinner';
 import useListQueriesQuery from '../../../Hooks/useListQueriesQuery';
 import useStores from '../../../Hooks/useStores';
+import NewQueryModal from '../../Query/QueryBuilder/NewQueryModal';
 import List from './Queries/List';
 
 const useStyles = createUseStyles({
