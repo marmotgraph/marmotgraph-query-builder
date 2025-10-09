@@ -21,7 +21,7 @@
  *
  */
 
-import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
+// import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import React from 'react';
 
 import Panel from './Panel';
@@ -31,7 +31,8 @@ interface ErrorPanelProps {
 }
 
 const ErrorPanel = ({ children }: ErrorPanelProps) => (
-  <Panel icon={faBan}>{children}</Panel>
+  // <Panel icon={faBan}>{children}</Panel>
+  <Panel>{children}</Panel>
 );
 
 export default ErrorPanel;

@@ -23,7 +23,6 @@
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import {Scrollbars} from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
 import Query from './Query';
 import type { Query as QueryProps } from '../../../../Types/Query';
@@ -72,11 +71,6 @@ const useStyles = createUseStyles({
     }
   },
 
-  queryList :{
-    width: '100%',
-    height: 'calc(100vh - 300px)'
-  },
-
   /* Ensure the Query component also uses the same grid layout */
   /* You would need to apply this class to your Query component */
   queryItem :{
@@ -108,25 +102,13 @@ const List = observer(({  list }: ListProps) => {
   return (
     <div>
       {list && list.length > 0 ? (
-        <div className={classes.container}>
-          <div className={classes.gridLayout}>
-            <div className={classes.myQueryHeader}>
-              <h5>Type</h5>
-              <h5>Space</h5>
-              <h5>Query title</h5>
-            </div>
-
-            <div className={classes.queryList}>
-              <Scrollbars autoHide>
-                {list.map(query => (
-                  <Query
-                    key={query.id}
-                    query={query}
-                  />
-                ))}
-              </Scrollbars>
-            </div>
-          </div>
+        <div>
+          {list.map(query => (
+            <Query
+              key={query.id}
+              query={query}
+            />
+          ))}
         </div>
       ) : (
         <div className={classes.emptyList}>

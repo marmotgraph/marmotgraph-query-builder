@@ -24,7 +24,7 @@
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons/faRedoAlt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
@@ -32,6 +32,7 @@ import { createUseStyles } from 'react-jss';
 
 import ErrorPanel from '../../../Components/ErrorPanel';
 import Filter from '../../../Components/Filter';
+import NewQueryModal from '../../Query/QueryBuilder/NewQueryModal';
 import Spinner from '../../../Components/Spinner';
 import useListQueriesQuery from '../../../Hooks/useListQueriesQuery';
 import useStores from '../../../Hooks/useStores';
@@ -60,7 +61,82 @@ const useStyles = createUseStyles({
   },
   content: {
     paddingRight: '15px'
-  }
+  },
+    linkButton: {
+        display: 'inline-block',
+        textDecoration: 'none',
+        boxSizing: 'border-box',
+        width: '150px',
+        height: '34px',
+        lineHeight: '32px',
+        textAlign: 'center',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+    },
+    primary: {
+        backgroundColor: 'var(--cta-primary-bg)',
+        color: 'var(--cta-primary-text)',
+        borderRadius: 'var(--cta-primary-border-radius)',
+        boxShadow: 'var(--cta-primary-box-shadow)',
+        border: 'none',
+        fontWeight: 500,
+        transition: 'background-color 0.2s ease',
+        cursor: 'pointer',
+
+        '&:hover': {
+            backgroundColor: 'var(--cta-primary-hover-bg)',
+        },
+
+        '&:active': {
+            backgroundColor: 'var(--cta-primary-active-bg)',
+        },
+    },
+
+    container: {
+        /* Shared_queries_box */
+        // background: '#FFFFFF',
+        color: 'var(--ft-color-loud)',
+        background: 'var(--bg-color-ui-contrast1)',
+        // boxShadow: '0px 4px 4px #E6E7E8',
+        boxShadow: 'var(--box-shadow-ui-medium)',
+        borderRadius: '12px',
+        padding: '20px',
+        // marginTop: '20px',
+        marginBottom: '20px',
+        // --col1Width: '1fr',
+        // --col2Width: '1fr',
+        // --col3Width: '2fr',
+    },
+    gridLayout: {
+        width: '100%'
+    },
+    title: {
+        display: 'flex',
+        marginBottom: '10px',
+        paddingBottom: '10px',
+        paddingTop: '20px',
+        borderBottom: 'var(--border-separator)',
+        '& h4': {
+            flex: 1,
+            display: 'inline-block',
+            margin: 0,
+            padding: 0,
+            fontSize: '1.2rem'
+        }
+    },
+    myQueryHeader: {
+        display: 'grid',
+        gridTemplateColumns: '2fr 2fr 2fr',
+        borderBottom: 'var(--border-separator)',
+        padding: '8px 0 8px 12px',
+        h5: {
+            margin: '0',
+            fontWeight: '600',
+        }
+    },
+
 });
 
 interface QueriesProps {
@@ -74,6 +150,13 @@ const Queries = observer(({ className }: QueriesProps) => {
   const { queriesStore, queryBuilderStore } = useStores();
 
   const skip = queryBuilderStore.typeId === queriesStore.type;
+
+    const [showModal, setShowModal] = useState(false);
+
+
+    const hideModal = () => {
+        setShowModal(false);
+    };
 
   const {
     data: queries,
@@ -124,15 +207,21 @@ const Queries = observer(({ className }: QueriesProps) => {
 
   if (!queriesStore.hasQueries) {
     return (
-      <ErrorPanel>
+      <div><ErrorPanel>
         {queryBuilderStore.type ? `No saved queries available yet for ${queryBuilderStore.type.label}`: 'No saved queries available'}
         {queryBuilderStore.type && <small> - {queryBuilderStore.type.id}</small>}
         <br />
         <br />
-        <Button variant={'primary'} onClick={refetch}>
-          <FontAwesomeIcon icon={faRedoAlt} /> &nbsp; Retry
-        </Button>
+        {/*<Button variant={'primary'} onClick={refetch}>*/}
+        {/*  <FontAwesomeIcon icon={faRedoAlt} /> &nbsp; Retry*/}
+        {/*</Button>*/}
+          <button className={`${classes.linkButton} ${classes.primary}`}
+                  onClick={() => setShowModal(true)}>
+              <span>Create a new query</span>
+          </button>
+
       </ErrorPanel>
+          <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/></div>
     );
   }
 
@@ -147,14 +236,23 @@ const Queries = observer(({ className }: QueriesProps) => {
       <div className={classes.body}>
         <Scrollbars autoHide>
           <div className={classes.content}>
+              <div className={classes.container}>
+                  <div className={classes.gridLayout}>
+                      <div className={classes.myQueryHeader}>
+                          <h5>Type</h5>
+                          <h5>Space</h5>
+                          <h5>Query title</h5>
+                      </div>
             {queriesStore.groupedFilteredQueries.map(group => (
+
               <List
                 key={group.name}
                 title={group.label}
                 list={group.queries}
               />
+
             ))}
-          </div>
+          </div> </div></div>
         </Scrollbars>
       </div>
     </div>

@@ -21,16 +21,11 @@
  *
  */
 
-
 import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
-
-
 
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-
-
 
 import Icon from '../../Components/Icon';
 import useStores from '../../Hooks/useStores';
