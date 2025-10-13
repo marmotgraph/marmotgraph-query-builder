@@ -21,7 +21,7 @@
  *
  */
 
-import Keycloak from 'keycloak-js';
+import Keycloak, { KeycloakServerConfig } from 'keycloak-js';
 import { useState } from 'react';
 import type Auth from '../Services/Auth';
 import type KeycloakAuthAdapter from '../Services/KeycloakAuthAdapter';
@@ -41,7 +41,7 @@ const useKeycloak = (adapter: KeycloakAuthAdapter, loginRequired?: boolean) : Au
   const [userId, setUserId] = useState<string|undefined>(undefined);
 
   const authenticate = async () => {
-    if (adapter.config?.url) {
+    if (adapter.config && (adapter.config as KeycloakServerConfig).url) {
       setUninitialized(false);
       setInitializing(true);
       setAuthenticating(true);
