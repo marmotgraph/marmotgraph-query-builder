@@ -24,12 +24,13 @@
 
 package org.marmotgraph.querybuilder.model;
 
-import org.marmotgraph.commons.constants.SchemaFieldsConstants;
 import lombok.Getter;
 import lombok.Setter;
+import org.marmotgraph.commons.constants.SchemaFieldsConstants;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -68,13 +69,22 @@ public class Property {
         return new Property(simpleAttributeName, attribute, label, canBe);
     }
 
-    public static Property fromIncomingLinksMap(Map d, Map propertyReverseLink) {
+    public static Property fromIncomingLinksMap(Map d, Map<String, Map<String, String>> reverseLinkMap) {
         String attribute = (String) (d.get(SchemaFieldsConstants.IDENTIFIER));
         String simpleAttributeName = extractSimpleAttributeName(attribute);
-        String label = propertyReverseLink.get(attribute) != null ? (String) propertyReverseLink.get(attribute) : (String) (d.get(SchemaFieldsConstants.NAME));
         List<Map<String, Object>> canBeMap = (List<Map<String, Object>>) d.get(SchemaFieldsConstants.META_SOURCE_TYPES);
         List<String> canBe = null;
+        String label=(String) d.get(SchemaFieldsConstants.NAME);
         if (canBeMap != null) {
+            Optional<String> reverseLinkLabel = canBeMap.stream().map(f -> {
+                String type = (String) f.get(SchemaFieldsConstants.META_TYPE);
+                Map<String, String> fromReverseLinkMap = reverseLinkMap.get(type);
+                if (fromReverseLinkMap != null) {
+                    return Optional.ofNullable(fromReverseLinkMap.get(attribute));
+                }
+                return Optional.<String>empty();
+            }).filter(Optional::isPresent).findFirst().orElse(Optional.empty());
+            label = reverseLinkLabel.orElse(label);
             canBe = canBeMap.stream().map(p -> (String) p.get(SchemaFieldsConstants.META_TYPE)).collect(Collectors.toList()); // NOSONAR
         }
         return new Property(simpleAttributeName, attribute, label, canBe, true);

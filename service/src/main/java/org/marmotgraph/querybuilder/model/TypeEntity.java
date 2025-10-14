@@ -48,7 +48,7 @@ public class TypeEntity {
         this.properties = properties;
     }
 
-    public static TypeEntity fromMap(Map d) {
+    public static TypeEntity fromMap(Map d, Map<String, Map<String, String>> reverseLinkMap) {
         String id = (String) (d.get(SchemaFieldsConstants.IDENTIFIER));
         String name = (String) (d.get(SchemaFieldsConstants.NAME));
         String color = (String) (d.get(SchemaFieldsConstants.META_COLOR));
@@ -57,14 +57,9 @@ public class TypeEntity {
                 .filter(Map.class::isInstance)
                 .map(p -> Property.fromMap((Map<?, ?>) p))
                 .collect(Collectors.toList());
-        Map<String, String> propertyReverseLink = ((Collection<?>) d.get(SchemaFieldsConstants.META_PROPERTIES)).stream()
-                .filter(Map.class::isInstance)
-                .map(p -> (Map<?, ?>) p)
-                .filter(f -> f.get(SchemaFieldsConstants.META_NAME_REVERSE_LINK) != null)
-                .collect(Collectors.toMap(k -> ((String) k.get(SchemaFieldsConstants.IDENTIFIER)), v -> ((String) v.get(SchemaFieldsConstants.META_NAME_REVERSE_LINK))));
         List<Property> incomingLinksProperties = ((Collection<?>) d.get(SchemaFieldsConstants.META_INCOMING_LINKS)).stream()
                 .filter(Map.class::isInstance)
-                .map(p -> Property.fromIncomingLinksMap((Map<?, ?>) p, propertyReverseLink))
+                .map(p -> Property.fromIncomingLinksMap((Map<?, ?>) p, reverseLinkMap))
                 .collect(Collectors.toList()); // NOSONAR
         properties.addAll(incomingLinksProperties);
         return new TypeEntity(id, name, color, description, properties);
