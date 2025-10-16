@@ -24,10 +24,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-
-import Checkbox from '../../../Components/Checkbox';
 import useStores from '../../../Hooks/useStores';
-import type { ToggleItemValue } from '../../../Components/Toggle/types';
 
 import type { ChangeEvent } from 'react';
 
@@ -98,16 +95,25 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
 
   const { queryBuilderStore, spacesStore } = useStores();
 
-  const isShared =
-    queryBuilderStore.space && !queryBuilderStore.space.isPrivate;
-
   const isReadMode =
     !queryBuilderStore.saveAsMode &&
     !spacesStore.allowedSharedSpacesToCreateQueries.length;
 
-  const sharedSpaces = isReadMode
+  const spaces = isReadMode
     ? spacesStore.sharedSpaces
-    : spacesStore.allowedSharedSpacesToCreateQueries;
+    : spacesStore.spaces;
+
+
+  const orderedSpaces = spaces
+    .slice() // clone to avoid mutating the original array
+    .sort((a, b) => {
+      // Put 'myspace' first
+      if (a.name === 'myspace') { return -1; }
+      if (b.name === 'myspace') { return 1; }
+
+      // Then order alphabetically by name
+      return a.name.localeCompare(b.name);
+    });
 
   const sharedSpaceClass = `${classes.selectBox} ${
     isReadMode ? 'disabled' : ''
@@ -116,14 +122,13 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
   const handleChangeSpace = (e: ChangeEvent<HTMLSelectElement>) => {
     if (!isReadMode) {
       const selectedValue = e.target.value;
-      console.log('Selected space value:', selectedValue);
 
       // Try to find the space by ID first, then by name
       let space = spacesStore.getSpace(selectedValue);
 
       // If not found by ID, try finding by name
       if (!space) {
-        space = sharedSpaces.find(s => s.name === selectedValue);
+        space = spaces.find(s => s.name === selectedValue);
       }
 
       // Fallback to private space
@@ -132,46 +137,26 @@ const SpaceForm = observer(({ className }: SpaceFormProps) => {
       }
 
       if (space) {
-        console.log('Setting space to:', space);
         queryBuilderStore.setSpace(space);
       }
     }
   };
 
-  const handleChangePrivate = (_?: string, spaceShared?: ToggleItemValue) => {
-    console.log('isReadMode:', isReadMode);
-    console.log('spaceShared:', spaceShared);
-
-    // Remove the conditional check that was blocking updates
-    const shouldBeShared = spaceShared === true;
-
-    if (shouldBeShared && spacesStore.sharedSpaces.length) {
-      queryBuilderStore.setSpace(spacesStore.sharedSpaces[0]);
-    } else if (spacesStore.privateSpace) {
-      queryBuilderStore.setSpace(spacesStore.privateSpace);
-    }
-  };
-
   return (
     <div className={`${classes.container} ${className ? className : ''}`}>
-      <Checkbox
-        checked={Boolean(isShared)}
-        onChange={(checked) => handleChangePrivate(undefined, checked)}
-        label="Shared"
-        disabled={isReadMode} // Add this line to disable the checkbox in read mode
-      />
-      {isShared ? (
+      {!isReadMode ? (
         <>
-          &nbsp;<span>in space</span>
+          <label htmlFor="select-space">Space</label>
           <div className={sharedSpaceClass}>
             <select
+              id="select-space"
               title="select space"
               className={classes.select}
               value={queryBuilderStore.space?.name}
               onChange={handleChangeSpace}
               disabled={isReadMode}
             >
-              {sharedSpaces.map(space => (
+              {orderedSpaces.map(space => (
                 <option key={space.name} value={space.name}>
                   {space.name}
                 </option>

@@ -9,12 +9,16 @@ import { getProperties } from '../../../Helpers/QueryHelpers';
 import useAPI from '../../../Hooks/useAPI';
 import useStores from '../../../Hooks/useStores';
 import Matomo from '../../../Services/Matomo';
+import SpaceForm from '../QueryBuilder/SpaceForm';
 import type { APIError } from '../../../Services/API';
 import type { Query } from '../../../Types/Query';
 
 const useStyles = createUseStyles({
     saveModal: {
         // Add any specific styles for the save modal if needed
+    },
+    space: {
+      marginTop: '20px'
     },
     modalOverlay: {
         position: 'fixed',
@@ -219,6 +223,9 @@ const SaveQueryModal = observer(() => {
                                 disabled={isSaving}
                             />
                         </div>
+                      <div>
+                        <SpaceForm className={classes.space} />
+                      </div>
                         <div>
                             <label htmlFor="query-description">Description</label>
                             <textarea
