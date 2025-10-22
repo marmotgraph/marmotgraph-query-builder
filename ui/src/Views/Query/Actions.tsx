@@ -30,6 +30,7 @@ import CancelButton from './Actions/CancelButton';
 import CompareButton from './Actions/CompareButton';
 import CopyAsNewQueryButton from './Actions/CopyAsNewQueryButton';
 import DeleteButton from './Actions/DeleteButton';
+import MoveQueryInSpaceModal from './Actions/MoveQueryInSpaceModal';
 import ResetButton from './Actions/ResetButton';
 import SaveAsButton from './Actions/SaveAsButton';
 import SaveButton from './Actions/SaveButton';
@@ -66,6 +67,7 @@ const UpdatableQueryActions = observer(() => {
       <SaveButton disabled={saveDisabled} />
 
       <SaveQueryModal />
+      <MoveQueryInSpaceModal />
     </>
   );
 });

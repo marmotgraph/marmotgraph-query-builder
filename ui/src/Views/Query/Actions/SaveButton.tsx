@@ -21,93 +21,31 @@
  *
  */
 
-import {faSave} from '@fortawesome/free-solid-svg-icons/faSave';
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useNavigate, matchPath } from 'react-router-dom';
 
 import ActionError from '../../../Components/ActionError';
 import SpinnerPanel from '../../../Components/SpinnerPanel';
-import { getProperties } from '../../../Helpers/QueryHelpers';
-import useAPI from '../../../Hooks/useAPI';
+import useSaveQuery from '../../../Hooks/useSaveQuery';
 import useStores from '../../../Hooks/useStores';
 import Matomo from '../../../Services/Matomo';
-import type { APIError } from '../../../Services/API';
-import type { Query } from '../../../Types/Query';
-
 
 interface SaveButtonProps {
   disabled: boolean;
 }
 
 const SaveButton = observer(({ disabled }: SaveButtonProps) => {
-
-  const navigate = useNavigate();
-
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string|undefined>(undefined);
-
-  const API = useAPI();
-
-  const { queryBuilderStore, queriesStore, spacesStore } = useStores();
+  const { queryBuilderStore } = useStores();
+  const { saveQuery, isSaving, error, setError } = useSaveQuery();
 
   const handleSave = () => {
-    Matomo.trackEvent('Query', 'Save', queryBuilderStore.queryId);
-    saveQuery();
-  };
-
-  const saveQuery = async () => {
-    if (!queryBuilderStore.isQueryEmpty) {
-      setIsSaving(true);
-      setError(undefined);
-      if (!queryBuilderStore.space && spacesStore.privateSpace) {
-        queryBuilderStore.setSpace(spacesStore.privateSpace);
+    saveQuery().then((result) => {
+      if (result) {
+        Matomo.trackEvent('Query', 'Save', queryBuilderStore.queryId);
       }
-      //TODO: fix queryId undefined check after QueryBuilderStore refactoring/splitting
-      const queryId = (queryBuilderStore.saveAsMode?queryBuilderStore?.queryId:queryBuilderStore.sourceQuery?.id) as string;
-      const querySpecification = queryBuilderStore.querySpecification;
-      const spaceName = (queryBuilderStore.space?.name)?queryBuilderStore.space.name:'myspace';
-      try {
-        await API.saveQuery(queryId, querySpecification, spaceName);
-        if (queryBuilderStore.saveAsMode) {
-          const sourceQuery = {
-            id: queryId,
-            context: querySpecification['@context'],
-            structure: querySpecification.structure,
-            properties: getProperties(querySpecification),
-            meta: querySpecification.meta,
-            label: (querySpecification.meta?.name)?querySpecification.meta.name:'',
-            description: (querySpecification.meta?.description)?querySpecification.meta.description:'',
-            space: spaceName
-          } as Query.Query;
-          queriesStore.addQuery(sourceQuery);
-          queryBuilderStore.setSourceQuery(sourceQuery);
-          queryBuilderStore.setQuerySaved();
-          setIsSaving(false);
-          const match = matchPath({path:'/queries/:id/:mode'}, location.pathname);
-          const mode = match?.params?.mode;
-          const path = mode
-            ? `/queries/${queryId}/${mode}`
-            : `/queries/${queryId}`;
-          navigate(path);
-        } else {
-          if (!queryBuilderStore.sourceQuery) {
-            const sourceQuery = queriesStore.findQuery(queryId);
-            queryBuilderStore.setSourceQuery(sourceQuery);
-          }
-          queryBuilderStore.updateSourceQuery(querySpecification);
-          queryBuilderStore.setQuerySaved();
-          setIsSaving(false);
-        }
-      } catch (e) {
-        const error = e as APIError;
-        const message = error?.message;
-        setError(`Error while saving query "${queryId}" (${message})`);
-        setIsSaving(false);
-      }
-    }
+    });
   };
 
   const handleCancelSave = () => setError(undefined);

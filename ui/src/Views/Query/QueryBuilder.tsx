@@ -21,7 +21,7 @@
  *
  */
 
-import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
@@ -71,11 +71,18 @@ const useStyles = createUseStyles({
   },
   containerTitle: {
     position: 'relative',
-    display: 'grid',
-    gridTemplateColumns: '1fr auto', // Changed: flexible left column + auto-sized right column
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: '20px 10px 10px 20px',
     background:'var(--bg-color-ui-contrast1)', // Added: ensure consistent background
-    borderBottom: 'var(--border-separator)' // Added: optional separator
+    borderBottom: 'var(--border-separator)', // Added: optional separator
+    '& div.title': {
+
+      display: 'flex',
+      '& div.titleAction': {
+        marginTop: '-20px'
+      }
+    },
   },
   contentArea: {
     display: 'grid',
@@ -133,17 +140,34 @@ const QueryBuilder = observer(() => {
     setShowQueryForm((prev) => !prev); // Toggle visibility of QueryForm
   };
 
+  const onClickEditSpace = () => {
+    queryBuilderStore.setShowMoveSpaceModal(true);
+  };
+
   return (
     <div className={`${classes.container} ${queryBuilderStore.isQuerySaved || !queryBuilderStore.isQueryEmpty?'hasChanged':''}`}>
-      {/* Title section - full width */}
       <div className={classes.containerTitle}>
-        <div>
-          <h6>Query</h6>
-          <h5>{queryBuilderStore.label}</h5>
+        <div className='title'>
+          <div className='titleText'>
+          <h4>{!queryBuilderStore.isNew ? queryBuilderStore.label : 'New Query'}</h4>
+            <h6>{queryBuilderStore.description}</h6>
+          </div>
+          <div className='titleAction' hidden={queryBuilderStore.isNew}>
+            <button className={classes.settingsButton} onClick={handleSettingsClick}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
+          </div>
         </div>
-        <button className={classes.settingsButton} onClick={handleSettingsClick}>
-          <FontAwesomeIcon icon={faGear} />
-        </button>
+        <div className='title' hidden={queryBuilderStore.isNew}>
+          <div className='titleText'>
+            <h5>Space: {queryBuilderStore.fromSpace?.name}</h5>
+          </div>
+          <div className='titleAction'>
+            <button className={classes.settingsButton} onClick={onClickEditSpace}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Content area - two columns */}
