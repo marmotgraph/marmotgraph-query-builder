@@ -48,6 +48,7 @@ const useStyles = createUseStyles({
     // borderRadius: '5px',
     '&:focus': {
       color: 'var(--ft-color-loud)',
+      background: 'var(--bg-color-ui-contrast2)',
     }
   },
   selectBox: {
