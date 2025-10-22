@@ -132,9 +132,6 @@ const SaveQueryModal = observer(() => {
     saveQuery().then(() => {
       Matomo.trackEvent('Query', 'SaveAs', queryBuilderStore.queryId);
       queryBuilderStore.setShowSaveModal(false);
-
-      // refresh the page
-      window.location.reload();
     });
   };
 

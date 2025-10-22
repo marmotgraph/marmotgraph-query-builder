@@ -166,61 +166,64 @@ const Query = observer(({ mode }:ModeProps) => {
     if (isFetching) {
       setNotFound(undefined);
     } else if (isAvailable) {
-      if (queryBuilderStore.typeId) {
-        // Here it still works since the old type Id is still set. So we can end up showing the new query Id
-        // but with an old view of the fields.
-        // What is needed is to ask the user for the new type so that we can set it.
-        setNotFound(false);
-        queryBuilderStore.setAsNewQuery(queryId);
-      } else {
-        setNotFound(false);
-        const newQuery = getQueryFromLocalStorage(queryId);
-        const type = newQuery?typeStore.types.get(newQuery.type):undefined;
-
-        console.log(newQuery);
-        console.log(type);
-        if (newQuery && type) {
-          localStorage.setItem('type',newQuery.type);
-          queriesStore.toggleShowSavedQueries(false);
-          queriesStore.clearQueries();
+      const sourceQuery = queryBuilderStore.sourceQuery;
+      if(sourceQuery) {
+        const typeName = sourceQuery.meta.type;
+        if (localStorage.getItem('type')) {
+          localStorage.setItem('type', typeName??'');
+        }
+        const type = typeName && typeStore.types.get(typeName);
+        if(type) {
           queryBuilderStore.setType(type);
-          queryBuilderStore.setAsNewQuery(queryId);
-          if (newQuery.instanceId) {
-            queryRunStore.setInstanceId(newQuery.instanceId);
-          }
-          if (mode !== 'edit') {
-            navigate(`/queries/${id}`);
-          }
+          queryBuilderStore.selectQuery(sourceQuery);
         } else {
-          setNotFound(true);
+          const typeId = typeName??'<undefined>';
+          const unknownType = {
+            id: typeId,
+            label: typeId,
+            color: 'black',
+            description: '',
+            properties: []
+          } as Type;
+          queryBuilderStore.setType(unknownType);
+          queryBuilderStore.selectQuery(sourceQuery);
+          if (mode !== 'edit') {
+            navigate(`/queries/${id}/edit`);
+          }
         }
-      }
-      clearQueryFromLocalStorage();
-    } else if (query) {
-      const typeName = query.meta.type;
-      if (localStorage.getItem('type')) {
-        localStorage.setItem('type', typeName??'');
-      }
-      const type = typeName && typeStore.types.get(typeName);
-      if(type) {
-        queryBuilderStore.setType(type);
-        queryBuilderStore.selectQuery(query);
+        clearQueryFromLocalStorage();
       } else {
-        const typeId = typeName??'<undefined>';
-        const unknownType = {
-          id: typeId,
-          label: typeId,
-          color: 'black',
-          description: '',
-          properties: []
-        } as Type;
-        queryBuilderStore.setType(unknownType);
-        queryBuilderStore.selectQuery(query);
-        if (mode !== 'edit') {
-          navigate(`/queries/${id}/edit`);
+        queryBuilderStore.setAsNewQuery(queryId);
+
+        if (queryBuilderStore.typeId) {
+          // Here it still works since the old type Id is still set. So we can end up showing the new query Id
+          // but with an old view of the fields.
+          // What is needed is to ask the user for the new type so that we can set it.
+          setNotFound(false);
+          queryBuilderStore.setAsNewQuery(queryId);
+        } else {
+          setNotFound(false);
+          const newQuery = getQueryFromLocalStorage(queryId);
+          const type = newQuery?typeStore.types.get(newQuery.type):undefined;
+
+          if (newQuery && type) {
+            localStorage.setItem('type',newQuery.type);
+            queriesStore.toggleShowSavedQueries(false);
+            queriesStore.clearQueries();
+            queryBuilderStore.setType(type);
+            queryBuilderStore.setAsNewQuery(queryId);
+            if (newQuery.instanceId) {
+              queryRunStore.setInstanceId(newQuery.instanceId);
+            }
+            if (mode !== 'edit') {
+              navigate(`/queries/${id}`);
+            }
+          } else {
+            setNotFound(true);
+          }
         }
+        clearQueryFromLocalStorage();
       }
-      clearQueryFromLocalStorage();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryId, query, isFetching, isAvailable]);
