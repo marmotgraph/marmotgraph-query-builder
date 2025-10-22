@@ -138,17 +138,16 @@ const theme: Theme = {
     color: '#0F172A' // Darker variant for maximum emphasis
   },
   error: {
-    color: '#F87171', // Soft red
+    color: '#D87B80', // Muted rose-red
     quiet: {
-      color: '#EF4444' // Less saturated red
+      color: '#834A4D' // Darker variant
     },
     normal: {
-      color: '#DC2626' // Standard red
+      color: '#D87B80' // Muted rose-red
     },
     loud: {
-      color: '#B91C1C' // Deeper red for emphasis
-    }
-  },
+      color: '#E66A77' // Brighter variant for emphasis
+    }},
   warn: {
     quiet: {
       color: '#FBBF24' // Light amber

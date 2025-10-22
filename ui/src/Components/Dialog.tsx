@@ -35,6 +35,19 @@ const useStyles = createUseStyles({
     },
     '& button + button, & a + button, & a + a': {
       marginLeft: '20px'
+    },
+    '& .btn': {
+      width: 'auto',
+      padding: '0 1.5rem 2.5rem',
+      height: '35px',
+      fontWeight: '500',
+      fontSize: '16px',
+      textAlign: 'center',
+    },
+    '& .btn:hover': {
+      color: 'var(--bs-btn-hover-color)',
+      backgroundColor: 'var(--bs-btn-hover-bg)',
+      borderColor: 'var(--bs-btn-hover-border-color)',
     }
   }
 });

@@ -25,9 +25,8 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 
-import Toggle from '../../../Components/Toggle';
+import Checkbox from '../../../Components/Checkbox';
 import useStores from '../../../Hooks/useStores';
-import type { ToggleItemValue } from '../../../Components/Toggle/types';
 
 const useStyles = createUseStyles({
   container: {
@@ -36,8 +35,9 @@ const useStyles = createUseStyles({
   },
   panel: {
     display: 'flex',
-    padding: '10px 10px 0 10px',
+    padding: '10px',
     flexWrap: 'wrap',
+    gap: '12px',
     border: '1px solid var(--bg-color-ui-contrast4)',
     marginTop: '4px',
     maxHeight: '160px',
@@ -45,12 +45,9 @@ const useStyles = createUseStyles({
   },
   space: {
     display: 'inline-block',
-    border: '1px solid var(--bg-color-ui-contrast4)',
-    borderRadius: '20px',
-    padding: '7px 4px 7px 10px',
+    flex: '0 1 300px',
+    padding: '7px 10px',
     float: 'left',
-    marginRight: '10px',
-    marginBottom: '10px',
     cursor: 'pointer',
     maxHeight: '40px',
     minHeight: '40px',
@@ -82,19 +79,18 @@ const Space = ({ space: {name, selected}, onClick }: SpaceProps) => {
 
   const handleOnClick = () => onClick(name, !selected);
 
-  const handleToggleClick = (_?:string, value?:ToggleItemValue) => onClick(name, !!(value as boolean|undefined));
+  const handleToggleClick = (checked: boolean) => onClick(name, checked);
 
   return(
     <div className={`${classes.space}  ${selected?'selected':''}`} onClick={handleOnClick} >
-      {name}
       <div className={classes.toggle}>
-        <Toggle
-          option={{
-            name: name,
-            value: selected?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleClick} />
+        <div className={classes.toggle}>
+          <Checkbox
+            checked={selected}
+            onChange={handleToggleClick}
+            label={name}   // optional – you can keep the name outside if you prefer
+          />
+        </div>
       </div>
     </div>
   );
@@ -117,7 +113,7 @@ const SpaceRestriction = observer(() => {
     selected: queryRunStore.spaces?queryRunStore.spaces.includes(space.name):false
   })):[];
 
-  const handleToggleSpaceRestriction = (_?: string, value?: ToggleItemValue) => queryRunStore.setSpaces((value as boolean|undefined)?[]:undefined);
+  const handleToggleSpaceRestriction = (checked: boolean) => queryRunStore.setSpaces(checked ? [] : undefined);
 
   const toggleSpace = (name: string, selected: boolean) => {
     if (selected) {
@@ -134,14 +130,11 @@ const SpaceRestriction = observer(() => {
   return (
     <div className={classes.container}>
       <div>
-        <Toggle
+        <Checkbox
+          checked={isRestricted}
           label="Restrict to space(s)"
-          option={{
-            name: 'spaceRestriction',
-            value: isRestricted?true:undefined
-          }}
-          show={true}
-          onChange={handleToggleSpaceRestriction} />
+          onChange={handleToggleSpaceRestriction}
+        />
       </div>
       {isRestricted && (
         <div className={classes.panel}>

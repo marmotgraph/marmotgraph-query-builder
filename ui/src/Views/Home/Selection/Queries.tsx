@@ -24,18 +24,18 @@
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons/faRedoAlt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { createUseStyles } from 'react-jss';
-
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import ErrorPanel from '../../../Components/ErrorPanel';
 import Filter from '../../../Components/Filter';
 import Spinner from '../../../Components/Spinner';
 import useListQueriesQuery from '../../../Hooks/useListQueriesQuery';
 import useStores from '../../../Hooks/useStores';
-import NewQueryModal from '../../Query/QueryBuilder/NewQueryModal';
 import List from './Queries/List';
 
 const useStyles = createUseStyles({
@@ -52,11 +52,8 @@ const useStyles = createUseStyles({
     paddingRight: '15px',
     border: 0,
     width: 'auto'
-    //     background:
-    //       'linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
   },
   body: {
-    //     borderTop: '1px solid var(--border-color-ui-contrast2)',
     padding: '0 0 10px 15px'
   },
   content: {
@@ -66,7 +63,7 @@ const useStyles = createUseStyles({
         display: 'inline-block',
         textDecoration: 'none',
         boxSizing: 'border-box',
-        width: '150px',
+        width: 'auto',
         height: '34px',
         lineHeight: '32px',
         textAlign: 'center',
@@ -95,19 +92,12 @@ const useStyles = createUseStyles({
     },
 
     container: {
-        /* Shared_queries_box */
-        // background: '#FFFFFF',
         color: 'var(--ft-color-loud)',
         background: 'var(--bg-color-ui-contrast1)',
-        // boxShadow: '0px 4px 4px #E6E7E8',
         boxShadow: 'var(--box-shadow-ui-medium)',
         borderRadius: '12px',
         padding: '20px',
-        // marginTop: '20px',
         marginBottom: '20px',
-        // --col1Width: '1fr',
-        // --col2Width: '1fr',
-        // --col3Width: '2fr',
     },
     gridLayout: {
         width: '100%'
@@ -147,16 +137,28 @@ const Queries = observer(({ className }: QueriesProps) => {
 
   const classes = useStyles();
 
-  const { queriesStore, queryBuilderStore } = useStores();
+  const { typeStore, queriesStore, queryBuilderStore } = useStores();
 
   const skip = queryBuilderStore.typeId === queriesStore.type;
+  const navigate = useNavigate();
 
-    const [showModal, setShowModal] = useState(false);
+  const createAndRedirect = () => {
+    const type = queryBuilderStore.typeId
+      ? typeStore.types.get(queryBuilderStore.typeId)
+      : undefined;
 
+    if (!type) {
+      console.warn('No type selected – cannot create query');
+      return;
+    }
 
-    const hideModal = () => {
-        setShowModal(false);
-    };
+    localStorage.setItem('type', type.id);
+    queryBuilderStore.setType(type);
+
+    const uuid = uuidv4();
+
+    navigate(`/queries/${uuid}`, { replace: true });
+  };
 
   const {
     data: queries,
@@ -212,16 +214,15 @@ const Queries = observer(({ className }: QueriesProps) => {
         {queryBuilderStore.type && <small> - {queryBuilderStore.type.id}</small>}
         <br />
         <br />
-        {/*<Button variant={'primary'} onClick={refetch}>*/}
-        {/*  <FontAwesomeIcon icon={faRedoAlt} /> &nbsp; Retry*/}
-        {/*</Button>*/}
-          <button className={`${classes.linkButton} ${classes.primary}`}
-                  onClick={() => setShowModal(true)}>
-              <span>Create a new query</span>
-          </button>
+        <Button
+          className={`${classes.linkButton} ${classes.primary}`}
+          onClick={createAndRedirect}   // ← direct navigation
+        >
+          <span>Create a new query for this type</span>
+        </Button>
 
       </ErrorPanel>
-          <NewQueryModal show={showModal} onCreateSuccess={hideModal} onCancel={hideModal}/></div>
+      </div>
     );
   }
 

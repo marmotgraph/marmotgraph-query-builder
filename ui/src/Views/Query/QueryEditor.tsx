@@ -41,14 +41,17 @@ const useStyles = createUseStyles({
     position: 'relative',
     display: 'grid',
     gridTemplateRows: 'auto auto 1fr auto',
-    gridGap: '10px',
     height: '100%',
-    // padding:'0 10px 10px 10px'
     padding:'20px'
   },
-  body:{
-    color:'var(--ft-color-loud)',
-    padding:'10px'
+  body: {
+    padding: '10px',
+    background: 'var(--bg-color-ui-contrast2)',
+    '& .react-json-view': {
+      '& span': {
+        color: 'var(--ft-color-loud)!important',
+      }
+    },
   },
   actions: {
     position: 'relative',
@@ -165,11 +168,6 @@ const QueryEditor = observer(() => {
             onDelete={handleOnDelete}  />
         </Scrollbars>
       </div>
-      {/* <div className={classes.actions}>
-        <div>
-          <Actions />
-        </div>
-      </div> */}
     </div>
   );
 });

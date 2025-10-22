@@ -33,8 +33,7 @@ import type { MouseEvent } from 'react';
 
 const useStyles = createUseStyles({
   container: {
-    background: '#FFFFFF',
-    boxShadow: 'var(--box-shadow-ui-subtle)',
+    background: 'var(--bg-color-ui-contrast2)',
     borderRadius: '12px',
     color: 'var(--ft-color-loud)',
     padding: '10px',
@@ -47,17 +46,6 @@ const useStyles = createUseStyles({
       }
     }
   }
-
-//   container: {
-//     color: 'var(--ft-color-loud)',
-//     '& h5': {
-//       margin: '18px 0 6px 5px',
-//       '& small': {
-//         color: 'var(--ft-color-quiet)',
-//         fontStyle: 'italic'
-//       }
-//     }
-//   }
 });
 
 interface GroupPropertiesProps {

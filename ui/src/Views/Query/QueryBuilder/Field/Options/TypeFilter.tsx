@@ -39,27 +39,28 @@ const useStyles = createUseStyles({
     '& > div:first-child > div': {
       marginBottom: 0
     }
-
   },
   panel: {
     display: 'flex',
-    padding: '10px 10px 0 10px',
     flexWrap: 'wrap',
+    padding: '10px 10px 0 10px',
     border: '1px solid var(--bg-color-ui-contrast4)',
     marginTop: '6px'
+  },
+  typeItem: {
+    flex: '1 1 calc(33.333% - 1px)',
+    boxSizing: 'border-box',
+    minWidth: '200px',
   },
   typeFilter: {
     flexWrap: 'wrap',
     display: 'flex',
-    // border: '1px solid var(--bg-color-ui-contrast4)',
-    // borderRadius: '20px',
-    // padding: '7px 4px 7px 10px',
     float: 'left',
     marginRight: '10px',
     marginBottom: '10px',
     cursor: 'pointer',
-    maxHeight: '40px',
-    minHeight: '40px',
+    height: '100%',
+    alignItems: 'center',
     '-webkitTouchCallout': 'none',
     userSelect: 'none',
     transition: 'color .3s ease-in-out, border-color .3s ease-in-out',
@@ -86,7 +87,18 @@ const useStyles = createUseStyles({
   toggle: {
     display: 'inline-block',
     //     paddingLeft: '6px'
-  }
+  },
+  '@media (max-width: 900px)': {
+    typeItem: {
+      flex: '1 1 calc(50% - 8px)',   // two columns
+    },
+  },
+
+  '@media (max-width: 600px)': {
+    typeItem: {
+      flex: '1 1 100%',             // one column
+    },
+  },
 });
 
 interface TypeFilterItemProps {
@@ -95,11 +107,8 @@ interface TypeFilterItemProps {
 }
 
 const TypeFilterItem = ({ type, onChange }: TypeFilterItemProps) => {
-
   const classes = useStyles();
-
   const handleOnClick = () => onChange(type.id, !type.selected);
-
 
   return(
     <div className={`${classes.typeFilter} ${type.isUnknown?'isUnknown':''} ${type.selected?'selected':''}`} onClick={handleOnClick} >
@@ -127,20 +136,59 @@ const TypeFilter = observer(() => {
     return null;
   }
 
+  const allTypes = queryBuilderStore.currentField?.types ?? [];
+  const areAllSelected = allTypes.every(t => t.selected);
+
+  const handleSelectAll = () => {
+    const newState = !areAllSelected;
+    allTypes.forEach(t => {
+      if (t.selected !== newState) {
+        toggleTypeFilter(t.id, newState);
+      }
+    });
+  };
+
   return (
     <div className={classes.container}>
       <div>
         <Checkbox
-          label="Type Filter"
+          label="Restrict to type(s)"
           checked={queryBuilderStore.currentField.typeFilterEnabled}
           onChange={handleToggleTypeFilter}
         />
       </div>
       {queryBuilderStore.currentField.typeFilterEnabled && (
-        <div className={classes.panel}>
-          {queryBuilderStore.currentField.types.map((type, index) =>
-            <TypeFilterItem key={type.id?type.id:index} type={type} onChange={toggleTypeFilter} />)}
+        <><div className={classes.panel}>
+          <div style={{ marginBottom: '8px',display: 'block',
+            width: '100%'}}>
+            <button
+              type="button"
+              onClick={handleSelectAll}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--ft-color-primary)',   // match your theme colour
+                cursor: 'pointer',
+                fontSize: 'inherit',
+                textDecoration: 'underline',
+                padding: 0,
+                margin: 0,
+              }}
+              aria-pressed={areAllSelected}
+              title={areAllSelected ? 'Deselect all types' : 'Select all types'}
+            >
+              {areAllSelected ? 'Deselect All' : 'Select All'}
+            </button>
+          </div>
+          {queryBuilderStore.currentField.types.map((type, idx) => (
+            <TypeFilterItem
+              key={type.id ?? idx}
+              type={type}
+              onChange={toggleTypeFilter}
+            />
+          ))}
         </div>
+        </>
       )}
     </div>
   );
