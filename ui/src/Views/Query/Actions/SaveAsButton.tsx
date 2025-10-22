@@ -44,11 +44,12 @@ const SaveAsButton = observer(({ disabled, showSaveAsIcon = false }:SaveAsButton
     queryBuilderStore.setShowSaveModal(true);
   };
 
-  // const iconName = showSaveAsIcon ? 'content_copy' : 'save';
-  // const title = showSaveAsIcon ? 'Save as' : 'Save';
-
   return (
-    <Button variant="secondary" disabled={disabled} onClick={onClick} title={'Save as'}>
+    <Button
+      variant={ queryBuilderStore.hasChanged ? 'success' : 'secondary' }
+      disabled={disabled}
+      onClick={onClick}
+      title={ queryBuilderStore.isNew ? 'Save' : 'Save As' }>
       <FontAwesomeIcon icon={showSaveAsIcon ? faCopy : faSave} />
     </Button>
   );

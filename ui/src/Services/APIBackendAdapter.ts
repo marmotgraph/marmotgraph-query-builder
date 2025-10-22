@@ -103,6 +103,7 @@ const endpoints = {
   },
   getQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
   saveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}?space=${space}`,
+  moveQuery: (queryId:UUID, space:string) => `${RELATIVE_ROOT_PATH}/queries/${queryId}/spaces/${space}`,
   deleteQuery: (queryId:UUID) => `${RELATIVE_ROOT_PATH}/queries/${queryId}`,
   getQueries: (type:string) => `${RELATIVE_ROOT_PATH}/queries?type=${encodeURIComponent(type)}`,
   getAllQueries: () => `${RELATIVE_ROOT_PATH}/queries`,
@@ -184,6 +185,13 @@ class APIBackendAdapter implements API {
     space: string
   ): Promise<void> {
     await this._axios.put(endpoints.saveQuery(queryId, space), query);
+  }
+
+  async moveQuery(
+    queryId: UUID,
+    space: string
+  ): Promise<void> {
+    await this._axios.put(endpoints.moveQuery(queryId, space));
   }
 
   async deleteQuery(queryId: UUID): Promise<void> {

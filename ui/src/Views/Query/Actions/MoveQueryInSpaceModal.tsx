@@ -1,5 +1,28 @@
+/*
+ * Copyright 2018 - 2021 Swiss Federal Institute of Technology Lausanne (EPFL)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This open source software code was developed in part or in whole in the
+ * Human Brain Project, funded from the European Union's Horizon 2020
+ * Framework Programme for Research and Innovation under
+ * Specific Grant Agreements No. 720270, No. 785907, and No. 945539
+ * (Human Brain Project SGA1, SGA2 and SGA3).
+ *
+ */
+
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { createUseStyles } from 'react-jss';
 import ActionError from '../../../Components/ActionError';
@@ -8,9 +31,10 @@ import useSaveQuery from '../../../Hooks/useSaveQuery';
 import useStores from '../../../Hooks/useStores';
 import Matomo from '../../../Services/Matomo';
 import SpaceForm from '../QueryBuilder/SpaceForm';
+import type { Space } from '../../../types';
 
 const useStyles = createUseStyles({
-  saveModal: {
+  moveSpaceModal: {
     // Add any specific styles for the save modal if needed
   },
   space: {
@@ -110,32 +134,34 @@ const useStyles = createUseStyles({
   }
 });
 
-const SaveQueryModal = observer(() => {
+const MoveQueryInSpaceModal = observer(() => {
   const classes = useStyles();
+
   const { queryBuilderStore } = useStores();
-  const { saveQuery } = useSaveQuery();
-  const [title, setTitle] = useState(queryBuilderStore.saveLabel || '');
-  const [description, setDescription] = useState(queryBuilderStore.description || '');
-  const [isSaving] = useState(false);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const { saveQuery, isSaving, error, setError } = useSaveQuery();
 
   const handleClose = () => {
-    queryBuilderStore.setShowSaveModal(false);
+    queryBuilderStore.setSpace(queryBuilderStore.fromSpace as Space);
+    queryBuilderStore.setShowMoveSpaceModal(false);
     setError(undefined);
   };
 
-  const handleSave = () => {
-
-    queryBuilderStore.setSaveAsMode(true);
-    queryBuilderStore.label = title.trim();
-    queryBuilderStore.description = description.trim();
-    saveQuery().then(() => {
-      Matomo.trackEvent('Query', 'SaveAs', queryBuilderStore.queryId);
-      queryBuilderStore.setShowSaveModal(false);
+  const handleSave = async () => {
+    queryBuilderStore.setMoveSpace(true);
+    saveQuery().then((result) => {
+      if (result) {
+        Matomo.trackEvent('Query', 'MoveTo', queryBuilderStore.queryId);
+        queryBuilderStore.setShowMoveSpaceModal(false);
+      }
+    }).finally(() => {
+      queryBuilderStore.setMoveSpace(false);
     });
   };
 
-  const handleCancelError = () => setError(undefined);
+  const handleCancelError = () => {
+    setError(undefined);
+    queryBuilderStore.setSpace(queryBuilderStore.fromSpace as Space);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -145,41 +171,23 @@ const SaveQueryModal = observer(() => {
 
   return (
     <>
-      {queryBuilderStore.showSaveModal && (
+      {queryBuilderStore.showMoveQueryInSpaceModal && (
         <div className={classes.modalOverlay} />
       )}
-      <Modal id="saveModal" className="" show={queryBuilderStore.showSaveModal}>
+      <Modal
+        id="moveSpaceModal"
+        className=""
+        show={queryBuilderStore.showMoveQueryInSpaceModal}
+      >
         <div
           className={classes.modalContent}
           onKeyDown={handleKeyDown}
           tabIndex={-1}
         >
-          <h2 className={classes.title}>Save Query As</h2>
+          <h2 className={classes.title}>Move Query To</h2>
           <form className={classes.form}>
             <div>
-              <label htmlFor="query-title">Title *</label>
-              <input
-                id="query-title"
-                type="text"
-                required
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                autoFocus
-                disabled={isSaving}
-              />
-            </div>
-            <div>
               <SpaceForm className={classes.space} />
-            </div>
-            <div>
-              <label htmlFor="query-description">Description</label>
-              <textarea
-                id="query-description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                placeholder="Optional description for your query"
-                disabled={isSaving}
-              />
             </div>
             <div className={classes.buttonGroup}>
               <button
@@ -188,7 +196,7 @@ const SaveQueryModal = observer(() => {
                 className={classes.saveButton}
                 disabled={isSaving}
               >
-                {isSaving ? 'Saving...' : 'Save'}
+                {isSaving ? 'Moving...' : 'Save'}
               </button>
               <button
                 type="button"
@@ -215,4 +223,4 @@ const SaveQueryModal = observer(() => {
   );
 });
 
-export default SaveQueryModal;
+export default MoveQueryInSpaceModal;

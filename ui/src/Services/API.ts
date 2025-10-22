@@ -79,6 +79,11 @@ interface API {
   ): Promise<void>;
 
   deleteQuery(queryId: UUID): Promise<void>;
+
+  moveQuery(
+    queryId: UUID,
+    space: string
+  ): Promise<void>;
 }
 
 export default API;

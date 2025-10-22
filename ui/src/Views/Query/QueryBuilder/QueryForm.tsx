@@ -27,7 +27,6 @@ import { createUseStyles } from 'react-jss';
 
 import useStores from '../../../Hooks/useStores';
 import Links from './Links';
-import SpaceForm from './SpaceForm';
 import Vocab from './Vocab';
 
 import type { ChangeEvent } from 'react';
@@ -148,7 +147,6 @@ const QueryForm = observer(({ className }: QueryFormProps) => {
               onChange={handleChangeDescription}
             />
           </div>
-          <SpaceForm className={classes.space} />
         </React.Fragment>
       )}
 

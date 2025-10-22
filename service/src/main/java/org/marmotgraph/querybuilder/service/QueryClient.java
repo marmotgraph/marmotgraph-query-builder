@@ -157,6 +157,14 @@ public class QueryClient {
                 .block();
     }
 
+    public void moveQuery(String queryId, String space) {
+        String relativeUrl = String.format("instances/%s/spaces/%s", queryId, space);
+        kg.client().put().uri(kg.url(relativeUrl))
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
     public void deleteQuery(String queryId) {
         String relativeUrl = String.format("queries/%s", queryId);
         kg.client().delete().uri(kg.url(relativeUrl))

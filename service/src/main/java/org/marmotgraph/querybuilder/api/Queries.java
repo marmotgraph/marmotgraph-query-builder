@@ -74,4 +74,9 @@ public class Queries {
         queryClient.deleteQuery(queryId);
     }
 
+    @PutMapping("/{queryId}/spaces/{space}")
+    public void moveQueryToSpace(@PathVariable("queryId") String queryId, @PathVariable("space") String space) {
+        queryClient.moveQuery(queryId, space);
+    }
+
 }
