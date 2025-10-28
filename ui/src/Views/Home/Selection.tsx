@@ -63,8 +63,9 @@ const useStyles = createUseStyles({
   },
   type: {
     marginTop: '20px',
+    marginLeft: '40px',
     color: 'var(--ft-color-loud)',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: '1.2rem',
     '& small': {
       color: 'var(--ft-color-quiet)',

@@ -191,20 +191,20 @@ const MoveQueryInSpaceModal = observer(() => {
             </div>
             <div className={classes.buttonGroup}>
               <button
-                type="submit"
-                onClick={handleSave}
-                className={classes.saveButton}
-                disabled={isSaving}
-              >
-                {isSaving ? 'Moving...' : 'Save'}
-              </button>
-              <button
                 type="button"
                 onClick={handleClose}
                 className={classes.cancelButton}
                 disabled={isSaving}
               >
                 Cancel
+              </button>
+              <button
+                type="submit"
+                onClick={handleSave}
+                className={classes.saveButton}
+                disabled={isSaving}
+              >
+                {isSaving ? 'Moving...' : 'Save'}
               </button>
             </div>
           </form>

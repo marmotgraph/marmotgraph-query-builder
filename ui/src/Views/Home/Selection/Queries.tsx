@@ -118,7 +118,7 @@ const useStyles = createUseStyles({
     },
     myQueryHeader: {
         display: 'grid',
-        gridTemplateColumns: '2fr 2fr 2fr',
+        gridTemplateColumns: '2fr 4fr 1fr',
         borderBottom: 'var(--border-separator)',
         padding: '8px 0 8px 12px',
         h5: {
@@ -240,9 +240,9 @@ const Queries = observer(({ className }: QueriesProps) => {
               <div className={classes.container}>
                   <div className={classes.gridLayout}>
                       <div className={classes.myQueryHeader}>
-                          <h5>Type</h5>
-                          <h5>Space</h5>
                           <h5>Query title</h5>
+                          <h5>Description</h5>
+                          <h5>Space</h5>
                       </div>
             {queriesStore.groupedFilteredQueries.map(group => (
 

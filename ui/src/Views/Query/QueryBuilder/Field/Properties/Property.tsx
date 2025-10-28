@@ -35,7 +35,8 @@ import type { MouseEvent } from 'react';
 const useStyles = createUseStyles({
   propertyRow: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    gap: '8px',
     alignItems: 'flex-start',
     color: 'var(--ft-color-loud)',
     fontWeight: 'normal',
@@ -62,8 +63,8 @@ const useStyles = createUseStyles({
   propertyActions: {
     display: 'flex',
     flexDirection: 'column', // Ensures button stays on a separate line
-    alignItems: 'flex-start',
-    gap: '10px', // Adds spacing between the button and other elements if needed
+    // alignItems: 'flex-start',
+  //   gap: '10px', // Adds spacing between the button and other elements if needed
   },
   addProperty: {
     whiteSpace: 'nowrap',
@@ -74,8 +75,9 @@ const useStyles = createUseStyles({
     fontWeight: 500,
     transition: 'all 0.2s ease',
     cursor: 'pointer',
-    height: '34px',
-    padding: '0 7px',
+    height: '32px',
+    width: '32px',
+    padding: '5px 7px',
     '&:hover': {
       backgroundColor: 'var(--cta-secondary-hover-bg)',
     },
@@ -83,20 +85,6 @@ const useStyles = createUseStyles({
     '&:active': {
       backgroundColor: 'var(--cta-secondary-active-bg)',
     },
-
-    // background: '#F5F5F5',
-    // marginLeft: 'auto',
-    // borderRadius: '6px',
-    // cursor: 'pointer',
-    // /* Button style  */
-    // boxSizing: 'border-box',
-    // height: '34px',
-    // border: '1px solid #2E2E2E',
-    // padding: '0 7px',
-    // '&:hover': {
-    //   //       background: 'linear-gradient(90deg, rgba(40,70,80,0.9) 0%, rgba(45,75,85,0.9) 100%)'
-    //   background: '#F0F0F0'
-    // }
   },
   reverseLink: {
     color: 'greenyellow',
@@ -120,6 +108,13 @@ const Property = observer(({ property, onClick }: PropertyProps) => {
   return (
     <div className={classes.propertyRow}>
       {/* Left side */}
+      <div className={classes.propertyActions}>
+        <button
+          className={classes.addProperty}
+          onClick={handleClick}>
+          <FontAwesomeIcon icon={faPlus} title="Add property"/></button>
+      </div>
+      {/* Right side */}
       <div className={classes.propertyInfo}>
         <div>{property.reverse && (
           <React.Fragment>
@@ -130,13 +125,6 @@ const Property = observer(({ property, onClick }: PropertyProps) => {
         <div className={classes.propertyTypes}>
           <small><PropertyTypes types={canBe} /></small>
         </div>
-      </div>
-      {/* Right side */}
-      <div className={classes.propertyActions}>
-        <button
-          className={classes.addProperty}
-          onClick={handleClick}>
-          <FontAwesomeIcon icon={faPlus} title="Add property"/> Add</button>
       </div>
     </div>
   );

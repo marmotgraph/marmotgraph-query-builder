@@ -37,6 +37,8 @@ import type {KeyboardEvent, RefObject} from 'react';
 
 const useStyles = createUseStyles({
   container: {
+    display: 'flex',
+    alignItems: 'center',
     position: 'relative',
     // margin: '4px 1px',
     padding: '15px 10px',
@@ -72,7 +74,17 @@ const useStyles = createUseStyles({
       background: 'var(--bg-color-ui-contrast4)'
     },
   },
+  typeInfo: {
+    marginLeft: '8px'
+  },
+  typeLabel: {
+    fontWeight: 'bold',
+    color: 'var(--ft-color-loud)',
+    fontSize: '14px'
+  },
   typeId: {
+    fontSize: '12px',
+    color: 'var(--ft-color-quiet)',
     wordWrap: 'break-word',
   },
   selected: {},
@@ -83,20 +95,6 @@ const useStyles = createUseStyles({
     color: 'var(--ft-color-quiet)'
   }
 });
-
-const getTypeLabel = (type: TypeType) => {
-  if (!type) {
-    return '';
-  }
-  if (type.label) {
-    return type.label;
-  }
-  if (!type.id) {
-    return '';
-  }
-  const parts = type.id.split('/');
-  return parts[parts.length-1];
-};
 
 interface TypeProps {
   type: TypeType;
@@ -139,16 +137,15 @@ const Type = observer(({ type, enableFocus, onKeyDown }: TypeProps) =>  {
     onKeyDown(e);
   };
 
-  const label = getTypeLabel(type);
-
   return (
     <div tabIndex={-1} ref={ref as RefObject<HTMLDivElement>} className={`${classes.container} ${classes.listItem} ${type.id === queryBuilderStore.typeId?classes.selected:''}`} onClick={handleClick} onKeyDown={handleKeyDown}>
       <Icon icon={faCircle} color={type.color}/>
-      {label}
-      <br/><small className={classes.typeId}>{type.id}</small>
+      <div className={classes.typeInfo}>
+        <div className={classes.typeLabel}>{type.label}</div>
+        <div className={classes.typeId}>{type.id}</div>
       <div className={classes.nextIcon} >
         <FontAwesomeIcon icon={faChevronRight} size="xs" />
-      </div>
+      </div></div>
     </div>
   );
 });

@@ -42,16 +42,14 @@ const useStyles = createUseStyles({
     display: 'grid',
     gridTemplateRows: 'auto auto 1fr auto',
     height: '100%',
-    padding:'20px'
+    padding: '20px'
   },
   body: {
     padding: '10px',
     background: 'var(--bg-color-ui-contrast2)',
     '& .react-json-view': {
-      '& span': {
-        color: 'var(--ft-color-loud)!important',
-      }
-    },
+      background: 'var(--bg-color-ui-contrast2)!important'
+    }
   },
   actions: {
     position: 'relative',
@@ -83,6 +81,10 @@ const QueryEditor = observer(() => {
   const classes = useStyles();
 
   const { queryBuilderStore } = useStores();
+
+  const { appStore } = useStores();
+
+  const jsonTheme = appStore.currentTheme.name === 'default' ? 'grayscale' : 'grayscale:inverted';
 
   const [error, setError] = useState<string>();
 
@@ -161,8 +163,9 @@ const QueryEditor = observer(() => {
       </div>
       <div className={classes.body}>
         <Scrollbars autoHide>
-          <ReactJson collapsed={false} name={false} theme={'grayscale:inverted'}
+          <ReactJson collapsed={false} name={false}
             src={queryBuilderStore.querySpecification}
+            theme={jsonTheme}
             onEdit={handleOnEdit}
             onAdd={handleOnAdd}
             onDelete={handleOnDelete}  />

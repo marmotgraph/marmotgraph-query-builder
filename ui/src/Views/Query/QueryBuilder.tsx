@@ -80,7 +80,8 @@ const useStyles = createUseStyles({
 
       display: 'flex',
       '& div.titleAction': {
-        marginTop: '-20px'
+        marginTop: '-10px',
+        marginLeft: '10px',
       }
     },
   },
@@ -171,6 +172,9 @@ const QueryBuilder = observer(() => {
       </div>
 
       {/* Content area - two columns */}
+      {showQueryForm ? (
+        <QueryForm className={classes.form} />
+      ) : (
 
       <div className={classes.contentArea}>
         {/* Left column - Representation */}
@@ -180,17 +184,14 @@ const QueryBuilder = observer(() => {
 
         <Scrollbars autoHide>
           {/* Right column - QueryForm or Options */}
-          {showQueryForm ? (
-            <QueryForm className={classes.form} />
-          ) : (
 
             <div className={classes.options}>
               <Options />
               <Properties />
             </div>
 
-          )}</Scrollbars>
-      </div>
+         </Scrollbars>
+      </div> )}
 
     </div>
   );

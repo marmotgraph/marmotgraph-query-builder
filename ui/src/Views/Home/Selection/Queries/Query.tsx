@@ -21,8 +21,6 @@
  *
  */
 
-import {faTag} from '@fortawesome/free-solid-svg-icons/faTag';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {observer} from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
@@ -47,7 +45,7 @@ const useStyles = createUseStyles({
       background: '#F0F0F0'
     },
     display: 'grid',
-    gridTemplateColumns: '2fr 2fr 2fr',
+    gridTemplateColumns: '2fr 4fr 1fr',
     gridGap: '10px',
   },
   listItem: {
@@ -100,34 +98,18 @@ const Query = observer(({query}: QueryProps) => {
     navigate(`/queries/${query.id}`);
   };
 
-  const extractType = (type: string): string => {
-    if (typeof query.meta.type !== 'string') {
-      return '<unknown filter>';
-    }
-    const idx = type.lastIndexOf('/');
-    if (idx !== -1) {
-      return type.substring(idx + 1);
-    }
-    return type;
-  };
-
-  const type = query.meta.type ? extractType(query.meta.type) : undefined;
-
   return (
     <div className={classes.container + ' ' + classes.listItem} key={query.id} onClick={handleSelect} >
       <div className={classes.name}>
-        <FontAwesomeIcon icon={faTag} />&nbsp;&nbsp;
-        {type}
-        <br/><small>{query.meta.type}</small>
-      </div>
-      <div>
-        {query.space}
-      </div>
-      <div>
         <h6>{query.label ? query.label : query.id}</h6>
+      </div>
+      <div>
         {query.description && (
           <div className={classes.description} title={query.description}>{query.description}</div>
         )}
+      </div>
+      <div>
+        {query.space}
       </div>
     </div>
   );

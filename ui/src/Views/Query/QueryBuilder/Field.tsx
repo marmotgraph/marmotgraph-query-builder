@@ -79,15 +79,20 @@ const useStyles = createUseStyles({
       }
     },
     '&.is-unknown': {
-      color: 'var(--bg-color-ui-contrast1)', // Dark text for contrast
-      background: 'var(--bg-color-warn-normal)', // Using normal warn for better contrast
+      color: 'var(--bg-color-warn-normal)', // Dark text for contrast
+      //background: 'var(--bg-color-warn-normal)', // Using normal warn for better contrast
       '&&.selected': {
         background: 'var(--bg-color-warn-loud)',
         color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
+        opacity: '0.8',
       },
       '&:hover, &.selected:hover': {
-        background: 'var(--bg-color-warn-loud)',
+        background: 'var(--bg-color-warn-normal)',
+        opacity: '0.8',
         color: 'var(--bg-color-ui-background)', // Near black text for maximum contrast
+        '&.fieldWrapper': {
+          color: 'red!important'
+        }
       }
     },
     '&.is-invalid, &.is-unknown.is-invalid': {
@@ -148,9 +153,11 @@ const useStyles = createUseStyles({
     outline: 'none',
 
     '&:hover': {
-      backgroundColor: 'var(--bg-color-warn-quiet)', // Subtle background on hover
+      color: 'var(--ft-color-loud)',
+      // backgroundColor: 'var(--bg-color-warn-quiet)', // Subtle background on hover
     },
     '&:focus': {
+      color: 'var(--ft-color-loud)',
       outline: 'var(--focus-outline)',
       backgroundColor: 'var(--bg-color-warn-quiet)',
     },
