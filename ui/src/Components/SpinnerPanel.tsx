@@ -45,7 +45,7 @@ const useStyles = createUseStyles({
       border: '1px solid var(--border-color-ui-contrast1)',
       borderRadius: '4px',
       color: 'var(--ft-color-loud)',
-      background: 'var(--bg-color-ui-contrast2)',
+      background: 'var(--bg-color-ui-contrast2)!important',
     }
   }
 });

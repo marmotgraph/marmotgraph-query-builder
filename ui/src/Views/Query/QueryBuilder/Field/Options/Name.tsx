@@ -27,6 +27,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { createUseStyles } from 'react-jss';
+import InfoTooltip from '../../../../../Components/InfoTooltip';
 import type Field from '../../../../../Stores/Field';
 import type { ChangeEvent } from 'react';
 
@@ -91,6 +92,7 @@ const Name = observer(({ field, rootField }: NameProps) => {
         <div className={classes.optionLabel}>
           Target name{' '}
           <small>(only applicable if parent field is not flattened)</small>
+          <InfoTooltip text="This is the property name represented in the result of the query." />
         </div>
       </div>
       <div>

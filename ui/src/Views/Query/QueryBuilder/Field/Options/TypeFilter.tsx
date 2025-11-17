@@ -26,6 +26,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 
 import Checkbox from '../../../../../Components/Checkbox';
+import InfoTooltip from '../../../../../Components/InfoTooltip';
 
 import useStores from '../../../../../Hooks/useStores';
 import { Type as PropertyType } from '../../../../PropertyTypes';
@@ -150,12 +151,15 @@ const TypeFilter = observer(() => {
 
   return (
     <div className={classes.container}>
-      <div>
+      <div style={{ display: 'flex', marginBottom: '5px'}}>
         <Checkbox
           label="Restrict to type(s)"
           checked={queryBuilderStore.currentField.typeFilterEnabled}
           onChange={handleToggleTypeFilter}
         />
+        <InfoTooltip text="You can define the property according to which the results should be sorted.
+          This e.g. makes sense if you want to get a list of persons and want them to be ordered by family name.
+          Please note that you can only select a single property on the first level of your query to do the sorting." />
       </div>
       {queryBuilderStore.currentField.typeFilterEnabled && (
         <><div className={classes.panel}>

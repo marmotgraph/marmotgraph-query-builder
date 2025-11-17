@@ -24,8 +24,9 @@
 import {isBoolean} from 'lodash';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-
 import Checkbox from '../../../../../Components/Checkbox';
+import InfoTooltip from '../../../../../Components/InfoTooltip';
+
 import Filter from './Filter';
 import SingleItemStrategy from './SingleItemStrategy';
 import UnsupportedOption from './UnsupportedOption';
@@ -50,12 +51,15 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
   if (name === 'required') {
     return (
       showRequired && (
-        <Checkbox
+        <div style={{ display: 'flex', marginBottom: '5px'}}>
+          <Checkbox
           checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Required"
           comment="only applicable if parent field is not flattened"
         />
+          <InfoTooltip text="If enabled, only instances which contain a value for this property are returned." />
+        </div>
       )
     );
   }
@@ -64,11 +68,16 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
   if (name === 'sort') {
     return (
       showSort && (
-        <Checkbox
+        <div style={{ display: 'flex', marginBottom: '5px'}}>
+          <Checkbox
           checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Sort result by this property"
-        /> )
+        />
+          <InfoTooltip text="You can define the property according to which the results should be sorted.
+          This e.g. makes sense if you want to get a list of persons and want them to be ordered by family name.
+          Please note that you can only select a single property on the first level of your query to do the sorting." />
+        </div>)
     );
   }
 
@@ -76,12 +85,18 @@ const Option = observer(({ field, rootField, option, onChange }:OptionProps) => 
   if (name === 'ensureOrder') {
     return (
       showEnsureOrder  && (
-        <Checkbox
+        <div style={{ display: 'flex', marginBottom: '5px'}}>
+          <Checkbox
           checked={isBoolean(option.value) ? option.value : false}
           onChange={(checked) => onChange(name, checked ? true : undefined)}
           label="Ensure original order"
           comment="only applicable if parent field is not flattened"
-        /> )
+        />
+          <InfoTooltip text="In graphs, lists are not keeping their insert order by default.
+          If you need to assure the order as it has been entered, please activate.
+          It's deactivated by default because ordering results in a minor performance reduction." />
+        </div>
+      )
     );
   }
 

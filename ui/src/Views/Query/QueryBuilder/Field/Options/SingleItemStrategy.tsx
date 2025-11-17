@@ -24,6 +24,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import InfoTooltip from '../../../../../Components/InfoTooltip';
 import type { ChangeEvent } from 'react';
 
 const useStyles = createUseStyles({
@@ -109,6 +110,9 @@ const SingleItemStrategy = observer(
             <option value="CONCAT">Concat</option>
           </select>
         </div>
+        <InfoTooltip text="If you only want one result of this potential list to be returned, you can chose a strategy on how to do so.
+        If you e.g. know that there's only one entry, you can use 'FIRST' to only return the first entry of a list (or none if the list is empty).
+        If the strategy is 'None', the result will be a list in any case" />
       </div>
     );
   }
