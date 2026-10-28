@@ -25,11 +25,19 @@
 import React, {useState} from 'react';
 import {createUseStyles} from 'react-jss';
 import {Link} from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 
 import NewQueryModal from './Query/QueryBuilder/NewQueryModal';
 
 
 const useStyles = createUseStyles({
+  container: {
+    position: 'relative',
+    flex: 1,
+    display: 'grid',
+    gridTemplateRows: '4fr 3fr', // Changed: header row + content row
+    height: '100%'
+  },
   header: {
     display: 'flex',
     alignItems: 'center',
@@ -121,10 +129,28 @@ const MyQueriesHeader = () => {  // No props needed
     setShowModal(false);
   };
 
+  // Using a more generic type
+  const pageTitles: {[key: string]: string} = {
+    '/': 'My queries',
+    '/queries': '' +
+      'Shared queries',
+    '/queries/:id': 'Query builder',
+    // Add more as needed
+  };
+
+  const PageTitle = () => {
+    const location = useLocation();
+    // Find the matching route pattern
+    const matchingRoute = Object.keys(pageTitles).find(pattern =>
+      matchPath({ path: pattern }, location.pathname)
+    );
+    return <h3>{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
+  };
+
   return (
     <>
-      <header className={classes.header}>
-        {/* Buttons */}
+      <header className={`container-fluid ${classes.header}`}>
+        <PageTitle />
         <div className={classes.buttonContainer}>
           <Link to="/queries" className={classes.link}>
                         Select shared query

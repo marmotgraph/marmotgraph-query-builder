@@ -28,8 +28,9 @@ import { createUseStyles } from 'react-jss';
 import useAuth from '../Hooks/useAuth';
 import useStores from '../Hooks/useStores';
 
+import NavigateTools from './Home/NavigateTools';
 import ThemeSwitcher from './Home/ThemeSwitcher';
-import MyQueriesHeader from './MyQueriesHeader';
+// import MyQueriesHeader from './MyQueriesHeader';
 import UserProfileTab from './UserProfileTab';
 
 const useStyles = createUseStyles({
@@ -78,13 +79,13 @@ const Nav = observer(() => {
     return null;
   }
 
-  const handleButton1Click = () => {
-    console.log('Button 1 clicked');
-  };
-
-  const handleButton2Click = () => {
-    console.log('Button 2 clicked');
-  };
+  // const handleButton1Click = () => {
+  //   console.log('Button 1 clicked');
+  // };
+  //
+  // const handleButton2Click = () => {
+  //   console.log('Button 2 clicked');
+  // };
 
   return (
     <nav className={classes.container}>
@@ -94,7 +95,8 @@ const Nav = observer(() => {
       {/*         )} */}
       {/*       </div> */}
       <div className={classes.fixedTabsRight}>
-        <MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />
+        {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
+        <NavigateTools />
         <ThemeSwitcher />
         {isAuthenticated && !!userProfileStore.user && (
           <UserProfileTab className={classes.userProfileTab} />

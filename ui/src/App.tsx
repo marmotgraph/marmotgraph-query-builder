@@ -35,6 +35,7 @@ import AuthProvider from './Views/AuthProvider';
 import ErrorBoundary from './Views/ErrorBoundary';
 import GlobalError from './Views/GlobalError';
 import Layout from './Views/Layout';
+import MyQueriesHeader from './Views/MyQueriesHeader';
 import Settings from './Views/Settings';
 import Shortcuts from './Views/Shortcuts';
 import StoresProvider from './Views/StoresProvider';
@@ -76,23 +77,6 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
     setShowWelcomeTip(false);
   };
 
-  // Using a more generic type
-  const pageTitles: {[key: string]: string} = {
-    '/': 'My queries',
-    '/queries': 'Shared queries',
-    '/queries/:id': 'Query builder',
-    // Add more as needed
-  };
-
-  const PageTitle = () => {
-    const location = useLocation();
-    // Find the matching route pattern
-    const matchingRoute = Object.keys(pageTitles).find(pattern =>
-      matchPath({ path: pattern }, location.pathname)
-    );
-    return <h3 className="container-fluid">{matchingRoute ? pageTitles[matchingRoute] : 'Query builder'}</h3>;
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <PageTitleProvider>
@@ -117,7 +101,8 @@ const App = observer(({ stores, api, authAdapter } : AppProps) => {
                                   <Suspense fallback={<SpinnerPanel text="Loading resource..." />} >
                                     {/*<Breadcrumbs items={breadcrumbItems} /> */}
                                     {/*<MyQueriesHeader title="My Queries" onButton1Click={handleButton1Click} onButton2Click={handleButton2Click} />*/}
-                                    <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} /><PageTitle />
+                                    <WelcomeTip show={showWelcomeTip} onClose={handleHideWelcomeTip} />
+                                    <MyQueriesHeader />
                                     <Routes>
                                       <Route path="/" element={<QueryHome />} />
                                       <Route path="queries" element={<Home />} />

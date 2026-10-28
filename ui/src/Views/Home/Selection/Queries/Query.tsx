@@ -45,7 +45,7 @@ const useStyles = createUseStyles({
       background: '#F0F0F0'
     },
     display: 'grid',
-    gridTemplateColumns: '2fr 4fr 1fr',
+    gridTemplateColumns: '2fr 3fr 2fr',
     gridGap: '10px',
   },
   listItem: {

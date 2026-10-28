@@ -118,7 +118,7 @@ const useStyles = createUseStyles({
     },
     myQueryHeader: {
         display: 'grid',
-        gridTemplateColumns: '2fr 4fr 1fr',
+        gridTemplateColumns: '2fr 3fr 2fr',
         borderBottom: 'var(--border-separator)',
         padding: '8px 0 8px 12px',
         h5: {
